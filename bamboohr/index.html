@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BambooHR Connect — AI-Power Your HR in 2 Clicks</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f7fee7',
+              100: '#ecfccb',
+              200: '#d9f99d',
+              300: '#bef264',
+              400: '#a3e635',
+              500: '#73C41D',
+              600: '#65a30d',
+              700: '#4d7c0f',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .gradient-text {
+      background: linear-gradient(135deg, #73C41D 0%, #84cc16 50%, #65a30d 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-glow {
+      background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(115, 196, 29, 0.2), transparent);
+    }
+    .card-glow:hover {
+      box-shadow: 0 0 60px rgba(115, 196, 29, 0.15), 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      transform: translateY(-4px);
+    }
+    .video-glow {
+      box-shadow: 0 0 80px rgba(115, 196, 29, 0.3), 0 25px 80px -12px rgba(0, 0, 0, 0.8);
+    }
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+    .animate-float-delayed {
+      animation: float 6s ease-in-out infinite 2s;
+    }
+    .animate-float-slow {
+      animation: float 8s ease-in-out infinite 1s;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(115, 196, 29, 0.4); }
+      50% { box-shadow: 0 0 40px rgba(115, 196, 29, 0.6); }
+    }
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(-2deg); }
+      50% { transform: rotate(2deg); }
+    }
+    @keyframes glow-pulse {
+      0%, 100% { box-shadow: 0 0 20px 0 rgba(115, 196, 29, 0.4), 0 0 40px 0 rgba(115, 196, 29, 0.2); }
+      50% { box-shadow: 0 0 30px 5px rgba(115, 196, 29, 0.6), 0 0 60px 10px rgba(115, 196, 29, 0.3); }
+    }
+    .sticky-btn {
+      animation: wiggle 2.5s ease-in-out infinite, glow-pulse 2s ease-in-out infinite;
+    }
+    .sticky-btn:hover {
+      animation: none;
+    }
+    .feature-icon {
+      transition: all 0.3s ease;
+    }
+    .feature-card:hover .feature-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+    .gradient-border {
+      background: linear-gradient(135deg, rgba(115, 196, 29, 0.5), rgba(101, 163, 13, 0.2));
+      padding: 1px;
+      border-radius: 1rem;
+    }
+    .gradient-border-inner {
+      background: rgb(24 24 27);
+      border-radius: calc(1rem - 1px);
+    }
+    .text-shadow {
+      text-shadow: 0 0 40px rgba(115, 196, 29, 0.5);
+    }
+    .bg-grid {
+      background-image: 
+        linear-gradient(rgba(115, 196, 29, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(115, 196, 29, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+    .stat-card {
+      background: linear-gradient(135deg, rgba(115, 196, 29, 0.1) 0%, rgba(115, 196, 29, 0.02) 100%);
+    }
+  </style>
+</head>
+<body class="bg-zinc-950 text-zinc-100 font-sans antialiased">
+  
+  <!-- Floating Background Elements -->
+  <div class="fixed inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-500/5 rounded-full blur-3xl animate-float"></div>
+    <div class="absolute top-3/4 right-1/4 w-64 h-64 bg-lime-500/5 rounded-full blur-3xl animate-float-delayed"></div>
+    <div class="absolute top-1/2 right-1/3 w-48 h-48 bg-green-400/5 rounded-full blur-3xl animate-float-slow"></div>
+  </div>
+
+  <!-- Nav -->
+  <nav class="fixed top-0 w-full z-50 border-b border-zinc-800/50 bg-zinc-950/80 backdrop-blur-xl">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-lime-600 flex items-center justify-center shadow-lg shadow-brand-500/25">
+          <i data-lucide="users" class="w-5 h-5 text-white"></i>
+        </div>
+        <span class="font-bold text-xl">BambooHR Connect</span>
+      </div>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#features" class="text-zinc-400 hover:text-white transition">Features</a>
+        <a href="#demo" class="text-zinc-400 hover:text-white transition">Demo</a>
+        <a href="#pricing" class="text-zinc-400 hover:text-white transition">Waitlist</a>
+        <a href="#faq" class="text-zinc-400 hover:text-white transition">FAQ</a>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="#" class="text-zinc-400 hover:text-white transition hidden sm:block">Sign In</a>
+        <a href="#pricing" class="px-5 py-2.5 bg-gradient-to-r from-brand-500 to-lime-600 hover:from-brand-600 hover:to-lime-700 rounded-lg font-medium transition shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40">
+          Join Waitlist
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="relative min-h-screen flex items-center hero-glow pt-20 bg-grid">
+    <div class="max-w-6xl mx-auto px-6 py-20 text-center relative z-10">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-800/50 border border-zinc-700/50 text-sm text-zinc-300 mb-8 backdrop-blur-sm">
+        <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+        Open Source + Hosted
+      </div>
+      
+      <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
+        Connect <span class="gradient-text text-shadow">BambooHR</span><br>
+        to AI in 2 Clicks
+      </h1>
+      
+      <p class="text-xl md:text-2xl text-zinc-400 max-w-3xl mx-auto mb-10">
+        The most comprehensive BambooHR MCP server. <strong class="text-white">56 tools</strong> for employees, time-off, and performance. 
+        No setup. No OAuth headaches. Just connect and automate.
+      </p>
+      
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+        <a href="#pricing" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-brand-500 to-lime-600 hover:from-brand-600 hover:to-lime-700 rounded-xl font-semibold text-lg transition transform hover:scale-105 shadow-xl shadow-brand-500/25">
+          Join the Waitlist
+        </a>
+        <a href="#demo" class="w-full sm:w-auto px-8 py-4 bg-zinc-800/80 hover:bg-zinc-700 border border-zinc-700 hover:border-zinc-600 rounded-xl font-semibold text-lg transition flex items-center justify-center gap-2 backdrop-blur-sm">
+          <i data-lucide="play" class="w-5 h-5"></i>
+          Watch Demo
+        </a>
+      </div>
+
+      <!-- Stats Row -->
+      <div class="grid grid-cols-3 gap-4 max-w-2xl mx-auto mb-12">
+        <div class="stat-card rounded-xl border border-brand-500/20 p-4">
+          <div class="text-3xl font-bold text-brand-400">56</div>
+          <div class="text-zinc-400 text-sm">API Tools</div>
+        </div>
+        <div class="stat-card rounded-xl border border-brand-500/20 p-4">
+          <div class="text-3xl font-bold text-brand-400">2s</div>
+          <div class="text-zinc-400 text-sm">Setup Time</div>
+        </div>
+        <div class="stat-card rounded-xl border border-brand-500/20 p-4">
+          <div class="text-3xl font-bold text-brand-400">∞</div>
+          <div class="text-zinc-400 text-sm">Token Refresh</div>
+        </div>
+      </div>
+
+      <!-- Social Proof -->
+      <div class="flex flex-col items-center gap-4">
+        <div class="flex -space-x-3">
+          <img src="https://i.pravatar.cc/100?img=21" class="w-10 h-10 rounded-full border-2 border-zinc-950" alt="">
+          <img src="https://i.pravatar.cc/100?img=22" class="w-10 h-10 rounded-full border-2 border-zinc-950" alt="">
+          <img src="https://i.pravatar.cc/100?img=23" class="w-10 h-10 rounded-full border-2 border-zinc-950" alt="">
+          <img src="https://i.pravatar.cc/100?img=24" class="w-10 h-10 rounded-full border-2 border-zinc-950" alt="">
+          <img src="https://i.pravatar.cc/100?img=25" class="w-10 h-10 rounded-full border-2 border-zinc-950" alt="">
+        </div>
+        <p class="text-zinc-400">
+          Trusted by <strong class="text-white">200+</strong> HR teams worldwide
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Video Demo -->
+  <section id="demo" class="py-20 border-t border-zinc-800/50">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">See It In Action</h2>
+        <p class="text-xl text-zinc-400">Watch how AI transforms your HR operations</p>
+      </div>
+      <div class="gradient-border">
+        <div class="gradient-border-inner p-2">
+          <div class="rounded-xl overflow-hidden video-glow">
+            <video autoplay loop muted playsinline class="w-full">
+              <source src="../output/bamboohr.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-center mt-8">
+        <div class="inline-flex items-center gap-6 px-6 py-3 rounded-full bg-zinc-900/80 border border-zinc-800 backdrop-blur-sm">
+          <div class="flex items-center gap-2">
+            <i data-lucide="users" class="w-4 h-4 text-brand-500"></i>
+            <span class="text-sm text-zinc-300">Employee Data</span>
+          </div>
+          <div class="w-px h-4 bg-zinc-700"></div>
+          <div class="flex items-center gap-2">
+            <i data-lucide="calendar-off" class="w-4 h-4 text-brand-500"></i>
+            <span class="text-sm text-zinc-300">Time-Off</span>
+          </div>
+          <div class="w-px h-4 bg-zinc-700"></div>
+          <div class="flex items-center gap-2">
+            <i data-lucide="trophy" class="w-4 h-4 text-brand-500"></i>
+            <span class="text-sm text-zinc-300">Performance</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem/Solution -->
+  <section class="py-20 border-t border-zinc-800/50">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-3xl md:text-4xl font-bold mb-6">
+            HR + AI shouldn't<br>
+            <span class="text-zinc-500">require a dev team</span>
+          </h2>
+          <div class="space-y-5">
+            <div class="flex items-start gap-4 p-4 rounded-xl bg-red-500/5 border border-red-500/10">
+              <div class="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center flex-shrink-0">
+                <i data-lucide="x" class="w-5 h-5 text-red-400"></i>
+              </div>
+              <div>
+                <p class="font-medium text-white">PTO request chaos</p>
+                <p class="text-zinc-500 text-sm mt-1">Endless email threads. Lost requests. Frustrated employees.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4 p-4 rounded-xl bg-red-500/5 border border-red-500/10">
+              <div class="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center flex-shrink-0">
+                <i data-lucide="x" class="w-5 h-5 text-red-400"></i>
+              </div>
+              <div>
+                <p class="font-medium text-white">Onboarding checklists</p>
+                <p class="text-zinc-500 text-sm mt-1">Paper forms. Missed tasks. New hires left hanging.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4 p-4 rounded-xl bg-red-500/5 border border-red-500/10">
+              <div class="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center flex-shrink-0">
+                <i data-lucide="x" class="w-5 h-5 text-red-400"></i>
+              </div>
+              <div>
+                <p class="font-medium text-white">Scattered employee data</p>
+                <p class="text-zinc-500 text-sm mt-1">Hunting through spreadsheets for basic info.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-gradient-to-br from-zinc-900 to-zinc-900/50 rounded-2xl border border-zinc-800 p-8 shadow-2xl">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-12 h-12 rounded-xl bg-brand-500/20 flex items-center justify-center">
+              <i data-lucide="check" class="w-6 h-6 text-brand-400"></i>
+            </div>
+            <h3 class="text-2xl font-semibold">With BambooHR Connect</h3>
+          </div>
+          <div class="space-y-4">
+            <div class="flex items-center gap-3 p-3 rounded-lg bg-brand-500/5 border border-brand-500/10">
+              <i data-lucide="check-circle" class="w-5 h-5 text-brand-400"></i>
+              <span>AI handles approvals instantly</span>
+            </div>
+            <div class="flex items-center gap-3 p-3 rounded-lg bg-brand-500/5 border border-brand-500/10">
+              <i data-lucide="check-circle" class="w-5 h-5 text-brand-400"></i>
+              <span>Automated new hire workflows</span>
+            </div>
+            <div class="flex items-center gap-3 p-3 rounded-lg bg-brand-500/5 border border-brand-500/10">
+              <i data-lucide="check-circle" class="w-5 h-5 text-brand-400"></i>
+              <span>AI answers HR questions fast</span>
+            </div>
+            <div class="flex items-center gap-3 p-3 rounded-lg bg-brand-500/5 border border-brand-500/10">
+              <i data-lucide="check-circle" class="w-5 h-5 text-brand-400"></i>
+              <span>Works with Claude, GPT, any MCP client</span>
+            </div>
+            <div class="flex items-center gap-3 p-3 rounded-lg bg-brand-500/5 border border-brand-500/10">
+              <i data-lucide="check-circle" class="w-5 h-5 text-brand-400"></i>
+              <span>Full employee directory access</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="py-20 border-t border-zinc-800/50">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Everything you need</h2>
+        <p class="text-xl text-zinc-400">Full BambooHR API access through one simple connection</p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="feature-card group bg-gradient-to-br from-zinc-900 to-zinc-900/30 rounded-2xl border border-zinc-800 p-6 card-glow transition-all duration-300">
+          <div class="feature-icon w-14 h-14 rounded-xl bg-brand-500/10 flex items-center justify-center mb-5 group-hover:bg-brand-500/20 transition-all">
+            <i data-lucide="contact" class="w-7 h-7 text-brand-400"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Employee Directory</h3>
+          <p class="text-zinc-400">Access profiles, org charts, and contact info. Full employee database.</p>
+        </div>
+        
+        <div class="feature-card group bg-gradient-to-br from-zinc-900 to-zinc-900/30 rounded-2xl border border-zinc-800 p-6 card-glow transition-all duration-300">
+          <div class="feature-icon w-14 h-14 rounded-xl bg-purple-500/10 flex items-center justify-center mb-5 group-hover:bg-purple-500/20 transition-all">
+            <i data-lucide="calendar-clock" class="w-7 h-7 text-purple-400"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Time-Off Management</h3>
+          <p class="text-zinc-400">Request, approve, track PTO automatically. Balances & accruals.</p>
+        </div>
+        
+        <div class="feature-card group bg-gradient-to-br from-zinc-900 to-zinc-900/30 rounded-2xl border border-zinc-800 p-6 card-glow transition-all duration-300">
+          <div class="feature-icon w-14 h-14 rounded-xl bg-cyan-500/10 flex items-center justify-center mb-5 group-hover:bg-cyan-500/20 transition-all">
+            <i data-lucide="user-plus" class="w-7 h-7 text-cyan-400"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Onboarding</h3>
+          <p class="text-zinc-400">Manage new hire tasks, documents, and training. Seamless start.</p>
+        </div>
+        
+        <div class="feature-card group bg-gradient-to-br from-zinc-900 to-zinc-900/30 rounded-2xl border border-zinc-800 p-6 card-glow transition-all duration-300">
+          <div class="feature-icon w-14 h-14 rounded-xl bg-amber-500/10 flex items-center justify-center mb-5 group-hover:bg-amber-500/20 transition-all">
+            <i data-lucide="line-chart" class="w-7 h-7 text-amber-400"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Performance</h3>
+          <p class="text-zinc-400">Track goals, reviews, and feedback cycles. Continuous improvement.</p>
+        </div>
+      </div>
+      
+      <div class="mt-12 text-center">
+        <p class="text-zinc-400 mb-4">+ 50 more endpoints including:</p>
+        <div class="flex flex-wrap justify-center gap-2">
+          <span class="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-full text-sm hover:bg-zinc-700/50 transition cursor-default">Benefits</span>
+          <span class="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-full text-sm hover:bg-zinc-700/50 transition cursor-default">Compensation</span>
+          <span class="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-full text-sm hover:bg-zinc-700/50 transition cursor-default">Documents</span>
+          <span class="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-full text-sm hover:bg-zinc-700/50 transition cursor-default">Reports</span>
+          <span class="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-full text-sm hover:bg-zinc-700/50 transition cursor-default">Training</span>
+          <span class="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-full text-sm hover:bg-zinc-700/50 transition cursor-default">Applicants</span>
+          <span class="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-full text-sm hover:bg-zinc-700/50 transition cursor-default">Timesheets</span>
+          <span class="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-full text-sm hover:bg-zinc-700/50 transition cursor-default">Webhooks</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Use Cases -->
+  <section class="py-20 border-t border-zinc-800/50">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">What you can automate</h2>
+        <p class="text-xl text-zinc-400">Real HR workflows, powered by AI</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="p-6 rounded-2xl bg-gradient-to-br from-brand-500/10 to-transparent border border-brand-500/20">
+          <div class="text-4xl mb-4">🏖️</div>
+          <h3 class="text-lg font-semibold mb-2">PTO Assistant</h3>
+          <p class="text-zinc-400 text-sm">"Check my PTO balance and submit a request for next Friday."</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-gradient-to-br from-purple-500/10 to-transparent border border-purple-500/20">
+          <div class="text-4xl mb-4">📋</div>
+          <h3 class="text-lg font-semibold mb-2">Onboarding Bot</h3>
+          <p class="text-zinc-400 text-sm">"Create onboarding tasks for our new engineer starting Monday."</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-gradient-to-br from-cyan-500/10 to-transparent border border-cyan-500/20">
+          <div class="text-4xl mb-4">📊</div>
+          <h3 class="text-lg font-semibold mb-2">HR Reports</h3>
+          <p class="text-zinc-400 text-sm">"Generate a headcount report by department for Q1."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Waitlist -->
+  <section id="pricing" class="py-20 border-t border-zinc-800/50">
+    <div class="max-w-2xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-500/20 text-brand-400 text-sm font-medium mb-6">
+          <i data-lucide="sparkles" class="w-4 h-4"></i>
+          Coming Soon
+        </div>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Join the Waitlist</h2>
+        <p class="text-xl text-zinc-400">Be the first to know when we launch. Early access + exclusive perks for waitlist members.</p>
+      </div>
+      
+      <div class="gradient-border">
+        <div class="gradient-border-inner p-8">
+          <form id="waitlist-form" class="space-y-6">
+            <div>
+              <label for="name" class="block text-sm font-medium text-zinc-300 mb-2">Name <span class="text-brand-400">*</span></label>
+              <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                required
+                placeholder="Your full name"
+                class="w-full px-4 py-3 bg-zinc-800/50 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition"
+              >
+            </div>
+            
+            <div>
+              <label for="phone" class="block text-sm font-medium text-zinc-300 mb-2">Phone <span class="text-brand-400">*</span></label>
+              <input 
+                type="tel" 
+                id="phone" 
+                name="phone" 
+                required
+                placeholder="Your phone number"
+                class="w-full px-4 py-3 bg-zinc-800/50 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition"
+              >
+            </div>
+            
+            <div>
+              <label for="email" class="block text-sm font-medium text-zinc-300 mb-2">Email</label>
+              <input 
+                type="email" 
+                id="email" 
+                name="email"
+                placeholder="you@company.com"
+                class="w-full px-4 py-3 bg-zinc-800/50 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition"
+              >
+            </div>
+            
+            <button 
+              type="submit" 
+              id="submit-btn"
+              class="w-full py-4 bg-gradient-to-r from-brand-500 to-lime-600 hover:from-brand-600 hover:to-lime-700 rounded-xl font-semibold text-lg transition transform hover:scale-[1.02] flex items-center justify-center gap-2 shadow-xl shadow-brand-500/25"
+            >
+              <span>Join the Waitlist</span>
+              <i data-lucide="arrow-right" class="w-5 h-5"></i>
+            </button>
+          </form>
+          
+          <div id="success-message" class="hidden text-center py-8">
+            <div class="w-16 h-16 bg-brand-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <i data-lucide="check" class="w-8 h-8 text-brand-400"></i>
+            </div>
+            <h3 class="text-2xl font-bold mb-2">You're on the list!</h3>
+            <p class="text-zinc-400">We'll reach out as soon as we're ready for you.</p>
+          </div>
+          
+          <p class="text-zinc-500 text-sm text-center mt-6">
+            <i data-lucide="lock" class="w-4 h-4 inline mr-1"></i>
+            We respect your privacy. No spam, ever.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <script>
+    document.getElementById('waitlist-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      this.classList.add('hidden');
+      document.getElementById('success-message').classList.remove('hidden');
+    });
+  </script>
+
+  <!-- Open Source -->
+  <section class="py-20 border-t border-zinc-800/50">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="bg-gradient-to-br from-zinc-900 to-zinc-900/50 rounded-3xl border border-zinc-800 p-8 md:p-12 shadow-2xl">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-800 text-sm mb-6">
+              <i data-lucide="github" class="w-4 h-4"></i>
+              Open Source
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">
+              Self-host if you want.<br>
+              <span class="text-zinc-500">We won't stop you.</span>
+            </h2>
+            <p class="text-zinc-400 mb-6">
+              The entire MCP server is open source. Run it yourself, modify it, contribute back. 
+              The hosted version just saves you the hassle.
+            </p>
+            <a href="https://github.com/BusyBee3333/bamboohr-mcp-2026-complete" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-brand-400 hover:text-brand-300 font-medium group">
+              View on GitHub
+              <i data-lucide="arrow-right" class="w-4 h-4 transition group-hover:translate-x-1"></i>
+            </a>
+          </div>
+          <div class="bg-zinc-950 rounded-xl p-6 font-mono text-sm border border-zinc-800">
+            <div class="flex items-center gap-2 text-zinc-500 mb-4">
+              <span class="w-3 h-3 rounded-full bg-red-500"></span>
+              <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+              <span class="w-3 h-3 rounded-full bg-green-500"></span>
+              <span class="ml-2">Terminal</span>
+            </div>
+            <pre class="text-zinc-300 overflow-x-auto"><code><span class="text-zinc-500">$</span> git clone https://github.com/BusyBee3333/bamboohr-mcp-2026-complete.git
+<span class="text-zinc-500">$</span> cd mcp && npm install
+<span class="text-zinc-500">$</span> npm run build
+<span class="text-zinc-500">$</span> node dist/server.js
+
+<span class="text-brand-400">✓ BambooHR MCP Server running</span>
+<span class="text-brand-400">✓ 56 tools loaded</span>
+<span class="text-zinc-500">Listening on stdio...</span></code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="py-20 border-t border-zinc-800/50">
+    <div class="max-w-3xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Frequently asked questions</h2>
+      </div>
+      
+      <div class="space-y-4">
+        <details class="group bg-gradient-to-br from-zinc-900 to-zinc-900/30 rounded-xl border border-zinc-800 p-6 transition hover:border-zinc-700">
+          <summary class="flex items-center justify-between cursor-pointer list-none">
+            <span class="font-medium">What is MCP?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 group-open:rotate-180 transition"></i>
+          </summary>
+          <p class="mt-4 text-zinc-400">
+            MCP (Model Context Protocol) is a standard for connecting AI assistants to external tools and data. 
+            It's supported by Claude, and lets AI actually take actions in your systems — not just chat about them.
+          </p>
+        </details>
+        
+        <details class="group bg-gradient-to-br from-zinc-900 to-zinc-900/30 rounded-xl border border-zinc-800 p-6 transition hover:border-zinc-700">
+          <summary class="flex items-center justify-between cursor-pointer list-none">
+            <span class="font-medium">Is employee data secure?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 group-open:rotate-180 transition"></i>
+          </summary>
+          <p class="mt-4 text-zinc-400">
+            Absolutely. We use OAuth 2.0 and never store your BambooHR API keys. All data is encrypted at rest and in transit. 
+            You control exactly what the AI can access through BambooHR's permissions.
+          </p>
+        </details>
+        
+        <details class="group bg-gradient-to-br from-zinc-900 to-zinc-900/30 rounded-xl border border-zinc-800 p-6 transition hover:border-zinc-700">
+          <summary class="flex items-center justify-between cursor-pointer list-none">
+            <span class="font-medium">Can AI approve PTO requests?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 group-open:rotate-180 transition"></i>
+          </summary>
+          <p class="mt-4 text-zinc-400">
+            Yes! With the right permissions, AI can read requests, check balances, and approve or flag requests based on rules you define.
+            You stay in control of the approval logic.
+          </p>
+        </details>
+        
+        <details class="group bg-gradient-to-br from-zinc-900 to-zinc-900/30 rounded-xl border border-zinc-800 p-6 transition hover:border-zinc-700">
+          <summary class="flex items-center justify-between cursor-pointer list-none">
+            <span class="font-medium">Does it work with our HRIS setup?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 group-open:rotate-180 transition"></i>
+          </summary>
+          <p class="mt-4 text-zinc-400">
+            If you use BambooHR, yes. We support the full BambooHR API including custom fields, reports, and webhooks.
+            Works with any BambooHR plan that includes API access.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 border-t border-zinc-800/50">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="text-3xl md:text-5xl font-bold mb-6">
+        Ready to AI-power your HR?
+      </h2>
+      <p class="text-xl text-zinc-400 mb-10">
+        Join 200+ HR teams already automating with BambooHR Connect.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#pricing" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-brand-500 to-lime-600 hover:from-brand-600 hover:to-lime-700 rounded-xl font-semibold text-lg transition shadow-xl shadow-brand-500/25">
+          Join the Waitlist
+        </a>
+        <a href="#" class="w-full sm:w-auto px-8 py-4 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 rounded-xl font-semibold text-lg transition">
+          Book a Demo
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-zinc-800/50 py-12">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-lime-600 flex items-center justify-center">
+            <i data-lucide="users" class="w-5 h-5 text-white"></i>
+          </div>
+          <span class="font-bold text-xl">BambooHR Connect</span>
+        </div>
+        <div class="flex items-center gap-8 text-zinc-400">
+          <a href="https://github.com/BusyBee3333/bamboohr-mcp-2026-complete" target="_blank" rel="noopener" class="hover:text-white transition">Privacy</a>
+          <a href="https://github.com/BusyBee3333/bamboohr-mcp-2026-complete" target="_blank" rel="noopener" class="hover:text-white transition">Terms</a>
+          <a href="https://github.com/BusyBee3333/bamboohr-mcp-2026-complete" target="_blank" rel="noopener" class="hover:text-white transition flex items-center gap-1">
+            <i data-lucide="github" class="w-4 h-4"></i>
+            GitHub
+          </a>
+          <a href="https://github.com/BusyBee3333/bamboohr-mcp-2026-complete" target="_blank" rel="noopener" class="hover:text-white transition">Twitter</a>
+        </div>
+        <p class="text-zinc-500 text-sm">© 2026 BambooHR Connect. Not affiliated with BambooHR.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Sticky Floating CTA -->
+  <div id="sticky-cta" class="fixed bottom-6 right-6 z-50 opacity-0 translate-y-4 transition-all duration-300 pointer-events-none">
+    <a 
+      href="#pricing" 
+      class="sticky-btn flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-brand-500 to-lime-600 rounded-full font-semibold transition-all transform hover:scale-110"
+    >
+      <i data-lucide="sparkles" class="w-5 h-5"></i>
+      <span>Join Waitlist</span>
+    </a>
+  </div>
+
+  <script>
+    const stickyCta = document.getElementById('sticky-cta');
+    const pricingSection = document.getElementById('pricing');
+    
+    function updateStickyCta() {
+      const scrollY = window.scrollY;
+      const pricingTop = pricingSection.offsetTop;
+      const pricingBottom = pricingTop + pricingSection.offsetHeight;
+      const viewportBottom = scrollY + window.innerHeight;
+      
+      const shouldShow = scrollY > 300 && (viewportBottom < pricingTop || scrollY > pricingBottom);
+      
+      if (shouldShow) {
+        stickyCta.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+        stickyCta.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+      } else {
+        stickyCta.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+        stickyCta.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+      }
+    }
+    
+    window.addEventListener('scroll', updateStickyCta);
+    updateStickyCta();
+  </script>
+
+  <script>lucide.createIcons();</script>
+</body>
+</html>

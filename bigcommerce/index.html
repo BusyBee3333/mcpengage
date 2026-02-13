@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BigCommerce Connect — AI-Power Your Store in 2 Clicks</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f5f3ff',
+              100: '#ede9fe',
+              200: '#ddd6fe',
+              300: '#c4b5fd',
+              400: '#a78bfa',
+              500: '#34313F',
+              600: '#2a2833',
+              700: '#201f28',
+              accent: '#6366f1',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .gradient-text {
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 40%, #a855f7 70%, #ec4899 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-glow {
+      background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(99, 102, 241, 0.2), transparent);
+    }
+    .card-glow {
+      transition: all 0.3s ease;
+    }
+    .card-glow:hover {
+      box-shadow: 0 0 50px rgba(99, 102, 241, 0.2);
+      transform: translateY(-4px);
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+    .video-glow {
+      box-shadow: 0 25px 80px rgba(99, 102, 241, 0.25), 0 10px 40px rgba(0, 0, 0, 0.5);
+    }
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+    .animate-float-delayed {
+      animation: float 6s ease-in-out infinite;
+      animation-delay: -3s;
+    }
+    .animate-float-slow {
+      animation: float 8s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+    .pulse-glow {
+      animation: pulse-glow 3s ease-in-out infinite;
+    }
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    .feature-icon {
+      transition: all 0.3s ease;
+    }
+    .card-glow:hover .feature-icon {
+      transform: scale(1.1);
+      box-shadow: 0 0 30px rgba(99, 102, 241, 0.4);
+    }
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(-2deg); }
+      50% { transform: rotate(2deg); }
+    }
+    @keyframes glow-pulse {
+      0%, 100% { box-shadow: 0 0 20px 0 rgba(99, 102, 241, 0.4), 0 0 40px 0 rgba(99, 102, 241, 0.2); }
+      50% { box-shadow: 0 0 30px 5px rgba(99, 102, 241, 0.6), 0 0 60px 10px rgba(99, 102, 241, 0.3); }
+    }
+    .sticky-btn {
+      animation: wiggle 2.5s ease-in-out infinite, glow-pulse 2s ease-in-out infinite;
+    }
+    .sticky-btn:hover {
+      animation: none;
+      transform: scale(1.1);
+    }
+    .gradient-border {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.5), rgba(168, 85, 247, 0.5));
+      padding: 1px;
+      border-radius: 1rem;
+    }
+    .gradient-border-inner {
+      background: #18181b;
+      border-radius: calc(1rem - 1px);
+    }
+    .text-glow {
+      text-shadow: 0 0 40px rgba(99, 102, 241, 0.5);
+    }
+    .stat-card {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(168, 85, 247, 0.05) 100%);
+    }
+  </style>
+</head>
+<body class="bg-zinc-950 text-zinc-100 font-sans antialiased overflow-x-hidden">
+  
+  <!-- Floating Background Elements -->
+  <div class="fixed inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl animate-float"></div>
+    <div class="absolute top-3/4 right-1/4 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl animate-float-delayed"></div>
+    <div class="absolute top-1/2 right-1/3 w-80 h-80 bg-pink-500/5 rounded-full blur-3xl animate-float-slow"></div>
+  </div>
+
+  <!-- Nav -->
+  <nav class="fixed top-0 w-full z-50 border-b border-zinc-800/50 bg-zinc-950/80 backdrop-blur-xl">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center shadow-lg shadow-indigo-500/25">
+          <i data-lucide="store" class="w-5 h-5 text-white"></i>
+        </div>
+        <span class="font-bold text-xl tracking-tight">BigCommerce Connect</span>
+      </div>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#features" class="text-zinc-400 hover:text-white transition-colors">Features</a>
+        <a href="#demo" class="text-zinc-400 hover:text-white transition-colors">Demo</a>
+        <a href="#pricing" class="text-zinc-400 hover:text-white transition-colors">Waitlist</a>
+        <a href="#faq" class="text-zinc-400 hover:text-white transition-colors">FAQ</a>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="#" class="hidden sm:block text-zinc-400 hover:text-white transition-colors">Sign In</a>
+        <a href="#pricing" class="px-5 py-2.5 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 rounded-lg font-semibold transition-all shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:scale-105">
+          Join Waitlist
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="relative min-h-screen flex items-center justify-center hero-glow pt-20">
+    <div class="max-w-6xl mx-auto px-6 py-20">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="relative z-10">
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-800/50 border border-zinc-700/50 text-sm text-zinc-300 mb-8 backdrop-blur-sm">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-500 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+            </span>
+            Open Source + Hosted Cloud
+          </div>
+          
+          <h1 class="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight mb-6 leading-[1.1]">
+            Connect <span class="gradient-text text-glow">BigCommerce</span><br>
+            to AI in 2 Clicks
+          </h1>
+          
+          <p class="text-xl md:text-2xl text-zinc-400 max-w-xl mx-auto mb-10 leading-relaxed">
+            The complete BigCommerce MCP server. <strong class="text-white">112 tools</strong> for products, orders, and customers. 
+            No setup headaches. Just connect and scale.
+          </p>
+          
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+            <a href="#pricing" class="group w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 rounded-xl font-semibold text-lg transition-all transform hover:scale-105 shadow-xl shadow-indigo-500/25 flex items-center justify-center gap-2">
+              Join the Waitlist
+              <i data-lucide="arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1"></i>
+            </a>
+            <a href="#demo" class="w-full sm:w-auto px-8 py-4 bg-zinc-800/80 hover:bg-zinc-700/80 border border-zinc-700 hover:border-zinc-600 rounded-xl font-semibold text-lg transition-all flex items-center justify-center gap-2 backdrop-blur-sm">
+              <i data-lucide="play" class="w-5 h-5"></i>
+              Watch Demo
+            </a>
+          </div>
+
+          <!-- Social Proof -->
+          <div class="flex items-center justify-center gap-4">
+            <div class="flex -space-x-3">
+              <img src="https://i.pravatar.cc/100?img=21" class="w-10 h-10 rounded-full border-2 border-zinc-950 shadow-lg" alt="">
+              <img src="https://i.pravatar.cc/100?img=22" class="w-10 h-10 rounded-full border-2 border-zinc-950 shadow-lg" alt="">
+              <img src="https://i.pravatar.cc/100?img=23" class="w-10 h-10 rounded-full border-2 border-zinc-950 shadow-lg" alt="">
+              <img src="https://i.pravatar.cc/100?img=24" class="w-10 h-10 rounded-full border-2 border-zinc-950 shadow-lg" alt="">
+            </div>
+            <p class="text-zinc-400 text-sm">
+              Trusted by <strong class="text-white">500+</strong> e-commerce businesses
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Video Demo -->
+  <section id="demo" class="py-20 border-t border-zinc-800/50">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">See It In Action</h2>
+        <p class="text-xl text-zinc-400">Watch how AI transforms your e-commerce operations</p>
+      </div>
+      <div class="gradient-border">
+        <div class="gradient-border-inner p-2">
+          <div class="rounded-xl overflow-hidden video-glow">
+            <video autoplay loop muted playsinline class="w-full">
+              <source src="../output/bigcommerce.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-center mt-8">
+        <div class="inline-flex items-center gap-6 px-6 py-3 rounded-full bg-zinc-900/80 border border-zinc-800 backdrop-blur-sm">
+          <div class="flex items-center gap-2">
+            <i data-lucide="package-search" class="w-4 h-4 text-indigo-400"></i>
+            <span class="text-sm text-zinc-300">Products</span>
+          </div>
+          <div class="w-px h-4 bg-zinc-700"></div>
+          <div class="flex items-center gap-2">
+            <i data-lucide="shopping-cart" class="w-4 h-4 text-indigo-400"></i>
+            <span class="text-sm text-zinc-300">Orders</span>
+          </div>
+          <div class="w-px h-4 bg-zinc-700"></div>
+          <div class="flex items-center gap-2">
+            <i data-lucide="bar-chart-3" class="w-4 h-4 text-indigo-400"></i>
+            <span class="text-sm text-zinc-300">Analytics</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem/Solution -->
+  <section class="py-24 border-t border-zinc-800/50 relative">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+        <div>
+          <span class="inline-block px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-sm font-medium mb-6">The Problem</span>
+          <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 leading-tight">
+            Setting up BigCommerce + AI<br>
+            <span class="text-zinc-500">shouldn't take a week</span>
+          </h2>
+          <div class="space-y-6">
+            <div class="flex items-start gap-4 group">
+              <div class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center flex-shrink-0 mt-1 group-hover:bg-red-500/20 transition-colors">
+                <i data-lucide="x" class="w-5 h-5 text-red-400"></i>
+              </div>
+              <div>
+                <p class="font-semibold text-lg">Manual product updates</p>
+                <p class="text-zinc-500 mt-1">Updating hundreds of products one by one is mind-numbing.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4 group">
+              <div class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center flex-shrink-0 mt-1 group-hover:bg-red-500/20 transition-colors">
+                <i data-lucide="x" class="w-5 h-5 text-red-400"></i>
+              </div>
+              <div>
+                <p class="font-semibold text-lg">Cart abandonment bleeds revenue</p>
+                <p class="text-zinc-500 mt-1">70% of carts are abandoned. Recovery emails are generic.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4 group">
+              <div class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center flex-shrink-0 mt-1 group-hover:bg-red-500/20 transition-colors">
+                <i data-lucide="x" class="w-5 h-5 text-red-400"></i>
+              </div>
+              <div>
+                <p class="font-semibold text-lg">Generic promotions don't convert</p>
+                <p class="text-zinc-500 mt-1">Same discount for everyone means leaving money on the table.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="gradient-border">
+          <div class="gradient-border-inner p-8 md:p-10">
+            <div class="flex items-center gap-3 mb-8">
+              <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center shadow-lg shadow-indigo-500/25">
+                <i data-lucide="check" class="w-6 h-6 text-white"></i>
+              </div>
+              <h3 class="text-2xl font-bold">With BigCommerce Connect</h3>
+            </div>
+            <div class="space-y-5">
+              <div class="flex items-center gap-3 text-lg">
+                <i data-lucide="check-circle" class="w-5 h-5 text-indigo-400 flex-shrink-0"></i>
+                <span>AI syncs catalog changes automatically</span>
+              </div>
+              <div class="flex items-center gap-3 text-lg">
+                <i data-lucide="check-circle" class="w-5 h-5 text-indigo-400 flex-shrink-0"></i>
+                <span>Smart recovery that actually converts</span>
+              </div>
+              <div class="flex items-center gap-3 text-lg">
+                <i data-lucide="check-circle" class="w-5 h-5 text-indigo-400 flex-shrink-0"></i>
+                <span>AI personalizes offers per customer</span>
+              </div>
+              <div class="flex items-center gap-3 text-lg">
+                <i data-lucide="check-circle" class="w-5 h-5 text-indigo-400 flex-shrink-0"></i>
+                <span>Works with Claude, GPT, any MCP client</span>
+              </div>
+              <div class="flex items-center gap-3 text-lg">
+                <i data-lucide="check-circle" class="w-5 h-5 text-indigo-400 flex-shrink-0"></i>
+                <span>2-click OAuth — no API key headaches</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="py-24 border-t border-zinc-800/50 relative">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <span class="inline-block px-3 py-1 rounded-full bg-purple-500/10 text-purple-400 text-sm font-medium mb-4">Features</span>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Everything you need</h2>
+        <p class="text-xl text-zinc-400 max-w-2xl mx-auto">Full BigCommerce API access through one simple connection</p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-zinc-900/50 rounded-2xl border border-zinc-800 p-6 card-glow group">
+          <div class="feature-icon w-14 h-14 rounded-xl bg-gradient-to-br from-indigo-500/20 to-indigo-500/5 flex items-center justify-center mb-5">
+            <i data-lucide="package-search" class="w-7 h-7 text-indigo-400"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Product Management</h3>
+          <p class="text-zinc-400">Create, update, and manage your entire catalog at scale with AI assistance.</p>
+        </div>
+        
+        <div class="bg-zinc-900/50 rounded-2xl border border-zinc-800 p-6 card-glow group">
+          <div class="feature-icon w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-500/5 flex items-center justify-center mb-5">
+            <i data-lucide="shopping-cart" class="w-7 h-7 text-purple-400"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Order Processing</h3>
+          <p class="text-zinc-400">Track orders, manage fulfillment, and handle returns automatically.</p>
+        </div>
+        
+        <div class="bg-zinc-900/50 rounded-2xl border border-zinc-800 p-6 card-glow group">
+          <div class="feature-icon w-14 h-14 rounded-xl bg-gradient-to-br from-pink-500/20 to-pink-500/5 flex items-center justify-center mb-5">
+            <i data-lucide="users" class="w-7 h-7 text-pink-400"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Customer Data</h3>
+          <p class="text-zinc-400">Access profiles, order history, and preferences for personalization.</p>
+        </div>
+        
+        <div class="bg-zinc-900/50 rounded-2xl border border-zinc-800 p-6 card-glow group">
+          <div class="feature-icon w-14 h-14 rounded-xl bg-gradient-to-br from-amber-500/20 to-amber-500/5 flex items-center justify-center mb-5">
+            <i data-lucide="percent" class="w-7 h-7 text-amber-400"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Promotions</h3>
+          <p class="text-zinc-400">Create coupons, discounts, and special offers intelligently.</p>
+        </div>
+      </div>
+      
+      <div class="mt-12 text-center">
+        <p class="text-zinc-400 mb-6">+ 95 more endpoints including:</p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <span class="px-4 py-2 bg-zinc-800/50 rounded-full text-sm border border-zinc-700/50 hover:border-zinc-600 transition-colors">Variants</span>
+          <span class="px-4 py-2 bg-zinc-800/50 rounded-full text-sm border border-zinc-700/50 hover:border-zinc-600 transition-colors">Categories</span>
+          <span class="px-4 py-2 bg-zinc-800/50 rounded-full text-sm border border-zinc-700/50 hover:border-zinc-600 transition-colors">Brands</span>
+          <span class="px-4 py-2 bg-zinc-800/50 rounded-full text-sm border border-zinc-700/50 hover:border-zinc-600 transition-colors">Shipping</span>
+          <span class="px-4 py-2 bg-zinc-800/50 rounded-full text-sm border border-zinc-700/50 hover:border-zinc-600 transition-colors">Taxes</span>
+          <span class="px-4 py-2 bg-zinc-800/50 rounded-full text-sm border border-zinc-700/50 hover:border-zinc-600 transition-colors">Webhooks</span>
+          <span class="px-4 py-2 bg-zinc-800/50 rounded-full text-sm border border-zinc-700/50 hover:border-zinc-600 transition-colors">Scripts</span>
+          <span class="px-4 py-2 bg-zinc-800/50 rounded-full text-sm border border-zinc-700/50 hover:border-zinc-600 transition-colors">Widgets</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Waitlist -->
+  <section id="pricing" class="py-24 border-t border-zinc-800/50">
+    <div class="max-w-2xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/20 text-indigo-400 text-sm font-medium mb-6">
+          <i data-lucide="sparkles" class="w-4 h-4"></i>
+          Coming Soon
+        </div>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Join the Waitlist</h2>
+        <p class="text-xl text-zinc-400">Be the first to know when we launch. Early access + exclusive perks for waitlist members.</p>
+      </div>
+      
+      <div class="gradient-border">
+        <div class="gradient-border-inner p-8">
+          <form id="waitlist-form" class="space-y-6">
+            <div>
+              <label for="name" class="block text-sm font-medium text-zinc-300 mb-2">Name <span class="text-indigo-400">*</span></label>
+              <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                required
+                placeholder="Your full name"
+                class="w-full px-4 py-3.5 bg-zinc-800/50 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all"
+              >
+            </div>
+            
+            <div>
+              <label for="phone" class="block text-sm font-medium text-zinc-300 mb-2">Phone <span class="text-indigo-400">*</span></label>
+              <input 
+                type="tel" 
+                id="phone" 
+                name="phone"
+                required
+                placeholder="(555) 123-4567"
+                class="w-full px-4 py-3.5 bg-zinc-800/50 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all"
+              >
+            </div>
+            
+            <div>
+              <label for="email" class="block text-sm font-medium text-zinc-300 mb-2">Email</label>
+              <input 
+                type="email" 
+                id="email" 
+                name="email"
+                placeholder="you@company.com"
+                class="w-full px-4 py-3.5 bg-zinc-800/50 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all"
+              >
+            </div>
+            
+            <button 
+              type="submit" 
+              id="submit-btn"
+              class="w-full py-4 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 rounded-xl font-semibold text-lg transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/25"
+            >
+              <span>Join the Waitlist</span>
+              <i data-lucide="arrow-right" class="w-5 h-5"></i>
+            </button>
+          </form>
+          
+          <div id="success-message" class="hidden text-center py-8">
+            <div class="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <i data-lucide="check" class="w-8 h-8 text-green-400"></i>
+            </div>
+            <h3 class="text-2xl font-bold mb-2">You're on the list!</h3>
+            <p class="text-zinc-400">We'll reach out as soon as we're ready for you.</p>
+          </div>
+          
+          <p class="text-zinc-500 text-sm text-center mt-6 flex items-center justify-center gap-2">
+            <i data-lucide="shield-check" class="w-4 h-4"></i>
+            We respect your privacy. No spam, ever.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <script>
+    document.getElementById('waitlist-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      this.classList.add('hidden');
+      document.getElementById('success-message').classList.remove('hidden');
+    });
+  </script>
+
+  <!-- Open Source -->
+  <section class="py-24 border-t border-zinc-800/50">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="bg-zinc-900/50 rounded-3xl border border-zinc-800 p-8 md:p-12 overflow-hidden relative">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-indigo-500/5 rounded-full blur-3xl"></div>
+        
+        <div class="grid md:grid-cols-2 gap-12 items-center relative">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-800 text-sm mb-6">
+              <i data-lucide="github" class="w-4 h-4"></i>
+              Open Source
+            </div>
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight">
+              Self-host if you want.<br>
+              <span class="text-zinc-500">We won't stop you.</span>
+            </h2>
+            <p class="text-zinc-400 text-lg mb-6">
+              The entire MCP server is open source. Run it yourself, modify it, contribute back. 
+              The hosted version just saves you the hassle.
+            </p>
+            <a href="https://github.com" class="inline-flex items-center gap-2 text-indigo-400 hover:text-indigo-300 font-semibold transition-colors group">
+              View on GitHub
+              <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
+            </a>
+          </div>
+          <div class="bg-zinc-950 rounded-xl p-6 font-mono text-sm border border-zinc-800 shadow-2xl">
+            <div class="flex items-center gap-2 text-zinc-500 mb-4">
+              <span class="w-3 h-3 rounded-full bg-red-500"></span>
+              <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+              <span class="w-3 h-3 rounded-full bg-green-500"></span>
+              <span class="ml-2">Terminal</span>
+            </div>
+            <pre class="text-zinc-300 overflow-x-auto"><code><span class="text-zinc-500">$</span> git clone https://github.com/BusyBee3333/bigcommerce-mcp-2026-complete.git
+<span class="text-zinc-500">$</span> cd mcp && npm install
+<span class="text-zinc-500">$</span> npm run build
+<span class="text-zinc-500">$</span> node dist/server.js
+
+<span class="text-green-400">✓ BigCommerce MCP Server running</span>
+<span class="text-green-400">✓ 112 tools loaded</span>
+<span class="text-zinc-500">Listening on stdio...</span></code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="py-24 border-t border-zinc-800/50">
+    <div class="max-w-3xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Frequently asked questions</h2>
+        <p class="text-zinc-400">Everything you need to know about BigCommerce Connect</p>
+      </div>
+      
+      <div class="space-y-4">
+        <details class="group bg-zinc-900/50 rounded-2xl border border-zinc-800 p-6 hover:border-zinc-700 transition-colors" open>
+          <summary class="flex items-center justify-between cursor-pointer list-none">
+            <span class="font-semibold text-lg">What is MCP?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 group-open:rotate-180 transition-transform"></i>
+          </summary>
+          <p class="mt-4 text-zinc-400 leading-relaxed">
+            MCP (Model Context Protocol) is a standard for connecting AI assistants to external tools and data. 
+            It's supported by Claude, and lets AI actually take actions in your systems — not just chat about them.
+          </p>
+        </details>
+        
+        <details class="group bg-zinc-900/50 rounded-2xl border border-zinc-800 p-6 hover:border-zinc-700 transition-colors">
+          <summary class="flex items-center justify-between cursor-pointer list-none">
+            <span class="font-semibold text-lg">Do I need to install anything?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 group-open:rotate-180 transition-transform"></i>
+          </summary>
+          <p class="mt-4 text-zinc-400 leading-relaxed">
+            For the hosted version, no. Just connect your BigCommerce account via OAuth and add the MCP endpoint to your AI client (Claude Desktop, etc.). 
+            If you self-host, you'll need Node.js.
+          </p>
+        </details>
+        
+        <details class="group bg-zinc-900/50 rounded-2xl border border-zinc-800 p-6 hover:border-zinc-700 transition-colors">
+          <summary class="flex items-center justify-between cursor-pointer list-none">
+            <span class="font-semibold text-lg">Is my data secure?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 group-open:rotate-180 transition-transform"></i>
+          </summary>
+          <p class="mt-4 text-zinc-400 leading-relaxed">
+            Yes. We use OAuth 2.0 and never store your BigCommerce API keys. Tokens are encrypted at rest and in transit. 
+            You can revoke access anytime from your BigCommerce settings.
+          </p>
+        </details>
+        
+        <details class="group bg-zinc-900/50 rounded-2xl border border-zinc-800 p-6 hover:border-zinc-700 transition-colors">
+          <summary class="flex items-center justify-between cursor-pointer list-none">
+            <span class="font-semibold text-lg">What BigCommerce plans are supported?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 group-open:rotate-180 transition-transform"></i>
+          </summary>
+          <p class="mt-4 text-zinc-400 leading-relaxed">
+            BigCommerce Connect works with all BigCommerce plans that have API access — Standard, Plus, Pro, and Enterprise. 
+            Some advanced features may require higher-tier plans.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-24 border-t border-zinc-800/50 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-indigo-500/5 to-transparent"></div>
+    <div class="max-w-4xl mx-auto px-6 text-center relative">
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+        Ready to AI-power your <span class="gradient-text">BigCommerce?</span>
+      </h2>
+      <p class="text-xl text-zinc-400 mb-10">
+        Join 500+ e-commerce businesses already automating with BigCommerce Connect.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#pricing" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 rounded-xl font-semibold text-lg transition-all transform hover:scale-105 shadow-xl shadow-indigo-500/25">
+          Join the Waitlist
+        </a>
+        <a href="#" class="w-full sm:w-auto px-8 py-4 bg-zinc-800 hover:bg-zinc-700 rounded-xl font-semibold text-lg transition-all border border-zinc-700">
+          Book a Demo
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-zinc-800/50 py-12">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center">
+            <i data-lucide="store" class="w-5 h-5 text-white"></i>
+          </div>
+          <span class="font-bold text-xl">BigCommerce Connect</span>
+        </div>
+        <div class="flex items-center gap-8 text-zinc-400">
+          <a href="https://github.com/BusyBee3333/bigcommerce-mcp-2026-complete" target="_blank" rel="noopener" class="hover:text-white transition-colors">Privacy</a>
+          <a href="https://github.com/BusyBee3333/bigcommerce-mcp-2026-complete" target="_blank" rel="noopener" class="hover:text-white transition-colors">Terms</a>
+          <a href="https://github.com" class="hover:text-white transition-colors">GitHub</a>
+          <a href="https://github.com/BusyBee3333/bigcommerce-mcp-2026-complete" target="_blank" rel="noopener" class="hover:text-white transition-colors">Twitter</a>
+        </div>
+        <p class="text-zinc-500 text-sm">© 2026 BigCommerce Connect. Not affiliated with BigCommerce.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Sticky Floating CTA -->
+  <div id="sticky-cta" class="fixed bottom-6 right-6 z-50 opacity-0 translate-y-4 transition-all duration-300 pointer-events-none">
+    <a 
+      href="#pricing" 
+      class="sticky-btn flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full font-semibold transition-all"
+    >
+      <i data-lucide="sparkles" class="w-5 h-5"></i>
+      <span>Join Waitlist</span>
+    </a>
+  </div>
+
+  <script>
+    const stickyCta = document.getElementById('sticky-cta');
+    const pricingSection = document.getElementById('pricing');
+    
+    function updateStickyCta() {
+      const scrollY = window.scrollY;
+      const pricingTop = pricingSection.offsetTop;
+      const pricingBottom = pricingTop + pricingSection.offsetHeight;
+      const viewportBottom = scrollY + window.innerHeight;
+      
+      const shouldShow = scrollY > 400 && (viewportBottom < pricingTop || scrollY > pricingBottom);
+      
+      if (shouldShow) {
+        stickyCta.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+        stickyCta.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+      } else {
+        stickyCta.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+        stickyCta.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+      }
+    }
+    
+    window.addEventListener('scroll', updateStickyCta);
+    updateStickyCta();
+  </script>
+
+  <script>lucide.createIcons();</script>
+</body>
+</html>

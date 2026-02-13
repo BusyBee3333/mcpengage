@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basecamp Connect — AI-Power Your Projects in 2 Clicks</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f8fafc',
+              100: '#f1f5f9',
+              200: '#e2e8f0',
+              300: '#cbd5e1',
+              400: '#94a3b8',
+              500: '#1D2D35',
+              600: '#18252c',
+              700: '#131d23',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .gradient-text {
+      background: linear-gradient(135deg, #64748b 0%, #22d3ee 50%, #a78bfa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-glow {
+      background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(34, 211, 238, 0.15), transparent);
+    }
+    .card-glow {
+      transition: all 0.3s ease;
+    }
+    .card-glow:hover {
+      box-shadow: 0 0 50px rgba(34, 211, 238, 0.15);
+      transform: translateY(-4px);
+      border-color: rgba(34, 211, 238, 0.3);
+    }
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+    .animate-float-delayed {
+      animation: float 6s ease-in-out infinite;
+      animation-delay: -3s;
+    }
+    .animate-pulse-glow {
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 20px rgba(34, 211, 238, 0.3); }
+      50% { box-shadow: 0 0 40px rgba(34, 211, 238, 0.5); }
+    }
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(-2deg); }
+      50% { transform: rotate(2deg); }
+    }
+    @keyframes glow-pulse {
+      0%, 100% { box-shadow: 0 0 20px 0 rgba(34, 211, 238, 0.4), 0 0 40px 0 rgba(34, 211, 238, 0.2); }
+      50% { box-shadow: 0 0 30px 5px rgba(34, 211, 238, 0.6), 0 0 60px 10px rgba(34, 211, 238, 0.3); }
+    }
+    .sticky-btn {
+      animation: wiggle 2.5s ease-in-out infinite, glow-pulse 2s ease-in-out infinite;
+    }
+    .sticky-btn:hover {
+      animation: none;
+    }
+    .video-glow {
+      box-shadow: 0 0 80px rgba(34, 211, 238, 0.3), 0 25px 80px -12px rgba(0, 0, 0, 0.8);
+    }
+    .gradient-border {
+      background: linear-gradient(135deg, rgba(34, 211, 238, 0.5), rgba(167, 139, 250, 0.2));
+      padding: 1px;
+      border-radius: 1rem;
+    }
+    .gradient-border-inner {
+      background: rgb(24 24 27);
+      border-radius: calc(1rem - 1px);
+    }
+    .feature-icon {
+      transition: all 0.3s ease;
+    }
+    .card-glow:hover .feature-icon {
+      transform: scale(1.1);
+    }
+    .accent-gradient {
+      background: linear-gradient(135deg, #22d3ee 0%, #a78bfa 100%);
+    }
+  </style>
+</head>
+<body class="bg-zinc-950 text-zinc-100 font-sans antialiased">
+  
+  <!-- Nav -->
+  <nav class="fixed top-0 w-full z-50 border-b border-zinc-800/50 bg-zinc-950/80 backdrop-blur-xl">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg accent-gradient flex items-center justify-center">
+          <i data-lucide="mountain" class="w-5 h-5 text-white"></i>
+        </div>
+        <span class="font-bold text-xl">Basecamp Connect</span>
+      </div>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#features" class="text-zinc-400 hover:text-white transition">Features</a>
+        <a href="#pricing" class="text-zinc-400 hover:text-white transition">Waitlist</a>
+        <a href="#faq" class="text-zinc-400 hover:text-white transition">FAQ</a>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="#" class="text-zinc-400 hover:text-white transition hidden sm:block">Sign In</a>
+        <a href="#pricing" class="px-4 py-2 accent-gradient rounded-lg font-medium transition transform hover:scale-105">
+          Join Waitlist
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="relative min-h-screen flex items-center hero-glow pt-20 overflow-hidden">
+    <!-- Floating background elements -->
+    <div class="absolute top-40 left-10 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl animate-float"></div>
+    <div class="absolute bottom-20 right-10 w-96 h-96 bg-violet-500/10 rounded-full blur-3xl animate-float-delayed"></div>
+    
+    <div class="max-w-6xl mx-auto px-6 py-20">
+      <div class="text-center relative z-10">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-800/50 border border-zinc-700/50 text-sm text-zinc-300 mb-8 backdrop-blur-sm">
+          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+          Open Source + Hosted
+        </div>
+        
+        <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-[1.1]">
+          Connect <span class="gradient-text">Basecamp</span><br>
+          to AI in 2 Clicks
+        </h1>
+        
+        <p class="text-xl md:text-2xl text-zinc-400 max-w-2xl mx-auto mb-10">
+          The complete Basecamp MCP server. <strong class="text-white">62 tools</strong> for projects, todos, and messages. 
+          No setup. No OAuth headaches. Just connect and ship.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+          <a href="#pricing" class="px-8 py-4 accent-gradient rounded-xl font-semibold text-lg transition transform hover:scale-105 text-center shadow-lg shadow-cyan-500/25">
+            Join the Waitlist
+          </a>
+          <a href="#demo" class="px-8 py-4 bg-zinc-800/80 hover:bg-zinc-700 border border-zinc-700 rounded-xl font-semibold text-lg transition flex items-center justify-center gap-2">
+            <i data-lucide="play" class="w-5 h-5"></i>
+            Watch Demo
+          </a>
+        </div>
+
+        <!-- Social Proof -->
+        <div class="flex items-center gap-4 justify-center">
+          <div class="flex -space-x-3">
+            <img src="https://i.pravatar.cc/100?img=31" class="w-10 h-10 rounded-full border-2 border-zinc-950" alt="">
+            <img src="https://i.pravatar.cc/100?img=32" class="w-10 h-10 rounded-full border-2 border-zinc-950" alt="">
+            <img src="https://i.pravatar.cc/100?img=33" class="w-10 h-10 rounded-full border-2 border-zinc-950" alt="">
+            <img src="https://i.pravatar.cc/100?img=34" class="w-10 h-10 rounded-full border-2 border-zinc-950" alt="">
+            <div class="w-10 h-10 rounded-full border-2 border-zinc-950 accent-gradient flex items-center justify-center text-xs font-bold">+75</div>
+          </div>
+          <p class="text-zinc-400">
+            Trusted by <strong class="text-white">250+</strong> project teams
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Video Demo -->
+  <section id="demo" class="py-20 border-t border-zinc-800/50">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">See It In Action</h2>
+        <p class="text-xl text-zinc-400">Watch how AI transforms your project workflow</p>
+      </div>
+      <div class="gradient-border">
+        <div class="gradient-border-inner p-2">
+          <div class="rounded-xl overflow-hidden video-glow">
+            <video autoplay loop muted playsinline class="w-full">
+              <source src="../output/basecamp.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-center mt-8">
+        <div class="inline-flex items-center gap-6 px-6 py-3 rounded-full bg-zinc-900/80 border border-zinc-800 backdrop-blur-sm">
+          <div class="flex items-center gap-2">
+            <i data-lucide="folder-kanban" class="w-4 h-4 text-cyan-400"></i>
+            <span class="text-sm text-zinc-300">Projects</span>
+          </div>
+          <div class="w-px h-4 bg-zinc-700"></div>
+          <div class="flex items-center gap-2">
+            <i data-lucide="check-square" class="w-4 h-4 text-cyan-400"></i>
+            <span class="text-sm text-zinc-300">To-dos</span>
+          </div>
+          <div class="w-px h-4 bg-zinc-700"></div>
+          <div class="flex items-center gap-2">
+            <i data-lucide="message-square" class="w-4 h-4 text-cyan-400"></i>
+            <span class="text-sm text-zinc-300">Messages</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem/Solution -->
+  <section class="py-24 border-t border-zinc-800/50">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-5xl font-bold mb-4">
+          Setting up Basecamp + AI<br>
+          <span class="text-zinc-500">shouldn't take a week</span>
+        </h2>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Pain Point 1 -->
+        <div class="relative group">
+          <div class="absolute inset-0 bg-gradient-to-b from-red-500/10 to-transparent rounded-2xl"></div>
+          <div class="relative p-8 rounded-2xl bg-zinc-900/50 border border-zinc-800 h-full">
+            <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center mb-6">
+              <i data-lucide="x" class="w-6 h-6 text-red-400"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-zinc-300 mb-3">Project status meetings</h3>
+            <p class="text-zinc-500 mb-6">Endless check-ins. Everyone's time wasted. Progress buried in threads.</p>
+            <div class="pt-6 border-t border-zinc-800">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-cyan-500/20 flex items-center justify-center">
+                  <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i>
+                </div>
+                <p class="text-white font-medium">AI summarizes progress</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Pain Point 2 -->
+        <div class="relative group">
+          <div class="absolute inset-0 bg-gradient-to-b from-red-500/10 to-transparent rounded-2xl"></div>
+          <div class="relative p-8 rounded-2xl bg-zinc-900/50 border border-zinc-800 h-full">
+            <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center mb-6">
+              <i data-lucide="x" class="w-6 h-6 text-red-400"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-zinc-300 mb-3">Lost in message threads</h3>
+            <p class="text-zinc-500 mb-6">Important decisions buried. Context scattered. Nobody can find anything.</p>
+            <div class="pt-6 border-t border-zinc-800">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-cyan-500/20 flex items-center justify-center">
+                  <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i>
+                </div>
+                <p class="text-white font-medium">AI finds what you need</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Pain Point 3 -->
+        <div class="relative group">
+          <div class="absolute inset-0 bg-gradient-to-b from-red-500/10 to-transparent rounded-2xl"></div>
+          <div class="relative p-8 rounded-2xl bg-zinc-900/50 border border-zinc-800 h-full">
+            <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center mb-6">
+              <i data-lucide="x" class="w-6 h-6 text-red-400"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-zinc-300 mb-3">Forgotten deadlines</h3>
+            <p class="text-zinc-500 mb-6">Milestones slip. No one noticed until it's too late. Scramble mode.</p>
+            <div class="pt-6 border-t border-zinc-800">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-cyan-500/20 flex items-center justify-center">
+                  <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i>
+                </div>
+                <p class="text-white font-medium">Proactive milestone alerts</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="py-24 border-t border-zinc-800/50">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/10 text-cyan-400 text-sm font-medium mb-6">
+          <i data-lucide="sparkles" class="w-4 h-4"></i>
+          Full API Coverage
+        </div>
+        <h2 class="text-3xl md:text-5xl font-bold mb-4">Everything you need</h2>
+        <p class="text-xl text-zinc-400">Full Basecamp API access through one simple connection</p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-zinc-900/50 rounded-2xl border border-zinc-800 p-6 card-glow">
+          <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-500/20 to-teal-500/20 flex items-center justify-center mb-5 feature-icon">
+            <i data-lucide="folder-kanban" class="w-7 h-7 text-cyan-400"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Project Management</h3>
+          <p class="text-zinc-400">Create projects, manage access, organize work — all automated.</p>
+        </div>
+        
+        <div class="bg-zinc-900/50 rounded-2xl border border-zinc-800 p-6 card-glow">
+          <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-violet-500/20 to-purple-500/20 flex items-center justify-center mb-5 feature-icon">
+            <i data-lucide="check-square" class="w-7 h-7 text-violet-400"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">To-dos</h3>
+          <p class="text-zinc-400">Create lists, assign tasks, track completion automatically.</p>
+        </div>
+        
+        <div class="bg-zinc-900/50 rounded-2xl border border-zinc-800 p-6 card-glow">
+          <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-orange-500/20 to-amber-500/20 flex items-center justify-center mb-5 feature-icon">
+            <i data-lucide="message-square" class="w-7 h-7 text-orange-400"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Message Boards</h3>
+          <p class="text-zinc-400">Post updates, discussions, and announcements with AI help.</p>
+        </div>
+        
+        <div class="bg-zinc-900/50 rounded-2xl border border-zinc-800 p-6 card-glow">
+          <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-pink-500/20 to-rose-500/20 flex items-center justify-center mb-5 feature-icon">
+            <i data-lucide="calendar-days" class="w-7 h-7 text-pink-400"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Schedule</h3>
+          <p class="text-zinc-400">Manage milestones, events, and deadlines proactively.</p>
+        </div>
+      </div>
+      
+      <div class="mt-12 text-center">
+        <p class="text-zinc-400 mb-4">+ 55 more endpoints including:</p>
+        <div class="flex flex-wrap justify-center gap-2">
+          <span class="px-3 py-1.5 bg-zinc-800/80 rounded-full text-sm hover:bg-zinc-700 transition cursor-default">Campfires</span>
+          <span class="px-3 py-1.5 bg-zinc-800/80 rounded-full text-sm hover:bg-zinc-700 transition cursor-default">Documents</span>
+          <span class="px-3 py-1.5 bg-zinc-800/80 rounded-full text-sm hover:bg-zinc-700 transition cursor-default">People</span>
+          <span class="px-3 py-1.5 bg-zinc-800/80 rounded-full text-sm hover:bg-zinc-700 transition cursor-default">Uploads</span>
+          <span class="px-3 py-1.5 bg-zinc-800/80 rounded-full text-sm hover:bg-zinc-700 transition cursor-default">Comments</span>
+          <span class="px-3 py-1.5 bg-zinc-800/80 rounded-full text-sm hover:bg-zinc-700 transition cursor-default">Questions</span>
+          <span class="px-3 py-1.5 bg-zinc-800/80 rounded-full text-sm hover:bg-zinc-700 transition cursor-default">Check-ins</span>
+          <span class="px-3 py-1.5 bg-zinc-800/80 rounded-full text-sm hover:bg-zinc-700 transition cursor-default">Webhooks</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Waitlist -->
+  <section id="pricing" class="py-24 border-t border-zinc-800/50">
+    <div class="max-w-2xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/20 text-cyan-400 text-sm font-medium mb-6">
+          <i data-lucide="sparkles" class="w-4 h-4"></i>
+          Coming Soon
+        </div>
+        <h2 class="text-3xl md:text-5xl font-bold mb-4">Join the Waitlist</h2>
+        <p class="text-xl text-zinc-400">Be the first to know when we launch. Early access + exclusive perks for waitlist members.</p>
+      </div>
+      
+      <div class="relative">
+        <div class="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-violet-500/10 rounded-3xl blur-xl"></div>
+        <div class="relative bg-zinc-900/80 rounded-2xl border border-zinc-800 p-8 backdrop-blur-sm">
+          <form id="waitlist-form" class="space-y-6">
+            <div>
+              <label for="name" class="block text-sm font-medium text-zinc-300 mb-2">Name <span class="text-cyan-400">*</span></label>
+              <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                required
+                placeholder="Your full name"
+                class="w-full px-4 py-3.5 bg-zinc-800/80 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition"
+              >
+            </div>
+            
+            <div>
+              <label for="phone" class="block text-sm font-medium text-zinc-300 mb-2">Phone <span class="text-cyan-400">*</span></label>
+              <input 
+                type="tel" 
+                id="phone" 
+                name="phone" 
+                required
+                placeholder="Your phone number"
+                class="w-full px-4 py-3.5 bg-zinc-800/80 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition"
+              >
+            </div>
+            
+            <div>
+              <label for="email" class="block text-sm font-medium text-zinc-300 mb-2">Email</label>
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                placeholder="you@company.com"
+                class="w-full px-4 py-3.5 bg-zinc-800/80 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition"
+              >
+            </div>
+            
+            <button 
+              type="submit" 
+              id="submit-btn"
+              class="w-full py-4 accent-gradient hover:opacity-90 rounded-xl font-semibold text-lg transition transform hover:scale-[1.02] flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/25"
+            >
+              <span>Join the Waitlist</span>
+              <i data-lucide="arrow-right" class="w-5 h-5"></i>
+            </button>
+          </form>
+          
+          <!-- Success Message (hidden by default) -->
+          <div id="success-message" class="hidden text-center py-8">
+            <div class="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <i data-lucide="check" class="w-8 h-8 text-green-400"></i>
+            </div>
+            <h3 class="text-2xl font-bold mb-2">You're on the list!</h3>
+            <p class="text-zinc-400">We'll reach out as soon as we're ready for you.</p>
+          </div>
+          
+          <p class="text-zinc-500 text-sm text-center mt-6 flex items-center justify-center gap-2">
+            <i data-lucide="lock" class="w-4 h-4"></i>
+            We respect your privacy. No spam, ever.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <script>
+    document.getElementById('waitlist-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const form = this;
+      const submitBtn = document.getElementById('submit-btn');
+      const successMsg = document.getElementById('success-message');
+      
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span>Submitting...</span><svg class="animate-spin w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
+      
+      setTimeout(() => {
+        form.classList.add('hidden');
+        successMsg.classList.remove('hidden');
+      }, 1000);
+    });
+  </script>
+
+  <!-- Open Source -->
+  <section class="py-24 border-t border-zinc-800/50">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="bg-gradient-to-br from-zinc-900 to-zinc-900/50 rounded-3xl border border-zinc-800 p-8 md:p-12 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl"></div>
+        <div class="grid md:grid-cols-2 gap-12 items-center relative">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-800 text-sm mb-6">
+              <i data-lucide="github" class="w-4 h-4"></i>
+              Open Source
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">
+              Self-host if you want.<br>
+              <span class="text-zinc-500">We won't stop you.</span>
+            </h2>
+            <p class="text-zinc-400 mb-6">
+              The entire MCP server is open source. Run it yourself, modify it, contribute back. 
+              The hosted version just saves you the hassle.
+            </p>
+            <a href="https://github.com/BusyBee3333/basecamp-mcp-2026-complete" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 font-medium transition">
+              View on GitHub
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+          <div class="bg-zinc-950 rounded-xl p-6 font-mono text-sm border border-zinc-800">
+            <div class="flex items-center gap-2 text-zinc-500 mb-4">
+              <span class="w-3 h-3 rounded-full bg-red-500"></span>
+              <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+              <span class="w-3 h-3 rounded-full bg-green-500"></span>
+              <span class="ml-2">Terminal</span>
+            </div>
+            <pre class="text-zinc-300 overflow-x-auto"><code><span class="text-zinc-500">$</span> git clone https://github.com/BusyBee3333/basecamp-mcp-2026-complete.git
+<span class="text-zinc-500">$</span> cd mcp && npm install
+<span class="text-zinc-500">$</span> npm run build
+<span class="text-zinc-500">$</span> node dist/server.js
+
+<span class="text-green-400">✓ Basecamp MCP Server running</span>
+<span class="text-green-400">✓ 62 tools loaded</span>
+<span class="text-zinc-500">Listening on stdio...</span></code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="py-24 border-t border-zinc-800/50">
+    <div class="max-w-3xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Frequently asked questions</h2>
+      </div>
+      
+      <div class="space-y-4">
+        <details class="group bg-zinc-900/50 rounded-xl border border-zinc-800 p-6 hover:border-zinc-700 transition">
+          <summary class="flex items-center justify-between cursor-pointer list-none">
+            <span class="font-medium text-lg">What is MCP?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 group-open:rotate-180 transition"></i>
+          </summary>
+          <p class="mt-4 text-zinc-400 leading-relaxed">
+            MCP (Model Context Protocol) is a standard for connecting AI assistants to external tools and data. 
+            It's supported by Claude, and lets AI actually take actions in your systems — not just chat about them.
+          </p>
+        </details>
+        
+        <details class="group bg-zinc-900/50 rounded-xl border border-zinc-800 p-6 hover:border-zinc-700 transition">
+          <summary class="flex items-center justify-between cursor-pointer list-none">
+            <span class="font-medium text-lg">Do I need to install anything?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 group-open:rotate-180 transition"></i>
+          </summary>
+          <p class="mt-4 text-zinc-400 leading-relaxed">
+            For the hosted version, no. Just connect your Basecamp account via OAuth and add the MCP endpoint to your AI client (Claude Desktop, etc.). 
+            If you self-host, you'll need Node.js.
+          </p>
+        </details>
+        
+        <details class="group bg-zinc-900/50 rounded-xl border border-zinc-800 p-6 hover:border-zinc-700 transition">
+          <summary class="flex items-center justify-between cursor-pointer list-none">
+            <span class="font-medium text-lg">Is my data secure?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 group-open:rotate-180 transition"></i>
+          </summary>
+          <p class="mt-4 text-zinc-400 leading-relaxed">
+            Yes. We use OAuth 2.0 and never store your Basecamp API keys. Tokens are encrypted at rest and in transit. 
+            You can revoke access anytime from your Basecamp settings.
+          </p>
+        </details>
+        
+        <details class="group bg-zinc-900/50 rounded-xl border border-zinc-800 p-6 hover:border-zinc-700 transition">
+          <summary class="flex items-center justify-between cursor-pointer list-none">
+            <span class="font-medium text-lg">Can I use this with GPT or other AI models?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 group-open:rotate-180 transition"></i>
+          </summary>
+          <p class="mt-4 text-zinc-400 leading-relaxed">
+            MCP is currently best supported by Claude (Anthropic). GPT can use it via custom implementations. 
+            As MCP adoption grows, more clients will support it natively.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-24 border-t border-zinc-800/50">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="text-3xl md:text-5xl font-bold mb-6">
+        Ready to AI-power your Basecamp?
+      </h2>
+      <p class="text-xl text-zinc-400 mb-10">
+        Join 250+ project teams already automating with Basecamp Connect.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#pricing" class="w-full sm:w-auto px-8 py-4 accent-gradient hover:opacity-90 rounded-xl font-semibold text-lg transition transform hover:scale-105 shadow-lg shadow-cyan-500/25">
+          Join the Waitlist
+        </a>
+        <a href="#" class="w-full sm:w-auto px-8 py-4 bg-zinc-800 hover:bg-zinc-700 rounded-xl font-semibold text-lg transition">
+          Book a Demo
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-zinc-800/50 py-12">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg accent-gradient flex items-center justify-center">
+            <i data-lucide="mountain" class="w-5 h-5 text-white"></i>
+          </div>
+          <span class="font-bold text-xl">Basecamp Connect</span>
+        </div>
+        <div class="flex items-center gap-8 text-zinc-400">
+          <a href="https://github.com/BusyBee3333/basecamp-mcp-2026-complete" target="_blank" rel="noopener" class="hover:text-white transition">Privacy</a>
+          <a href="https://github.com/BusyBee3333/basecamp-mcp-2026-complete" target="_blank" rel="noopener" class="hover:text-white transition">Terms</a>
+          <a href="https://github.com/BusyBee3333/basecamp-mcp-2026-complete" target="_blank" rel="noopener" class="hover:text-white transition">GitHub</a>
+          <a href="https://github.com/BusyBee3333/basecamp-mcp-2026-complete" target="_blank" rel="noopener" class="hover:text-white transition">Twitter</a>
+        </div>
+        <p class="text-zinc-500 text-sm">© 2026 Basecamp Connect. Not affiliated with Basecamp.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Sticky Floating CTA -->
+  <div id="sticky-cta" class="fixed bottom-6 right-6 z-50 opacity-0 translate-y-4 transition-all duration-300 pointer-events-none">
+    <a 
+      href="#pricing" 
+      class="sticky-btn flex items-center gap-2 px-6 py-3 accent-gradient rounded-full font-semibold transition-all transform hover:scale-110"
+    >
+      <i data-lucide="sparkles" class="w-5 h-5"></i>
+      <span>Join Waitlist</span>
+    </a>
+  </div>
+
+  <script>
+    const stickyCta = document.getElementById('sticky-cta');
+    const pricingSection = document.getElementById('pricing');
+    
+    function updateStickyCta() {
+      const scrollY = window.scrollY;
+      const pricingTop = pricingSection.offsetTop;
+      const pricingBottom = pricingTop + pricingSection.offsetHeight;
+      const viewportBottom = scrollY + window.innerHeight;
+      
+      const shouldShow = scrollY > 300 && (viewportBottom < pricingTop || scrollY > pricingBottom);
+      
+      if (shouldShow) {
+        stickyCta.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+        stickyCta.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+      } else {
+        stickyCta.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+        stickyCta.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+      }
+    }
+    
+    window.addEventListener('scroll', updateStickyCta);
+    updateStickyCta();
+  </script>
+
+  <script>lucide.createIcons();</script>
+</body>
+</html>

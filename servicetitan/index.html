@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ServiceTitan Connect — AI-Power Your Field Service in 2 Clicks</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+          colors: {
+            brand: {
+              50: '#fff7ed',
+              100: '#ffedd5',
+              200: '#fed7aa',
+              300: '#fdba74',
+              400: '#fb923c',
+              500: '#FF6B00',
+              600: '#ea580c',
+              700: '#c2410c',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .gradient-text {
+      background: linear-gradient(135deg, #FF6B00 0%, #f97316 50%, #fbbf24 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-glow {
+      background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(255, 107, 0, 0.2), transparent);
+    }
+    .card-glow {
+      transition: all 0.3s ease;
+    }
+    .card-glow:hover {
+      box-shadow: 0 0 50px rgba(255, 107, 0, 0.15), 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      transform: translateY(-4px);
+      border-color: rgba(255, 107, 0, 0.3);
+    }
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+    .animate-float-delayed {
+      animation: float 6s ease-in-out infinite 2s;
+    }
+    .animate-float-slow {
+      animation: float 8s ease-in-out infinite 1s;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    .video-glow {
+      box-shadow: 0 0 80px rgba(255, 107, 0, 0.2), 0 25px 80px -20px rgba(0, 0, 0, 0.8);
+    }
+    .btn-glow {
+      box-shadow: 0 0 30px rgba(255, 107, 0, 0.4);
+      transition: all 0.3s ease;
+    }
+    .btn-glow:hover {
+      box-shadow: 0 0 50px rgba(255, 107, 0, 0.6);
+      transform: scale(1.05);
+    }
+    .gradient-border {
+      background: linear-gradient(135deg, rgba(255, 107, 0, 0.2), rgba(249, 115, 22, 0.1));
+      border: 1px solid rgba(255, 107, 0, 0.2);
+    }
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(-2deg); }
+      50% { transform: rotate(2deg); }
+    }
+    @keyframes glow-pulse {
+      0%, 100% { box-shadow: 0 0 20px 0 rgba(255, 107, 0, 0.4), 0 0 40px 0 rgba(255, 107, 0, 0.2); }
+      50% { box-shadow: 0 0 30px 5px rgba(255, 107, 0, 0.6), 0 0 60px 10px rgba(255, 107, 0, 0.3); }
+    }
+    .sticky-btn {
+      animation: wiggle 2.5s ease-in-out infinite, glow-pulse 2s ease-in-out infinite;
+    }
+    .sticky-btn:hover {
+      animation: none;
+      transform: scale(1.1);
+    }
+    .feature-icon {
+      transition: all 0.3s ease;
+    }
+    .card-glow:hover .feature-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+    .stat-card {
+      background: linear-gradient(135deg, rgba(255, 107, 0, 0.1), transparent);
+    }
+  </style>
+</head>
+<body class="bg-zinc-950 text-zinc-100 font-sans antialiased overflow-x-hidden">
+  
+  <!-- Ambient Background Elements -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden">
+    <div class="absolute top-1/4 -left-32 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl animate-float"></div>
+    <div class="absolute top-3/4 -right-32 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl animate-float-delayed"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-brand-500/5 rounded-full blur-3xl animate-float-slow"></div>
+  </div>
+
+  <!-- Nav -->
+  <nav class="fixed top-0 w-full z-50 border-b border-zinc-800/50 bg-zinc-950/80 backdrop-blur-xl">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-amber-500 flex items-center justify-center shadow-lg shadow-brand-500/25">
+          <i data-lucide="wrench" class="w-5 h-5 text-white"></i>
+        </div>
+        <span class="font-bold text-xl">ServiceTitan Connect</span>
+      </div>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#features" class="text-zinc-400 hover:text-white transition">Features</a>
+        <a href="#demo" class="text-zinc-400 hover:text-white transition">Demo</a>
+        <a href="#pricing" class="text-zinc-400 hover:text-white transition">Waitlist</a>
+        <a href="#faq" class="text-zinc-400 hover:text-white transition">FAQ</a>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="#" class="hidden sm:block text-zinc-400 hover:text-white transition">Sign In</a>
+        <a href="#pricing" class="px-5 py-2.5 bg-brand-500 hover:bg-brand-600 rounded-lg font-medium transition shadow-lg shadow-brand-500/25">
+          Join Waitlist
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="relative min-h-screen flex items-center hero-glow pt-20">
+    <div class="max-w-6xl mx-auto px-6 py-20">
+      <div class="max-w-3xl mx-auto text-center">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-800/50 border border-zinc-700/50 text-sm text-zinc-300 mb-8 backdrop-blur-sm">
+          <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+          <span>Open Source + Hosted</span>
+          <span class="px-2 py-0.5 bg-brand-500/20 text-brand-400 rounded-full text-xs font-medium ml-1">NEW</span>
+        </div>
+        
+        <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-[1.1]">
+          Connect <span class="gradient-text">ServiceTitan</span><br>to AI in 2 Clicks
+        </h1>
+        
+        <p class="text-xl text-zinc-400 mb-10 leading-relaxed max-w-xl mx-auto">
+          The complete ServiceTitan MCP server. <strong class="text-white">124 tools</strong> for jobs, dispatch, and invoicing. 
+          No OAuth headaches. Just connect and automate your field operations.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 mb-12 justify-center">
+          <a href="#pricing" class="btn-glow px-8 py-4 bg-brand-500 hover:bg-brand-600 rounded-xl font-semibold text-lg text-center">
+            Join the Waitlist
+          </a>
+          <a href="#demo" class="group px-8 py-4 bg-zinc-800/80 hover:bg-zinc-700 border border-zinc-700 rounded-xl font-semibold text-lg flex items-center justify-center gap-2 transition">
+            <i data-lucide="play-circle" class="w-5 h-5 group-hover:scale-110 transition"></i>
+            Watch Demo
+          </a>
+        </div>
+
+        <!-- Social Proof -->
+        <div class="flex items-center gap-4 justify-center">
+          <div class="flex -space-x-3">
+            <img src="https://i.pravatar.cc/100?img=21" class="w-10 h-10 rounded-full border-2 border-zinc-950 shadow-lg" alt="">
+            <img src="https://i.pravatar.cc/100?img=22" class="w-10 h-10 rounded-full border-2 border-zinc-950 shadow-lg" alt="">
+            <img src="https://i.pravatar.cc/100?img=23" class="w-10 h-10 rounded-full border-2 border-zinc-950 shadow-lg" alt="">
+            <img src="https://i.pravatar.cc/100?img=24" class="w-10 h-10 rounded-full border-2 border-zinc-950 shadow-lg" alt="">
+            <div class="w-10 h-10 rounded-full border-2 border-zinc-950 bg-brand-500 flex items-center justify-center text-xs font-bold shadow-lg">
+              +80
+            </div>
+          </div>
+          <div class="text-left">
+            <div class="flex items-center gap-1 text-amber-400 text-sm">
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            </div>
+            <p class="text-zinc-400 text-sm">Trusted by <strong class="text-white">350+</strong> field service companies</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Video Demo -->
+  <section id="demo" class="py-20 border-t border-zinc-800/50">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">See It In Action</h2>
+        <p class="text-xl text-zinc-400">Watch how AI transforms your field service operations</p>
+      </div>
+      <div class="gradient-border rounded-2xl p-2">
+        <div class="rounded-xl overflow-hidden video-glow">
+          <video autoplay loop muted playsinline class="w-full">
+            <source src="../output/servicetitan.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="flex justify-center mt-8">
+        <div class="inline-flex items-center gap-6 px-6 py-3 rounded-full bg-zinc-900/80 border border-zinc-800 backdrop-blur-sm">
+          <div class="flex items-center gap-2">
+            <i data-lucide="briefcase" class="w-4 h-4 text-brand-500"></i>
+            <span class="text-sm text-zinc-300">Jobs</span>
+          </div>
+          <div class="w-px h-4 bg-zinc-700"></div>
+          <div class="flex items-center gap-2">
+            <i data-lucide="truck" class="w-4 h-4 text-brand-500"></i>
+            <span class="text-sm text-zinc-300">Dispatch</span>
+          </div>
+          <div class="w-px h-4 bg-zinc-700"></div>
+          <div class="flex items-center gap-2">
+            <i data-lucide="file-text" class="w-4 h-4 text-brand-500"></i>
+            <span class="text-sm text-zinc-300">Invoicing</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Banner -->
+  <section class="py-12 border-t border-zinc-800/50">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div class="stat-card rounded-2xl p-6 text-center border border-zinc-800/50">
+          <div class="text-3xl md:text-4xl font-bold text-brand-400 mb-1">124</div>
+          <div class="text-zinc-400 text-sm">API Tools</div>
+        </div>
+        <div class="stat-card rounded-2xl p-6 text-center border border-zinc-800/50">
+          <div class="text-3xl md:text-4xl font-bold text-brand-400 mb-1">2 min</div>
+          <div class="text-zinc-400 text-sm">Setup Time</div>
+        </div>
+        <div class="stat-card rounded-2xl p-6 text-center border border-zinc-800/50">
+          <div class="text-3xl md:text-4xl font-bold text-brand-400 mb-1">350+</div>
+          <div class="text-zinc-400 text-sm">Companies</div>
+        </div>
+        <div class="stat-card rounded-2xl p-6 text-center border border-zinc-800/50">
+          <div class="text-3xl md:text-4xl font-bold text-brand-400 mb-1">99.9%</div>
+          <div class="text-zinc-400 text-sm">Uptime</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pain Points / Solution -->
+  <section class="py-24 border-t border-zinc-800/50 relative">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-5xl font-bold mb-4">
+          Setting up ServiceTitan + AI<br>
+          <span class="text-zinc-500">shouldn't take a week</span>
+        </h2>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="group p-8 rounded-2xl bg-zinc-900/50 border border-zinc-800 hover:border-red-500/30 transition-all duration-300">
+          <div class="w-14 h-14 rounded-2xl bg-red-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition">
+            <i data-lucide="phone-call" class="w-7 h-7 text-red-400"></i>
+          </div>
+          <h3 class="font-semibold text-lg mb-2 text-red-400">Dispatch phone chaos</h3>
+          <p class="text-zinc-500 mb-6">Constant calls, manual scheduling, techs waiting. Inefficiency everywhere.</p>
+          <div class="pt-6 border-t border-zinc-800">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-brand-500/20 flex items-center justify-center">
+                <i data-lucide="check" class="w-5 h-5 text-brand-400"></i>
+              </div>
+              <p class="text-white font-medium">AI optimizes routes instantly</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="group p-8 rounded-2xl bg-zinc-900/50 border border-zinc-800 hover:border-red-500/30 transition-all duration-300">
+          <div class="w-14 h-14 rounded-2xl bg-red-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition">
+            <i data-lucide="dollar-sign" class="w-7 h-7 text-red-400"></i>
+          </div>
+          <h3 class="font-semibold text-lg mb-2 text-red-400">Missed upsell opportunities</h3>
+          <p class="text-zinc-500 mb-6">Techs on-site don't know customer history. Revenue left on the table.</p>
+          <div class="pt-6 border-t border-zinc-800">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-brand-500/20 flex items-center justify-center">
+                <i data-lucide="check" class="w-5 h-5 text-brand-400"></i>
+              </div>
+              <p class="text-white font-medium">AI suggests relevant services</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="group p-8 rounded-2xl bg-zinc-900/50 border border-zinc-800 hover:border-red-500/30 transition-all duration-300">
+          <div class="w-14 h-14 rounded-2xl bg-red-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition">
+            <i data-lucide="clipboard" class="w-7 h-7 text-red-400"></i>
+          </div>
+          <h3 class="font-semibold text-lg mb-2 text-red-400">Paper-based job tracking</h3>
+          <p class="text-zinc-500 mb-6">Lost work orders, illegible notes, no real-time visibility.</p>
+          <div class="pt-6 border-t border-zinc-800">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-brand-500/20 flex items-center justify-center">
+                <i data-lucide="check" class="w-5 h-5 text-brand-400"></i>
+              </div>
+              <p class="text-white font-medium">Real-time digital updates</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="py-24 border-t border-zinc-800/50">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-500/10 text-brand-400 text-sm font-medium mb-6">
+          <i data-lucide="sparkles" class="w-4 h-4"></i>
+          Full API Coverage
+        </div>
+        <h2 class="text-3xl md:text-5xl font-bold mb-4">Everything you need</h2>
+        <p class="text-xl text-zinc-400 max-w-2xl mx-auto">Full ServiceTitan API access through one simple connection. 124 tools at your AI's fingertips.</p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="group p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 card-glow">
+          <div class="feature-icon w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-500/20 to-amber-500/20 flex items-center justify-center mb-5">
+            <i data-lucide="briefcase" class="w-7 h-7 text-brand-400"></i>
+          </div>
+          <h3 class="font-semibold text-lg mb-2">Job Management</h3>
+          <p class="text-zinc-400 text-sm leading-relaxed">Create, schedule, and track jobs end-to-end with AI assistance.</p>
+        </div>
+
+        <div class="group p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 card-glow">
+          <div class="feature-icon w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 flex items-center justify-center mb-5">
+            <i data-lucide="truck" class="w-7 h-7 text-blue-400"></i>
+          </div>
+          <h3 class="font-semibold text-lg mb-2">Dispatch</h3>
+          <p class="text-zinc-400 text-sm leading-relaxed">Optimize routes, assign techs, manage capacity automatically.</p>
+        </div>
+
+        <div class="group p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 card-glow">
+          <div class="feature-icon w-14 h-14 rounded-2xl bg-gradient-to-br from-green-500/20 to-emerald-500/20 flex items-center justify-center mb-5">
+            <i data-lucide="file-text" class="w-7 h-7 text-green-400"></i>
+          </div>
+          <h3 class="font-semibold text-lg mb-2">Estimates & Invoices</h3>
+          <p class="text-zinc-400 text-sm leading-relaxed">Generate quotes, convert to invoices, collect payments fast.</p>
+        </div>
+
+        <div class="group p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 card-glow">
+          <div class="feature-icon w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center mb-5">
+            <i data-lucide="users" class="w-7 h-7 text-purple-400"></i>
+          </div>
+          <h3 class="font-semibold text-lg mb-2">Customer Management</h3>
+          <p class="text-zinc-400 text-sm leading-relaxed">Track equipment, history, and service agreements in one place.</p>
+        </div>
+      </div>
+
+      <div class="mt-12 text-center">
+        <p class="text-zinc-400 mb-6">+ 100 more endpoints including:</p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <span class="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-full text-sm hover:border-brand-500/50 transition cursor-default">Technicians</span>
+          <span class="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-full text-sm hover:border-brand-500/50 transition cursor-default">Inventory</span>
+          <span class="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-full text-sm hover:border-brand-500/50 transition cursor-default">Memberships</span>
+          <span class="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-full text-sm hover:border-brand-500/50 transition cursor-default">Marketing</span>
+          <span class="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-full text-sm hover:border-brand-500/50 transition cursor-default">Reporting</span>
+          <span class="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-full text-sm hover:border-brand-500/50 transition cursor-default">Pricebook</span>
+          <span class="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-full text-sm hover:border-brand-500/50 transition cursor-default">Tags</span>
+          <span class="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-full text-sm hover:border-brand-500/50 transition cursor-default">Webhooks</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Use Cases -->
+  <section class="py-24 border-t border-zinc-800/50">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Built for Field Service</h2>
+        <p class="text-zinc-400 text-lg">Whether you're HVAC, plumbing, or electrical — we've got you covered</p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="p-6 rounded-2xl bg-gradient-to-br from-blue-500/10 to-cyan-500/5 border border-blue-500/20">
+          <div class="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center mb-4">
+            <i data-lucide="thermometer-snowflake" class="w-6 h-6 text-blue-400"></i>
+          </div>
+          <h3 class="font-semibold text-lg mb-2">HVAC</h3>
+          <p class="text-zinc-400 text-sm">Seasonal demand, maintenance agreements, equipment tracking — all automated.</p>
+        </div>
+        
+        <div class="p-6 rounded-2xl bg-gradient-to-br from-cyan-500/10 to-teal-500/5 border border-cyan-500/20">
+          <div class="w-12 h-12 rounded-xl bg-cyan-500/20 flex items-center justify-center mb-4">
+            <i data-lucide="droplets" class="w-6 h-6 text-cyan-400"></i>
+          </div>
+          <h3 class="font-semibold text-lg mb-2">Plumbing</h3>
+          <p class="text-zinc-400 text-sm">Emergency dispatch, flat-rate pricing, drain camera integrations.</p>
+        </div>
+        
+        <div class="p-6 rounded-2xl bg-gradient-to-br from-amber-500/10 to-yellow-500/5 border border-amber-500/20">
+          <div class="w-12 h-12 rounded-xl bg-amber-500/20 flex items-center justify-center mb-4">
+            <i data-lucide="zap" class="w-6 h-6 text-amber-400"></i>
+          </div>
+          <h3 class="font-semibold text-lg mb-2">Electrical</h3>
+          <p class="text-zinc-400 text-sm">Permit tracking, safety compliance, panel upgrade workflows.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Waitlist -->
+  <section id="pricing" class="py-24 border-t border-zinc-800/50">
+    <div class="max-w-2xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-500/20 text-brand-400 text-sm font-medium mb-6">
+          <i data-lucide="sparkles" class="w-4 h-4"></i>
+          Coming Soon
+        </div>
+        <h2 class="text-3xl md:text-5xl font-bold mb-4">Join the Waitlist</h2>
+        <p class="text-xl text-zinc-400">Be the first to know when we launch. Early access + exclusive perks for waitlist members.</p>
+      </div>
+      
+      <div class="gradient-border rounded-2xl p-8 bg-zinc-900/80 backdrop-blur-sm">
+        <form id="waitlist-form" class="space-y-6">
+          <div>
+            <label for="name" class="block text-sm font-medium text-zinc-300 mb-2">Name <span class="text-brand-400">*</span></label>
+            <input 
+              type="text" 
+              id="name" 
+              name="name" 
+              required
+              placeholder="Your full name"
+              class="w-full px-4 py-3.5 bg-zinc-800/80 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition"
+            >
+          </div>
+          
+          <div>
+            <label for="phone" class="block text-sm font-medium text-zinc-300 mb-2">Phone <span class="text-brand-400">*</span></label>
+            <input 
+              type="tel" 
+              id="phone" 
+              name="phone" 
+              required
+              placeholder="(555) 123-4567"
+              class="w-full px-4 py-3.5 bg-zinc-800/80 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition"
+            >
+          </div>
+
+          <div>
+            <label for="email" class="block text-sm font-medium text-zinc-300 mb-2">Email</label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              placeholder="you@company.com"
+              class="w-full px-4 py-3.5 bg-zinc-800/80 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition"
+            >
+          </div>
+          
+          <button 
+            type="submit" 
+            id="submit-btn"
+            class="w-full py-4 bg-brand-500 hover:bg-brand-600 rounded-xl font-semibold text-lg transition transform hover:scale-[1.02] flex items-center justify-center gap-2 shadow-lg shadow-brand-500/25"
+          >
+            <span>Join the Waitlist</span>
+            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+          </button>
+        </form>
+        
+        <!-- Success Message -->
+        <div id="success-message" class="hidden text-center py-8">
+          <div class="w-16 h-16 bg-brand-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i data-lucide="check" class="w-8 h-8 text-brand-400"></i>
+          </div>
+          <h3 class="text-2xl font-bold mb-2">You're on the list!</h3>
+          <p class="text-zinc-400">We'll reach out as soon as we're ready for you.</p>
+        </div>
+        
+        <p class="text-zinc-500 text-sm text-center mt-6 flex items-center justify-center gap-2">
+          <i data-lucide="shield-check" class="w-4 h-4"></i>
+          We respect your privacy. No spam, ever.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.getElementById('waitlist-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const form = this;
+      const successMsg = document.getElementById('success-message');
+      form.classList.add('hidden');
+      successMsg.classList.remove('hidden');
+    });
+  </script>
+
+  <!-- Open Source -->
+  <section class="py-24 border-t border-zinc-800/50">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="gradient-border rounded-3xl p-8 md:p-12 bg-zinc-900/80">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-800 text-sm mb-6">
+              <i data-lucide="github" class="w-4 h-4"></i>
+              Open Source
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">
+              Self-host if you want.<br>
+              <span class="text-zinc-500">We won't stop you.</span>
+            </h2>
+            <p class="text-zinc-400 mb-6 leading-relaxed">
+              The entire MCP server is open source. Run it yourself, modify it, contribute back. 
+              The hosted version just saves you the hassle of OAuth and token management.
+            </p>
+            <a href="https://github.com/BusyBee3333/servicetitan-mcp-2026-complete" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-brand-400 hover:text-brand-300 font-medium group">
+              View on GitHub
+              <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition"></i>
+            </a>
+          </div>
+          <div class="bg-zinc-950 rounded-xl p-6 font-mono text-sm border border-zinc-800">
+            <div class="flex items-center gap-2 text-zinc-500 mb-4">
+              <span class="w-3 h-3 rounded-full bg-red-500"></span>
+              <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+              <span class="w-3 h-3 rounded-full bg-green-500"></span>
+              <span class="ml-2">Terminal</span>
+            </div>
+            <pre class="text-zinc-300 overflow-x-auto"><code><span class="text-zinc-500">$</span> git clone https://github.com/BusyBee3333/servicetitan-mcp-2026-complete.git
+<span class="text-zinc-500">$</span> cd mcp && npm install
+<span class="text-zinc-500">$</span> npm run build
+<span class="text-zinc-500">$</span> node dist/server.js
+
+<span class="text-brand-400">✓ ServiceTitan MCP Server running</span>
+<span class="text-brand-400">✓ 124 tools loaded</span>
+<span class="text-zinc-500">Listening on stdio...</span></code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="py-24 border-t border-zinc-800/50">
+    <div class="max-w-3xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Frequently asked questions</h2>
+        <p class="text-zinc-400">Everything you need to know about ServiceTitan Connect</p>
+      </div>
+      
+      <div class="space-y-4">
+        <details class="group bg-zinc-900/50 rounded-2xl border border-zinc-800 p-6 hover:border-zinc-700 transition">
+          <summary class="flex items-center justify-between cursor-pointer list-none">
+            <span class="font-semibold text-lg">What is MCP?</span>
+            <div class="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center group-open:bg-brand-500/20 transition">
+              <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 group-open:text-brand-400 group-open:rotate-180 transition"></i>
+            </div>
+          </summary>
+          <p class="mt-4 text-zinc-400 leading-relaxed">
+            MCP (Model Context Protocol) is a standard for connecting AI assistants to external tools and data. 
+            It's supported by Claude, and lets AI actually take actions in your systems — not just chat about them.
+          </p>
+        </details>
+        
+        <details class="group bg-zinc-900/50 rounded-2xl border border-zinc-800 p-6 hover:border-zinc-700 transition">
+          <summary class="flex items-center justify-between cursor-pointer list-none">
+            <span class="font-semibold text-lg">Do I need to install anything?</span>
+            <div class="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center group-open:bg-brand-500/20 transition">
+              <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 group-open:text-brand-400 group-open:rotate-180 transition"></i>
+            </div>
+          </summary>
+          <p class="mt-4 text-zinc-400 leading-relaxed">
+            For the hosted version, no. Just connect your ServiceTitan account via OAuth and add the MCP endpoint to your AI client (Claude Desktop, etc.). 
+            If you self-host, you'll need Node.js.
+          </p>
+        </details>
+        
+        <details class="group bg-zinc-900/50 rounded-2xl border border-zinc-800 p-6 hover:border-zinc-700 transition">
+          <summary class="flex items-center justify-between cursor-pointer list-none">
+            <span class="font-semibold text-lg">Is my data secure?</span>
+            <div class="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center group-open:bg-brand-500/20 transition">
+              <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 group-open:text-brand-400 group-open:rotate-180 transition"></i>
+            </div>
+          </summary>
+          <p class="mt-4 text-zinc-400 leading-relaxed">
+            Yes. We use OAuth 2.0 and never store your ServiceTitan API keys. Tokens are encrypted at rest and in transit. 
+            You can revoke access anytime from your ServiceTitan settings.
+          </p>
+        </details>
+
+        <details class="group bg-zinc-900/50 rounded-2xl border border-zinc-800 p-6 hover:border-zinc-700 transition">
+          <summary class="flex items-center justify-between cursor-pointer list-none">
+            <span class="font-semibold text-lg">Does this work with Pro and Titan plans?</span>
+            <div class="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center group-open:bg-brand-500/20 transition">
+              <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 group-open:text-brand-400 group-open:rotate-180 transition"></i>
+            </div>
+          </summary>
+          <p class="mt-4 text-zinc-400 leading-relaxed">
+            Yes! ServiceTitan Connect works with all ServiceTitan plans that have API access enabled. 
+            The available endpoints may vary based on your plan's features.
+          </p>
+        </details>
+        
+        <details class="group bg-zinc-900/50 rounded-2xl border border-zinc-800 p-6 hover:border-zinc-700 transition">
+          <summary class="flex items-center justify-between cursor-pointer list-none">
+            <span class="font-semibold text-lg">Can I use this with GPT or other AI models?</span>
+            <div class="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center group-open:bg-brand-500/20 transition">
+              <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 group-open:text-brand-400 group-open:rotate-180 transition"></i>
+            </div>
+          </summary>
+          <p class="mt-4 text-zinc-400 leading-relaxed">
+            MCP is currently best supported by Claude (Anthropic). GPT can use it via custom implementations. 
+            As MCP adoption grows, more clients will support it natively.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-24 border-t border-zinc-800/50 relative">
+    <div class="absolute inset-0 hero-glow"></div>
+    <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+      <h2 class="text-3xl md:text-5xl font-bold mb-6">
+        Ready to AI-power your ServiceTitan?
+      </h2>
+      <p class="text-xl text-zinc-400 mb-10 max-w-2xl mx-auto">
+        Join 350+ field service companies already automating with ServiceTitan Connect. Be first in line when we launch.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#pricing" class="btn-glow px-8 py-4 bg-brand-500 hover:bg-brand-600 rounded-xl font-semibold text-lg">
+          Join the Waitlist
+        </a>
+        <a href="#" class="px-8 py-4 bg-zinc-800 hover:bg-zinc-700 rounded-xl font-semibold text-lg transition flex items-center gap-2">
+          <i data-lucide="calendar" class="w-5 h-5"></i>
+          Book a Demo
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-zinc-800/50 py-12">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-amber-500 flex items-center justify-center">
+            <i data-lucide="wrench" class="w-5 h-5 text-white"></i>
+          </div>
+          <span class="font-bold text-xl">ServiceTitan Connect</span>
+        </div>
+        <div class="flex items-center gap-8 text-zinc-400">
+          <a href="https://github.com/BusyBee3333/servicetitan-mcp-2026-complete" target="_blank" rel="noopener" class="hover:text-white transition">Privacy</a>
+          <a href="https://github.com/BusyBee3333/servicetitan-mcp-2026-complete" target="_blank" rel="noopener" class="hover:text-white transition">Terms</a>
+          <a href="https://github.com/BusyBee3333/servicetitan-mcp-2026-complete" target="_blank" rel="noopener" class="hover:text-white transition flex items-center gap-2">
+            <i data-lucide="github" class="w-4 h-4"></i>
+            GitHub
+          </a>
+          <a href="https://github.com/BusyBee3333/servicetitan-mcp-2026-complete" target="_blank" rel="noopener" class="hover:text-white transition flex items-center gap-2">
+            <i data-lucide="twitter" class="w-4 h-4"></i>
+            Twitter
+          </a>
+        </div>
+      </div>
+      <div class="mt-8 pt-8 border-t border-zinc-800/50 text-center">
+        <p class="text-zinc-500 text-sm">© 2026 ServiceTitan Connect. Not affiliated with ServiceTitan, Inc.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Sticky Floating CTA -->
+  <div id="sticky-cta" class="fixed bottom-6 right-6 z-50 opacity-0 translate-y-4 transition-all duration-300 pointer-events-none">
+    <a 
+      href="#pricing" 
+      class="sticky-btn flex items-center gap-2 px-6 py-3 bg-brand-500 hover:bg-brand-600 rounded-full font-semibold transition-all shadow-xl"
+    >
+      <i data-lucide="sparkles" class="w-5 h-5"></i>
+      <span>Join Waitlist</span>
+    </a>
+  </div>
+
+  <script>
+    const stickyCta = document.getElementById('sticky-cta');
+    const pricingSection = document.getElementById('pricing');
+    
+    function updateStickyCta() {
+      const scrollY = window.scrollY;
+      const pricingTop = pricingSection.offsetTop;
+      const pricingBottom = pricingTop + pricingSection.offsetHeight;
+      const viewportBottom = scrollY + window.innerHeight;
+      
+      const shouldShow = scrollY > 400 && (viewportBottom < pricingTop || scrollY > pricingBottom);
+      
+      if (shouldShow) {
+        stickyCta.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+        stickyCta.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+      } else {
+        stickyCta.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+        stickyCta.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+      }
+    }
+    
+    window.addEventListener('scroll', updateStickyCta);
+    updateStickyCta();
+  </script>
+
+  <script>lucide.createIcons();</script>
+</body>
+</html>

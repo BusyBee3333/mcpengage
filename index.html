@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MCPEngage — AI-Power Your Business Software</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: { extend: { fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] } } }
+    }
+  </script>
+  <style>
+    .gradient-text {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #ec4899 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+  </style>
+</head>
+<body class="bg-zinc-950 text-zinc-100 font-sans antialiased">
+  <nav class="fixed top-0 w-full z-50 border-b border-zinc-800/50 bg-zinc-950/80 backdrop-blur-xl">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <span class="font-bold text-2xl"><span class="gradient-text">MCPEngage</span></span>
+      <span class="text-zinc-400 text-sm">AI-Powered Business Software Integrations</span>
+    </div>
+  </nav>
+
+  <section class="pt-32 pb-16">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
+        Connect <span class="gradient-text">Any Software</span><br>to AI in 2 Clicks
+      </h1>
+      <p class="text-xl text-zinc-400 mb-12 max-w-2xl mx-auto">
+        66 MCP servers. Thousands of tools. Every major business platform — ready for AI automation.
+      </p>
+    </div>
+  </section>
+
+  <section class="pb-20">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="grid"></div>
+    </div>
+  </section>
+
+  <footer class="py-8 border-t border-zinc-800/50">
+    <div class="max-w-6xl mx-auto px-6 text-center text-zinc-500 text-sm">
+      © 2026 MCPEngage. Powered by MCPEngine.
+    </div>
+  </footer>
+
+  <script>
+    const servers = [
+      {name:'ActiveCampaign',id:'activecampaign',color:'#356AE6',cat:'Marketing'},
+      {name:'Acuity Scheduling',id:'acuity',color:'#315B7D',cat:'Scheduling'},
+      {name:'Airtable',id:'airtable',color:'#18BFFF',cat:'Productivity'},
+      {name:'Apollo.io',id:'apollo',color:'#4B25D6',cat:'Sales'},
+      {name:'Asana',id:'asana',color:'#F06A6A',cat:'Project Mgmt'},
+      {name:'BambooHR',id:'bamboohr',color:'#73C41D',cat:'HR'},
+      {name:'Basecamp',id:'basecamp',color:'#1D2D35',cat:'Project Mgmt'},
+      {name:'BigCommerce',id:'bigcommerce',color:'#34313F',cat:'E-Commerce'},
+      {name:'Brevo',id:'brevo',color:'#0B996E',cat:'Marketing'},
+      {name:'Calendly',id:'calendly',color:'#006BFF',cat:'Scheduling'},
+      {name:'Chargebee',id:'chargebee',color:'#FF6633',cat:'Billing'},
+      {name:'ClickUp',id:'clickup',color:'#7B68EE',cat:'Project Mgmt'},
+      {name:'Close CRM',id:'closecrm',color:'#3D5AFE',cat:'CRM'},
+      {name:'CloseBot',id:'closebot',color:'#7C3AED',cat:'AI Sales'},
+      {name:'Clover',id:'clover',color:'#43B02A',cat:'POS'},
+      {name:'Constant Contact',id:'constantcontact',color:'#1856A8',cat:'Marketing'},
+      {name:'Datadog',id:'datadog',color:'#632CA6',cat:'DevOps'},
+      {name:'DocuSign',id:'docusign',color:'#FFCE00',cat:'Documents'},
+      {name:'FieldEdge',id:'fieldedge',color:'#0066B2',cat:'Field Service'},
+      {name:'FreshBooks',id:'freshbooks',color:'#0075DD',cat:'Accounting'},
+      {name:'Freshdesk',id:'freshdesk',color:'#25C16F',cat:'Support'},
+      {name:'GoHighLevel',id:'ghl',color:'#007BFF',cat:'Marketing'},
+      {name:'Google Ads',id:'google-ads',color:'#4285F4',cat:'Advertising'},
+      {name:'Google Console',id:'google-console',color:'#4285F4',cat:'SEO'},
+      {name:'Greenhouse',id:'greenhouse',color:'#3B8427',cat:'Recruiting'},
+      {name:'Gusto',id:'gusto',color:'#F45D48',cat:'Payroll'},
+      {name:'Help Scout',id:'helpscout',color:'#1292EE',cat:'Support'},
+      {name:'Housecall Pro',id:'housecallpro',color:'#FF5722',cat:'Field Service'},
+      {name:'HubSpot',id:'hubspot',color:'#FF7A59',cat:'CRM'},
+      {name:'Intercom',id:'intercom',color:'#286EFA',cat:'Messaging'},
+      {name:'Jira',id:'jira',color:'#0052CC',cat:'Project Mgmt'},
+      {name:'Jobber',id:'jobber',color:'#7AC143',cat:'Field Service'},
+      {name:'Keap',id:'keap',color:'#2D9F2D',cat:'CRM'},
+      {name:'Klaviyo',id:'klaviyo',color:'#000000',cat:'Marketing'},
+      {name:'Lever',id:'lever',color:'#3CB2A4',cat:'Recruiting'},
+      {name:'Lightspeed',id:'lightspeed',color:'#E4002B',cat:'Retail'},
+      {name:'Linear',id:'linear',color:'#5E6AD2',cat:'Project Mgmt'},
+      {name:'Loom',id:'loom',color:'#625DF5',cat:'Video'},
+      {name:'Mailchimp',id:'mailchimp',color:'#FFE01B',cat:'Marketing'},
+      {name:'Meta Ads',id:'meta-ads',color:'#1877F2',cat:'Advertising'},
+      {name:'Monday.com',id:'monday',color:'#6161FF',cat:'Project Mgmt'},
+      {name:'Notion',id:'notion',color:'#000000',cat:'Productivity'},
+      {name:'PandaDoc',id:'pandadoc',color:'#65BE4B',cat:'Documents'},
+      {name:'Pipedrive',id:'pipedrive',color:'#017737',cat:'CRM'},
+      {name:'QuickBooks',id:'quickbooks',color:'#2CA01C',cat:'Accounting'},
+      {name:'Rippling',id:'rippling',color:'#FEC400',cat:'HR'},
+      {name:'Salesforce',id:'salesforce',color:'#00A1E0',cat:'CRM'},
+      {name:'Salesloft',id:'salesloft',color:'#1E88E5',cat:'Sales'},
+      {name:'SendGrid',id:'sendgrid',color:'#1A82E2',cat:'Email API'},
+      {name:'ServiceTitan',id:'servicetitan',color:'#FF6B00',cat:'Field Service'},
+      {name:'Shopify',id:'shopify',color:'#96BF48',cat:'E-Commerce'},
+      {name:'Square',id:'square',color:'#006AFF',cat:'Payments'},
+      {name:'Squarespace',id:'squarespace',color:'#000000',cat:'Website'},
+      {name:'Stripe',id:'stripe',color:'#635BFF',cat:'Payments'},
+      {name:'Supabase',id:'supabase',color:'#3ECF8E',cat:'Database'},
+      {name:'Toast',id:'toast',color:'#FF4C00',cat:'Restaurant'},
+      {name:'TouchBistro',id:'touchbistro',color:'#F26522',cat:'Restaurant'},
+      {name:'Trello',id:'trello',color:'#0079BF',cat:'Project Mgmt'},
+      {name:'Twilio',id:'twilio',color:'#F22F46',cat:'Communications'},
+      {name:'Typeform',id:'typeform',color:'#262627',cat:'Forms'},
+      {name:'Wave',id:'wave',color:'#165DFF',cat:'Accounting'},
+      {name:'Webflow',id:'webflow',color:'#4353FF',cat:'Website'},
+      {name:'Wrike',id:'wrike',color:'#08CF65',cat:'Project Mgmt'},
+      {name:'Xero',id:'xero',color:'#13B5EA',cat:'Accounting'},
+      {name:'Zendesk',id:'zendesk',color:'#03363D',cat:'Support'},
+      {name:'Zoho CRM',id:'zoho-crm',color:'#DC2626',cat:'CRM'},
+    ];
+    const grid = document.getElementById('grid');
+    servers.forEach(s => {
+      grid.innerHTML += `<a href="/${s.id}/" class="card-hover transition-all duration-200 p-5 rounded-xl bg-zinc-900/50 border border-zinc-800 hover:border-zinc-600 block">
+        <div class="w-8 h-8 rounded-lg mb-3 flex items-center justify-center" style="background:${s.color}20">
+          <div class="w-3 h-3 rounded-full" style="background:${s.color}"></div>
+        </div>
+        <div class="font-semibold text-sm">${s.name}</div>
+        <div class="text-xs text-zinc-500 mt-1">${s.cat}</div>
+      </a>`;
+    });
+  </script>
+</body>
+</html>
