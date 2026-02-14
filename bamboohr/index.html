@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MCPEngage for BambooHR — AI-Power Your BambooHR in 2 Clicks</title>
-  <meta name="description" content="Connect BambooHR to any AI model with MCPEngage. Manage employees, time off, and HR operations through natural conversation.">
+  <title>MCPEngage for BambooHR — AI-Power Your HR in 2 Clicks</title>
+  <meta name="description" content="Connect BambooHR to any AI model with MCPEngage. Manage employees, time off, benefits, and reports through natural conversation.">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -137,7 +137,7 @@
       </div>
 
       <p class="text-base sm:text-lg md:text-xl lg:text-2xl text-zinc-400 max-w-3xl mx-auto mb-8 sm:mb-10 lg:mb-12 text-center leading-relaxed reveal-up px-2">
-        MCPEngage connects BambooHR to any AI model via MCP.<br class="hidden sm:block"><span class="text-white font-semibold">Manage employees, track time off, and handle HR tasks — all through conversation.</span>
+        MCPEngage connects BambooHR to any AI model via MCP.<br class="hidden sm:block"><span class="text-white font-semibold">Manage employees, track time off, and handle benefits — all through conversation.</span>
       </p>
 
       <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 lg:gap-5 justify-center mb-10 sm:mb-12 lg:mb-16 reveal-up">
@@ -186,7 +186,7 @@
                     <i data-lucide="calendar" class="w-4 h-4 lg:w-5 lg:h-5"></i>
                   </div>
                   <div class="w-9 h-9 lg:w-10 lg:h-10 rounded-xl hover:bg-white/5 flex items-center justify-center text-zinc-600 transition-colors">
-                    <i data-lucide="award" class="w-4 h-4 lg:w-5 lg:h-5"></i>
+                    <i data-lucide="file-text" class="w-4 h-4 lg:w-5 lg:h-5"></i>
                   </div>
                 </div>
 
@@ -195,7 +195,7 @@
                   <div class="flex-1 p-3 sm:p-4 lg:p-6 space-y-3 sm:space-y-4 lg:space-y-5 overflow-y-auto overflow-x-hidden" id="chat-demo" style="scrollbar-width:none;-ms-overflow-style:none;"></div>
                   <div class="p-2 sm:p-3 lg:p-4 border-t border-white/5">
                     <div class="glass-strong rounded-xl lg:rounded-2xl px-3 sm:px-4 lg:px-5 py-2.5 sm:py-3 lg:py-4 flex items-center gap-2 sm:gap-3 lg:gap-4">
-                      <input type="text" placeholder="Ask about your BambooHR employees..." class="flex-1 bg-transparent text-xs sm:text-sm outline-none text-zinc-300 placeholder:text-zinc-600 min-w-0">
+                      <input type="text" placeholder="Ask about your employees..." class="flex-1 bg-transparent text-xs sm:text-sm outline-none text-zinc-300 placeholder:text-zinc-600 min-w-0">
                       <button class="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 rounded-lg lg:rounded-xl bg-brand-500 flex items-center justify-center hover:bg-brand-400 transition-colors flex-shrink-0">
                         <i data-lucide="arrow-up" class="w-4 h-4 lg:w-5 lg:h-5 text-black"></i>
                       </button>
@@ -207,13 +207,13 @@
                 <div class="hidden lg:flex w-80 xl:w-96 flex-col border-l border-white/5">
                   <div class="flex border-b border-white/5">
                     <button class="flex-1 px-4 xl:px-5 py-3 xl:py-4 text-sm font-semibold text-brand-400 border-b-2 border-brand-500 flex items-center justify-center gap-2">
-                      <i data-lucide="calendar" class="w-4 h-4"></i>
-                      Time Off
-                      <span class="px-2 py-0.5 rounded-full bg-brand-500/20 text-xs">8</span>
+                      <i data-lucide="users" class="w-4 h-4"></i>
+                      Team
+                      <span class="px-2 py-0.5 rounded-full bg-brand-500/20 text-xs">87</span>
                     </button>
                     <button class="flex-1 px-4 xl:px-5 py-3 xl:py-4 text-sm font-medium text-zinc-500 hover:text-zinc-300 flex items-center justify-center gap-2">
-                      <i data-lucide="users" class="w-4 h-4"></i>
-                      Employees
+                      <i data-lucide="clock" class="w-4 h-4"></i>
+                      Pending
                     </button>
                   </div>
                   <div class="flex-1 p-3 xl:p-4 space-y-2.5 xl:space-y-3 overflow-auto">
@@ -221,40 +221,27 @@
                     <div class="glass rounded-xl xl:rounded-2xl p-4 xl:p-5 hover:bg-white/5 transition-all cursor-pointer group border border-transparent hover:border-brand-500/30">
                       <div class="flex items-start justify-between mb-2 xl:mb-3">
                         <div>
-                          <h4 class="font-bold text-sm xl:text-base group-hover:text-brand-400 transition-colors">Sarah Chen — Vacation</h4>
-                          <p class="text-[10px] xl:text-xs text-zinc-500">Engineering • Feb 10-17 (5 days)</p>
-                        </div>
-                        <span class="px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[10px] xl:text-xs font-bold">Approved</span>
-                      </div>
-                      <div class="flex gap-1.5 xl:gap-2">
-                        <span class="px-2 xl:px-2.5 py-0.5 xl:py-1 rounded-md xl:rounded-lg bg-blue-500/15 text-blue-400 text-[10px] xl:text-xs font-medium">PTO balance: 12d</span>
-                        <span class="px-2 xl:px-2.5 py-0.5 xl:py-1 rounded-md xl:rounded-lg bg-zinc-800 text-zinc-400 text-[10px] xl:text-xs font-medium">Vacation</span>
-                      </div>
-                    </div>
-                    <div class="glass rounded-xl xl:rounded-2xl p-4 xl:p-5 hover:bg-white/5 transition-all cursor-pointer group border border-transparent hover:border-brand-500/30">
-                      <div class="flex items-start justify-between mb-2 xl:mb-3">
-                        <div>
-                          <h4 class="font-bold text-sm xl:text-base group-hover:text-brand-400 transition-colors">Jake Shore — Sick Leave</h4>
-                          <p class="text-[10px] xl:text-xs text-zinc-500">Product • Jan 20 (1 day)</p>
+                          <h4 class="font-bold text-sm xl:text-base group-hover:text-brand-400 transition-colors">Sarah Johnson — PTO Request</h4>
+                          <p class="text-[10px] xl:text-xs text-zinc-500">Dec 20-27 • 5 business days</p>
                         </div>
                         <span class="px-2 py-0.5 rounded-md bg-yellow-500/20 text-yellow-400 text-[10px] xl:text-xs font-bold">Pending</span>
                       </div>
                       <div class="flex gap-1.5 xl:gap-2">
-                        <span class="px-2 xl:px-2.5 py-0.5 xl:py-1 rounded-md xl:rounded-lg bg-yellow-500/15 text-yellow-400 text-[10px] xl:text-xs font-medium">Needs approval</span>
-                        <span class="px-2 xl:px-2.5 py-0.5 xl:py-1 rounded-md xl:rounded-lg bg-zinc-800 text-zinc-400 text-[10px] xl:text-xs font-medium">Sick</span>
+                        <span class="px-2 xl:px-2.5 py-0.5 xl:py-1 rounded-md xl:rounded-lg bg-brand-500/15 text-brand-400 text-[10px] xl:text-xs font-medium">Engineering</span>
+                        <span class="px-2 xl:px-2.5 py-0.5 xl:py-1 rounded-md xl:rounded-lg bg-zinc-800 text-zinc-400 text-[10px] xl:text-xs font-medium">16.5 days left</span>
                       </div>
                     </div>
                     <div class="glass rounded-xl xl:rounded-2xl p-4 xl:p-5 hover:bg-white/5 transition-all cursor-pointer group border border-transparent hover:border-brand-500/30">
                       <div class="flex items-start justify-between mb-2 xl:mb-3">
                         <div>
-                          <h4 class="font-bold text-sm xl:text-base group-hover:text-brand-400 transition-colors">Alex Martinez — Parental Leave</h4>
-                          <p class="text-[10px] xl:text-xs text-zinc-500">Design • Mar 1 - Apr 30 (43 days)</p>
+                          <h4 class="font-bold text-sm xl:text-base group-hover:text-brand-400 transition-colors">Mike Chen — New Hire</h4>
+                          <p class="text-[10px] xl:text-xs text-zinc-500">Start date: Jan 15 • Engineering</p>
                         </div>
-                        <span class="px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[10px] xl:text-xs font-bold">Approved</span>
+                        <span class="px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[10px] xl:text-xs font-bold">Onboarding</span>
                       </div>
                       <div class="flex gap-1.5 xl:gap-2">
-                        <span class="px-2 xl:px-2.5 py-0.5 xl:py-1 rounded-md xl:rounded-lg bg-green-500/15 text-green-400 text-[10px] xl:text-xs font-medium">FMLA</span>
-                        <span class="px-2 xl:px-2.5 py-0.5 xl:py-1 rounded-md xl:rounded-lg bg-zinc-800 text-zinc-400 text-[10px] xl:text-xs font-medium">Parental</span>
+                        <span class="px-2 xl:px-2.5 py-0.5 xl:py-1 rounded-md xl:rounded-lg bg-brand-500/15 text-brand-400 text-[10px] xl:text-xs font-medium">Senior Dev</span>
+                        <span class="px-2 xl:px-2.5 py-0.5 xl:py-1 rounded-md xl:rounded-lg bg-zinc-800 text-zinc-400 text-[10px] xl:text-xs font-medium">Docs sent</span>
                       </div>
                     </div>
                   </div>
@@ -281,8 +268,8 @@
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
         
         <div class="stat-card text-center">
-          <div class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-black text-brand-400 mb-1 sm:mb-2"><span class="counter" data-target="46">0</span>+</div>
-          <div class="text-xs sm:text-sm text-zinc-500 font-medium">BambooHR Tools</div>
+          <div class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-black text-brand-400 mb-1 sm:mb-2"><span class="counter" data-target="48">0</span>+</div>
+          <div class="text-xs sm:text-sm text-zinc-500 font-medium">HR Tools</div>
         </div>
         <div class="stat-card text-center">
           <div class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-black text-cyan-400 mb-1 sm:mb-2">$<span class="counter" data-target="0">0</span></div>
@@ -363,10 +350,10 @@
           </div>
           <ul class="space-y-4">
             
-            <li class="flex items-start gap-3"><div class="w-6 h-6 rounded-full bg-red-500/10 flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="clock" class="w-3.5 h-3.5 text-red-400"></i></div><div><p class="text-sm sm:text-base text-zinc-300 font-medium">Time-off approval bottleneck</p><p class="text-xs sm:text-sm text-zinc-500">Manually reviewing requests, checking balances, updating calendars — 10 minutes per request</p></div></li>
-            <li class="flex items-start gap-3"><div class="w-6 h-6 rounded-full bg-red-500/10 flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="copy" class="w-3.5 h-3.5 text-red-400"></i></div><div><p class="text-sm sm:text-base text-zinc-300 font-medium">Employee data scattered</p><p class="text-xs sm:text-sm text-zinc-500">Jumping between employee profiles, spreadsheets, and documents to find basic info</p></div></li>
-            <li class="flex items-start gap-3"><div class="w-6 h-6 rounded-full bg-red-500/10 flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="layout-grid" class="w-3.5 h-3.5 text-red-400"></i></div><div><p class="text-sm sm:text-base text-zinc-300 font-medium">Reporting is painful</p><p class="text-xs sm:text-sm text-zinc-500">Generating headcount reports, PTO balances, or org charts requires exporting CSVs and manual work</p></div></li>
-            <li class="flex items-start gap-3"><div class="w-6 h-6 rounded-full bg-red-500/10 flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="hourglass" class="w-3.5 h-3.5 text-red-400"></i></div><div><p class="text-sm sm:text-base text-zinc-300 font-medium">Onboarding chaos</p><p class="text-xs sm:text-sm text-zinc-500">Creating profiles, assigning benefits, setting up permissions — hours per new hire</p></div></li>
+            <li class="flex items-start gap-3"><div class="w-6 h-6 rounded-full bg-red-500/10 flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="clock" class="w-3.5 h-3.5 text-red-400"></i></div><div><p class="text-sm sm:text-base text-zinc-300 font-medium">Employee lookup hell</p><p class="text-xs sm:text-sm text-zinc-500">Check who's on vacation, who started when, and manager hierarchies across multiple tabs</p></div></li>
+            <li class="flex items-start gap-3"><div class="w-6 h-6 rounded-full bg-red-500/10 flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="copy" class="w-3.5 h-3.5 text-red-400"></i></div><div><p class="text-sm sm:text-base text-zinc-300 font-medium">Manual PTO approvals</p><p class="text-xs sm:text-sm text-zinc-500">Slack ping → open BambooHR → check balance → approve → email employee — 10 minutes per request</p></div></li>
+            <li class="flex items-start gap-3"><div class="w-6 h-6 rounded-full bg-red-500/10 flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="layout-grid" class="w-3.5 h-3.5 text-red-400"></i></div><div><p class="text-sm sm:text-base text-zinc-300 font-medium">Reporting chaos</p><p class="text-xs sm:text-sm text-zinc-500">Finance needs headcount by department; you export CSV, open Excel, build pivot tables</p></div></li>
+            <li class="flex items-start gap-3"><div class="w-6 h-6 rounded-full bg-red-500/10 flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="hourglass" class="w-3.5 h-3.5 text-red-400"></i></div><div><p class="text-sm sm:text-base text-zinc-300 font-medium">Onboarding delays</p><p class="text-xs sm:text-sm text-zinc-500">New hires ask about benefits, start dates, and managers — you dig through records every time</p></div></li>
           </ul>
         </div>
         <div class="glass rounded-2xl lg:rounded-3xl p-5 sm:p-6 lg:p-8 border border-brand-500/20 feature-card stagger-item">
@@ -378,10 +365,10 @@
           </div>
           <ul class="space-y-4">
             
-            <li class="flex items-start gap-3"><div class="w-6 h-6 rounded-full bg-brand-500/10 flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="zap" class="w-3.5 h-3.5 text-brand-400"></i></div><div><p class="text-sm sm:text-base text-zinc-300 font-medium">Instant time-off handling</p><p class="text-xs sm:text-sm text-zinc-500">"Approve Sarah's vacation request" — AI checks balance, updates calendar, and notifies team in seconds</p></div></li>
-            <li class="flex items-start gap-3"><div class="w-6 h-6 rounded-full bg-brand-500/10 flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-400"></i></div><div><p class="text-sm sm:text-base text-zinc-300 font-medium">360° employee view</p><p class="text-xs sm:text-sm text-zinc-500">Ask "Show me Sarah's PTO balance and performance reviews" — full profile in one query</p></div></li>
-            <li class="flex items-start gap-3"><div class="w-6 h-6 rounded-full bg-brand-500/10 flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="message-square" class="w-3.5 h-3.5 text-brand-400"></i></div><div><p class="text-sm sm:text-base text-zinc-300 font-medium">One-command reports</p><p class="text-xs sm:text-sm text-zinc-500">"Generate headcount by department" or "Show me Q1 turnover rate" — instant, formatted reports</p></div></li>
-            <li class="flex items-start gap-3"><div class="w-6 h-6 rounded-full bg-brand-500/10 flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="rocket" class="w-3.5 h-3.5 text-brand-400"></i></div><div><p class="text-sm sm:text-base text-zinc-300 font-medium">Automated onboarding</p><p class="text-xs sm:text-sm text-zinc-500">"Onboard new hire: Jake Shore, Engineering, start date Feb 1" — AI creates profile, assigns benefits, sends welcome</p></div></li>
+            <li class="flex items-start gap-3"><div class="w-6 h-6 rounded-full bg-brand-500/10 flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="zap" class="w-3.5 h-3.5 text-brand-400"></i></div><div><p class="text-sm sm:text-base text-zinc-300 font-medium">Instant employee intel</p><p class="text-xs sm:text-sm text-zinc-500">"Who's Sarah's manager?" or "Show me all Engineering hires this year" — answers in seconds</p></div></li>
+            <li class="flex items-start gap-3"><div class="w-6 h-6 rounded-full bg-brand-500/10 flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-400"></i></div><div><p class="text-sm sm:text-base text-zinc-300 font-medium">One-command PTO</p><p class="text-xs sm:text-sm text-zinc-500">"Approve Sarah's PTO request" — AI checks balance, approves, updates calendar, emails confirmation</p></div></li>
+            <li class="flex items-start gap-3"><div class="w-6 h-6 rounded-full bg-brand-500/10 flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="message-square" class="w-3.5 h-3.5 text-brand-400"></i></div><div><p class="text-sm sm:text-base text-zinc-300 font-medium">Reports on demand</p><p class="text-xs sm:text-sm text-zinc-500">"Headcount by department" or "Show me all pending time off" — generated instantly, no spreadsheets</p></div></li>
+            <li class="flex items-start gap-3"><div class="w-6 h-6 rounded-full bg-brand-500/10 flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="rocket" class="w-3.5 h-3.5 text-brand-400"></i></div><div><p class="text-sm sm:text-base text-zinc-300 font-medium">Onboarding autopilot</p><p class="text-xs sm:text-sm text-zinc-500">"When does Mike start?" or "Send Mike the benefits docs" — AI handles lookup and delivery</p></div></li>
           </ul>
         </div>
       </div>
@@ -397,34 +384,34 @@
           The Problem
         </div>
         <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black mb-4 sm:mb-6 lg:mb-8 reveal-up leading-tight">
-          Your HR Team Is<br><span class="text-red-400">Stuck in Admin Hell</span>
+          Your HR Team Is<br><span class="text-red-400">Buried in Admin</span>
         </h2>
         <p class="text-base sm:text-lg lg:text-xl xl:text-2xl text-zinc-400 max-w-3xl mx-auto reveal-up">
-          BambooHR has the data, but you're too busy clicking to focus on actual people work.
+          BambooHR stores employee data, but your team drowns in repetitive lookups and manual approvals.
         </p>
       </div>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
         
         <div class="glass rounded-2xl lg:rounded-3xl p-5 sm:p-6 lg:p-8 border border-red-500/10 hover:border-red-500/30 transition-all group feature-card  stagger-item">
           <div class="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-xl lg:rounded-2xl bg-red-500/10 flex items-center justify-center mb-4 sm:mb-5 lg:mb-6 feature-icon">
-            <i data-lucide="clock" class="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-red-400"></i>
+            <i data-lucide="users" class="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-red-400"></i>
           </div>
-          <h3 class="font-bold text-lg sm:text-xl lg:text-2xl mb-2 sm:mb-3 lg:mb-4">Time-Off Approval Tax</h3>
-          <p class="text-zinc-400 text-sm sm:text-base lg:text-lg leading-relaxed">Every PTO request needs manual review, balance check, and calendar update. You lose 2+ hours weekly on approval admin.</p>
+          <h3 class="font-bold text-lg sm:text-xl lg:text-2xl mb-2 sm:mb-3 lg:mb-4">Employee Data Scattered</h3>
+          <p class="text-zinc-400 text-sm sm:text-base lg:text-lg leading-relaxed">Managers, departments, time off balances, and hire dates are all in BambooHR — but finding what you need takes five clicks and three page loads.</p>
         </div>
         <div class="glass rounded-2xl lg:rounded-3xl p-5 sm:p-6 lg:p-8 border border-red-500/10 hover:border-red-500/30 transition-all group feature-card  stagger-item">
           <div class="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-xl lg:rounded-2xl bg-red-500/10 flex items-center justify-center mb-4 sm:mb-5 lg:mb-6 feature-icon">
-            <i data-lucide="file-text" class="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-red-400"></i>
+            <i data-lucide="calendar" class="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-red-400"></i>
           </div>
-          <h3 class="font-bold text-lg sm:text-xl lg:text-2xl mb-2 sm:mb-3 lg:mb-4">Reporting Nightmare</h3>
-          <p class="text-zinc-400 text-sm sm:text-base lg:text-lg leading-relaxed">Executives ask for headcount data and you spend half a day exporting CSVs, pivoting tables, and formatting slides. By then, the meeting is over.</p>
+          <h3 class="font-bold text-lg sm:text-xl lg:text-2xl mb-2 sm:mb-3 lg:mb-4">Time Off Bottlenecks</h3>
+          <p class="text-zinc-400 text-sm sm:text-base lg:text-lg leading-relaxed">PTO requests pile up in your inbox. Each approval requires checking balances, team coverage, and blackout dates. It's death by a thousand clicks.</p>
         </div>
         <div class="glass rounded-2xl lg:rounded-3xl p-5 sm:p-6 lg:p-8 border border-red-500/10 hover:border-red-500/30 transition-all group feature-card sm:col-span-2 lg:col-span-1 stagger-item">
           <div class="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-xl lg:rounded-2xl bg-red-500/10 flex items-center justify-center mb-4 sm:mb-5 lg:mb-6 feature-icon">
-            <i data-lucide="user-plus" class="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-red-400"></i>
+            <i data-lucide="file-text" class="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-red-400"></i>
           </div>
-          <h3 class="font-bold text-lg sm:text-xl lg:text-2xl mb-2 sm:mb-3 lg:mb-4">Onboarding Overhead</h3>
-          <p class="text-zinc-400 text-sm sm:text-base lg:text-lg leading-relaxed">New hires wait days for system access because creating profiles, assigning benefits, and setting permissions is a 15-step manual process.</p>
+          <h3 class="font-bold text-lg sm:text-xl lg:text-2xl mb-2 sm:mb-3 lg:mb-4">Report Generation Hell</h3>
+          <p class="text-zinc-400 text-sm sm:text-base lg:text-lg leading-relaxed">Every stakeholder wants different reports: headcount trends, turnover by department, onboarding status. You're stuck exporting CSVs and manually formatting.</p>
         </div>
       </div>
     </div>
@@ -452,7 +439,7 @@
           </div>
           <div class="text-center lg:text-left">
             <h3 class="text-xl sm:text-2xl lg:text-3xl font-black mb-2 sm:mb-3 lg:mb-4">Connect Your BambooHR</h3>
-            <p class="text-zinc-400 text-sm sm:text-base lg:text-xl leading-relaxed">Paste your BambooHR API key. MCPEngage discovers all employees, time-off policies, benefits, and org structure — building 46+ tools automatically. No code, no configuration.</p>
+            <p class="text-zinc-400 text-sm sm:text-base lg:text-xl leading-relaxed">Paste your BambooHR API key from your account settings. MCPEngage discovers all employees, departments, time off policies, and custom fields — building 48+ tools automatically. No code required.</p>
           </div>
         </div>
         <div class="flex flex-col lg:flex-row items-center gap-4 sm:gap-6 lg:gap-10 glass rounded-2xl lg:rounded-3xl p-5 sm:p-6 lg:p-10 feature-card stagger-item">
@@ -461,7 +448,7 @@
           </div>
           <div class="text-center lg:text-left">
             <h3 class="text-xl sm:text-2xl lg:text-3xl font-black mb-2 sm:mb-3 lg:mb-4">Ask in Plain English</h3>
-            <p class="text-zinc-400 text-sm sm:text-base lg:text-xl leading-relaxed">"Approve Jake's PTO request." "Show me all employees in Engineering." "What's the company PTO balance?" Your AI understands and acts.</p>
+            <p class="text-zinc-400 text-sm sm:text-base lg:text-xl leading-relaxed">"Show me all pending PTO requests." "Who reports to Sarah?" "List all Engineering hires since July." Your AI understands HR like an experienced people ops manager.</p>
           </div>
         </div>
         <div class="flex flex-col lg:flex-row items-center gap-4 sm:gap-6 lg:gap-10 glass rounded-2xl lg:rounded-3xl p-5 sm:p-6 lg:p-10 feature-card stagger-item">
@@ -469,8 +456,8 @@
             <span class="text-3xl sm:text-4xl lg:text-5xl font-black text-black">3</span>
           </div>
           <div class="text-center lg:text-left">
-            <h3 class="text-xl sm:text-2xl lg:text-3xl font-black mb-2 sm:mb-3 lg:mb-4">Automate Your Workflow</h3>
-            <p class="text-zinc-400 text-sm sm:text-base lg:text-xl leading-relaxed">Set recurring tasks: auto-approve eligible PTO, flag policy violations, generate weekly headcount reports, and sync HR data across your stack.</p>
+            <h3 class="text-xl sm:text-2xl lg:text-3xl font-black mb-2 sm:mb-3 lg:mb-4">Automate HR Ops</h3>
+            <p class="text-zinc-400 text-sm sm:text-base lg:text-xl leading-relaxed">Set up workflows: approve time off, send onboarding docs, generate headcount reports, flag policy violations, and sync org charts — all running 24/7.</p>
           </div>
         </div>
       </div>
@@ -486,10 +473,10 @@
           Features
         </div>
         <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black mb-4 sm:mb-6 lg:mb-8 reveal-up leading-tight">
-          Everything to<br><span class="gradient-text">Supercharge BambooHR</span>
+          Everything to<br><span class="gradient-text">Supercharge HR</span>
         </h2>
         <p class="text-base sm:text-lg lg:text-xl xl:text-2xl text-zinc-400 max-w-3xl mx-auto reveal-up">
-          46+ BambooHR tools accessible through one natural-language interface.
+          48+ BambooHR tools accessible through one natural-language interface.
         </p>
       </div>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
@@ -498,43 +485,43 @@
           <div class="w-11 h-11 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-xl lg:rounded-2xl bg-gradient-to-br from-brand-500/20 to-teal-500/20 flex items-center justify-center mb-4 sm:mb-5 lg:mb-6 feature-icon">
             <i data-lucide="users" class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-brand-400"></i>
           </div>
-          <h3 class="font-bold text-base sm:text-lg lg:text-xl mb-2 sm:mb-3 group-hover:text-brand-400 transition-colors">Employee Management</h3>
-          <p class="text-zinc-400 text-sm sm:text-base">Access employee profiles, update records, and manage org structure. "Show me all remote employees."</p>
+          <h3 class="font-bold text-base sm:text-lg lg:text-xl mb-2 sm:mb-3 group-hover:text-brand-400 transition-colors">Employee Directory</h3>
+          <p class="text-zinc-400 text-sm sm:text-base">Access contact info, manager chains, hire dates, and department assignments. "Show me everyone in Engineering."</p>
         </div>
         <div class="glass rounded-2xl lg:rounded-3xl p-5 sm:p-6 lg:p-8 feature-card stagger-item group">
           <div class="w-11 h-11 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-xl lg:rounded-2xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center mb-4 sm:mb-5 lg:mb-6 feature-icon">
             <i data-lucide="calendar" class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-cyan-400"></i>
           </div>
-          <h3 class="font-bold text-base sm:text-lg lg:text-xl mb-2 sm:mb-3 group-hover:text-cyan-400 transition-colors">Time-Off Automation</h3>
-          <p class="text-zinc-400 text-sm sm:text-base">Approve requests, check balances, and track accruals automatically. "Who's out next week?"</p>
+          <h3 class="font-bold text-base sm:text-lg lg:text-xl mb-2 sm:mb-3 group-hover:text-cyan-400 transition-colors">Time Off Management</h3>
+          <p class="text-zinc-400 text-sm sm:text-base">View balances, approve requests, check coverage, and track accruals through conversation.</p>
         </div>
         <div class="glass rounded-2xl lg:rounded-3xl p-5 sm:p-6 lg:p-8 feature-card stagger-item group">
           <div class="w-11 h-11 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-xl lg:rounded-2xl bg-gradient-to-br from-violet-500/20 to-purple-500/20 flex items-center justify-center mb-4 sm:mb-5 lg:mb-6 feature-icon">
-            <i data-lucide="award" class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-violet-400"></i>
+            <i data-lucide="briefcase" class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-violet-400"></i>
           </div>
-          <h3 class="font-bold text-base sm:text-lg lg:text-xl mb-2 sm:mb-3 group-hover:text-violet-400 transition-colors">Benefits Intelligence</h3>
-          <p class="text-zinc-400 text-sm sm:text-base">Manage enrollments, track coverage, and answer benefits questions instantly.</p>
+          <h3 class="font-bold text-base sm:text-lg lg:text-xl mb-2 sm:mb-3 group-hover:text-violet-400 transition-colors">Org Chart Intelligence</h3>
+          <p class="text-zinc-400 text-sm sm:text-base">Query reporting structures, team sizes, and manager responsibilities. "Who reports to Mike?"</p>
         </div>
         <div class="glass rounded-2xl lg:rounded-3xl p-5 sm:p-6 lg:p-8 feature-card stagger-item group">
           <div class="w-11 h-11 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-xl lg:rounded-2xl bg-gradient-to-br from-orange-500/20 to-red-500/20 flex items-center justify-center mb-4 sm:mb-5 lg:mb-6 feature-icon">
-            <i data-lucide="trending-up" class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-orange-400"></i>
+            <i data-lucide="file-text" class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-orange-400"></i>
           </div>
-          <h3 class="font-bold text-base sm:text-lg lg:text-xl mb-2 sm:mb-3 group-hover:text-orange-400 transition-colors">HR Analytics</h3>
-          <p class="text-zinc-400 text-sm sm:text-base">Generate headcount reports, turnover rates, and diversity metrics on demand.</p>
+          <h3 class="font-bold text-base sm:text-lg lg:text-xl mb-2 sm:mb-3 group-hover:text-orange-400 transition-colors">Custom Reporting</h3>
+          <p class="text-zinc-400 text-sm sm:text-base">Generate headcount, turnover, tenure, and demographic reports on demand with natural language.</p>
         </div>
         <div class="glass rounded-2xl lg:rounded-3xl p-5 sm:p-6 lg:p-8 feature-card stagger-item group">
           <div class="w-11 h-11 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-xl lg:rounded-2xl bg-gradient-to-br from-pink-500/20 to-rose-500/20 flex items-center justify-center mb-4 sm:mb-5 lg:mb-6 feature-icon">
-            <i data-lucide="user-plus" class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-pink-400"></i>
+            <i data-lucide="bell" class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-pink-400"></i>
           </div>
-          <h3 class="font-bold text-base sm:text-lg lg:text-xl mb-2 sm:mb-3 group-hover:text-pink-400 transition-colors">Onboarding Workflows</h3>
-          <p class="text-zinc-400 text-sm sm:text-base">Create new hire profiles, assign tasks, and track completion. "Onboard new engineer starting Monday."</p>
+          <h3 class="font-bold text-base sm:text-lg lg:text-xl mb-2 sm:mb-3 group-hover:text-pink-400 transition-colors">Onboarding Automation</h3>
+          <p class="text-zinc-400 text-sm sm:text-base">Track new hire status, send documents, assign tasks, and monitor completion automatically.</p>
         </div>
         <div class="glass rounded-2xl lg:rounded-3xl p-5 sm:p-6 lg:p-8 feature-card stagger-item group">
           <div class="w-11 h-11 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-xl lg:rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 flex items-center justify-center mb-4 sm:mb-5 lg:mb-6 feature-icon">
-            <i data-lucide="file-text" class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-emerald-400"></i>
+            <i data-lucide="shield" class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-emerald-400"></i>
           </div>
-          <h3 class="font-bold text-base sm:text-lg lg:text-xl mb-2 sm:mb-3 group-hover:text-emerald-400 transition-colors">Custom Reports</h3>
-          <p class="text-zinc-400 text-sm sm:text-base">Pull any employee data field, filter by criteria, and export formatted reports through chat.</p>
+          <h3 class="font-bold text-base sm:text-lg lg:text-xl mb-2 sm:mb-3 group-hover:text-emerald-400 transition-colors">Compliance Tracking</h3>
+          <p class="text-zinc-400 text-sm sm:text-base">Monitor I-9 status, certifications, and required training. Flag expiring documents before deadlines.</p>
         </div>
       </div>
     </div>
@@ -569,25 +556,25 @@
             <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 faq-chevron flex-shrink-0"></i>
           </button>
           <div class="faq-answer px-5 sm:px-6 text-zinc-400 text-sm sm:text-base leading-relaxed">
-            You provide a BambooHR API key (generated in Settings > API Keys). MCPEngage uses the BambooHR API to create 46+ tools covering employees, time off, benefits, and reports. Your credentials are encrypted and never stored on our servers.
+            You provide a BambooHR API key from your account settings. MCPEngage uses the BambooHR API to create 48+ tools covering employees, time off, reports, and org structure. Your credentials are encrypted and never stored on our servers.
           </div>
         </div>
         <div class="faq-item glass rounded-2xl overflow-hidden feature-card stagger-item">
           <button class="faq-toggle w-full flex items-center justify-between p-5 sm:p-6 text-left" onclick="toggleFaq(this)">
-            <span class="font-bold text-sm sm:text-base lg:text-lg pr-4">Will it mess up my BambooHR data?</span>
+            <span class="font-bold text-sm sm:text-base lg:text-lg pr-4">Is my employee data secure?</span>
             <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 faq-chevron flex-shrink-0"></i>
           </button>
           <div class="faq-answer px-5 sm:px-6 text-zinc-400 text-sm sm:text-base leading-relaxed">
-            No. MCPEngage uses BambooHR's official API with the same permissions as any integration. You control which scopes to grant. All changes are logged in BambooHR's activity feed, and you can set read-only mode if preferred.
+            Absolutely. MCPEngage runs locally or in your own infrastructure — employee data never passes through our servers. API keys are encrypted at rest. You control all access permissions and can limit to read-only if preferred.
           </div>
         </div>
         <div class="faq-item glass rounded-2xl overflow-hidden feature-card stagger-item">
           <button class="faq-toggle w-full flex items-center justify-between p-5 sm:p-6 text-left" onclick="toggleFaq(this)">
-            <span class="font-bold text-sm sm:text-base lg:text-lg pr-4">Can it sync with Workday or ADP?</span>
+            <span class="font-bold text-sm sm:text-base lg:text-lg pr-4">Can it handle custom fields?</span>
             <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 faq-chevron flex-shrink-0"></i>
           </button>
           <div class="faq-answer px-5 sm:px-6 text-zinc-400 text-sm sm:text-base leading-relaxed">
-            Yes! You can connect multiple platforms simultaneously. Use BambooHR as your source of truth and have AI sync employee data to Workday, ADP, or any other MCP-enabled platform in your stack.
+            Yes! MCPEngage automatically discovers all custom fields in your BambooHR instance and makes them queryable through natural language.
           </div>
         </div>
         <div class="faq-item glass rounded-2xl overflow-hidden feature-card stagger-item">
@@ -605,7 +592,7 @@
             <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 faq-chevron flex-shrink-0"></i>
           </button>
           <div class="faq-answer px-5 sm:px-6 text-zinc-400 text-sm sm:text-base leading-relaxed">
-            Yes! MCPEngage supports 66+ platforms including Workday, ADP, Gusto, Slack, HubSpot, and many more. Each platform gets its own MCP server with platform-specific tools. Connect as many as you need.
+            Yes! MCPEngage supports 66+ platforms including Slack, Gmail, Google Calendar, Workday, and many more. Each platform gets its own MCP server with platform-specific tools. Connect as many as you need.
           </div>
         </div>
       </div>
@@ -618,10 +605,10 @@
     <div class="absolute inset-0 bg-gradient-to-t from-[#030303] via-transparent to-[#030303]"></div>
     <div class="max-w-4xl mx-auto text-center relative">
       <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black mb-4 sm:mb-6 lg:mb-8 reveal-up leading-tight">
-        Start Automating BambooHR<br><span class="gradient-text">Today</span>
+        Start Automating HR<br><span class="gradient-text">Today</span>
       </h2>
       <p class="text-base sm:text-lg lg:text-xl xl:text-2xl text-zinc-400 mb-8 sm:mb-10 lg:mb-12 reveal-up">
-        Join thousands of HR teams using MCPEngage to supercharge their people operations.
+        Join thousands of businesses using MCPEngage to supercharge their BambooHR.
       </p>
       <form id="waitlist-form" class="max-w-md mx-auto reveal-up" onsubmit="return submitWaitlist(event)">
         <div class="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
@@ -716,14 +703,14 @@
 
     // CHAT DEMO
     const chatDemo = document.getElementById('chat-demo');
-        const embed_1 = `<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;margin-top:8px;max-width:420px;"><div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.06);background:rgba(245,158,11,0.05);"><div style="display:flex;align-items:center;gap:8px;"><div style="width:6px;height:6px;border-radius:50%;background:#f59e0b;"></div><span style="font-size:11px;font-weight:700;color:#f59e0b;text-transform:uppercase;letter-spacing:0.5px;">Pending Requests</span></div><span style="font-size:10px;color:rgba(255,255,255,0.3);font-family:monospace;">2 requests</span></div><div style="padding:0;"><div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.04);"><div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;color:#e4e4e7;margin-bottom:2px;">Jake Shore — Sick Leave</div><div style="display:flex;align-items:center;gap:6px;"><span style="font-size:10px;color:rgba(255,255,255,0.3);">Product · Jan 20 (1 day)</span><span style="padding:1px 6px;border-radius:4px;font-size:9px;font-weight:600;background:rgba(245,158,11,0.15);color:#fbbf24;">Awaiting approval</span></div></div></div><div style="display:flex;align-items:center;gap:10px;padding:10px 14px;"><div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;color:#e4e4e7;margin-bottom:2px;">Emma Davis — Vacation</div><div style="display:flex;align-items:center;gap:6px;"><span style="font-size:10px;color:rgba(255,255,255,0.3);">Marketing · Mar 5-9 (3 days)</span><span style="padding:1px 6px;border-radius:4px;font-size:9px;font-weight:600;background:rgba(245,158,11,0.15);color:#fbbf24;">Awaiting approval</span></div></div></div></div></div>`;
-    const embed_3 = `<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;margin-top:8px;max-width:420px;"><div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.06);background:rgba(34,197,94,0.05);"><div style="display:flex;align-items:center;gap:8px;"><div style="width:6px;height:6px;border-radius:50%;background:#22c55e;"></div><span style="font-size:11px;font-weight:700;color:#22c55e;text-transform:uppercase;letter-spacing:0.5px;">Request Approved</span></div></div><div style="padding:10px 14px;"><div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:8px;padding:10px 12px;"><div style="font-size:12px;font-weight:600;color:#e4e4e7;margin-bottom:6px;">Jake Shore — Sick Leave</div><div style="display:flex;flex-direction:column;gap:4px;"><div style="font-size:10px;color:rgba(255,255,255,0.4);">📅 Date: Monday, Jan 20 (1 day)</div><div style="font-size:10px;color:rgba(255,255,255,0.4);">✅ Approved by: HR Manager</div><div style="font-size:10px;color:rgba(255,255,255,0.4);">📧 Product team notified</div></div></div></div></div>`;
+        const embed_1 = `<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;margin-top:8px;max-width:420px;"><div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.06);background:rgba(245,158,11,0.05);"><div style="display:flex;align-items:center;gap:8px;"><div style="width:6px;height:6px;border-radius:50%;background:#f59e0b;"></div><span style="font-size:11px;font-weight:700;color:#f59e0b;text-transform:uppercase;letter-spacing:0.5px;">Pending Approval — 6 Requests</span></div><span style="font-size:10px;color:rgba(255,255,255,0.3);font-family:monospace;">29 days total</span></div><div style="padding:0;"><div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.04);"><div style="flex-shrink:0;width:28px;height:28px;border-radius:8px;background:rgba(245,158,11,0.15);display:flex;align-items:center;justify-content:center;"><span style="font-size:10px;font-weight:800;color:#f59e0b;">!</span></div><div style="flex:1;min-width:0;"><div style="display:flex;align-items:center;gap:6px;margin-bottom:2px;"><span style="font-size:12px;font-weight:600;color:#e4e4e7;">Sarah Johnson</span><span style="font-size:10px;color:rgba(255,255,255,0.4);">Dec 20-27</span></div><div style="display:flex;align-items:center;gap:6px;"><span style="font-size:10px;color:rgba(255,255,255,0.3);">Engineering · 5 days</span><span style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:9px;font-weight:600;background:rgba(34,197,94,0.15);color:#4ade80;">16.5 days left</span></div></div></div><div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.04);"><div style="flex-shrink:0;width:28px;height:28px;border-radius:8px;background:rgba(245,158,11,0.15);display:flex;align-items:center;justify-content:center;"><span style="font-size:10px;font-weight:800;color:#f59e0b;">!</span></div><div style="flex:1;min-width:0;"><div style="display:flex;align-items:center;gap:6px;margin-bottom:2px;"><span style="font-size:12px;font-weight:600;color:#e4e4e7;">Alex Martinez</span><span style="font-size:10px;color:rgba(255,255,255,0.4);">Jan 8-12</span></div><div style="display:flex;align-items:center;gap:6px;"><span style="font-size:10px;color:rgba(255,255,255,0.3);">Marketing · 4 days</span><span style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:9px;font-weight:600;background:rgba(34,197,94,0.15);color:#4ade80;">12 days left</span></div></div></div></div></div>`;
+    const embed_3 = `<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;margin-top:8px;max-width:420px;"><div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.06);background:rgba(34,197,94,0.05);"><div style="display:flex;align-items:center;gap:8px;"><div style="width:6px;height:6px;border-radius:50%;background:#22c55e;"></div><span style="font-size:11px;font-weight:700;color:#22c55e;text-transform:uppercase;letter-spacing:0.5px;">PTO Approved</span></div></div><div style="padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.04);"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;"><div style="width:20px;height:20px;border-radius:6px;background:rgba(34,197,94,0.15);display:flex;align-items:center;justify-content:center;"><span style="font-size:11px;color:#22c55e;">✓</span></div><span style="font-size:12px;font-weight:600;color:#e4e4e7;">Sarah Johnson — Dec 20-27</span></div><div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:8px;padding:10px 12px;font-size:11px;color:rgba(255,255,255,0.5);line-height:1.5;"><div style="margin-bottom:6px;">5 business days approved</div><div style="font-size:10px;opacity:0.7;">Remaining balance: 11.5 days</div><div style="font-size:10px;opacity:0.7;">Confirmation sent to sarah.johnson@company.com</div></div></div><div style="padding:10px 14px;"><div style="font-size:10px;color:rgba(255,255,255,0.4);">Calendar updated • Team notified</div></div></div>`;
 
     const messages = [
-      { type:'user', text:'Show me all pending time-off requests' },
-      { type:'ai', text:'Found 2 pending requests:', embed: embed_1 },
-      { type:'user', text:'Approve Jake\'s sick leave request and notify the team' },
-      { type:'ai', text:'Request approved and team notified:', embed: embed_3 },
+      { type:'user', text:'Show me all pending time off requests' },
+      { type:'ai', text:'You have 6 pending PTO requests:', embed: embed_1 },
+      { type:'user', text:'Approve Sarah\'s request and send her a confirmation' },
+      { type:'ai', text:'Done! Sarah\'s PTO has been approved:', embed: embed_3 },
     ];
     function createMessage(msg){
       const div = document.createElement('div');
@@ -763,7 +750,7 @@
       { text:'', color:'text-white', delay:1600 },
       { text:'  Connecting to BambooHR API...', color:'text-zinc-500', delay:2000 },
       { text:'✓ Connected to BambooHR API', color:'text-green-400', delay:3000 },
-      { text:'✓ 46 tools loaded', color:'text-green-400', delay:3600 },
+      { text:'✓ 48 tools loaded', color:'text-green-400', delay:3600 },
       { text:'✓ Ready! Ask your AI anything about BambooHR', color:'text-green-400', delay:4200 },
     ];
     const termContainer = document.getElementById('terminal-lines');
