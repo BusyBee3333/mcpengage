@@ -830,17 +830,10 @@
         if (email) body.email = email;
         if (!body.name) body.name = firstName + ' ' + lastName;
         
-        const res = await fetch('https://services.leadconnectorhq.com/contacts/', {
+        const res = await fetch('https://mcpengage-waitlist.jake-2ab.workers.dev', {
           method: 'POST',
-          headers: {
-            'Authorization': 'Bearer pit-0480982f-750b-4baa-bc10-1340a9b2102b',
-            'Content-Type': 'application/json',
-            'Version': '2021-07-28'
-          },
-          body: JSON.stringify({
-            ...body,
-            locationId: 'DZEpRd43MxUJKdtrev9t'
-          })
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
         });
         
         if (res.ok || res.status === 200 || res.status === 201) {
