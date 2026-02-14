@@ -105,7 +105,7 @@
         <a href="#how-it-works" class="hover:text-white transition-colors relative group">How It Works<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-500 group-hover:w-full transition-all duration-300"></span></a>
         <a href="#faq" class="hover:text-white transition-colors relative group">FAQ<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-500 group-hover:w-full transition-all duration-300"></span></a>
       </div>
-      <a href="#cta" class="magnetic-btn px-4 sm:px-5 py-2 sm:py-2.5 bg-white text-black font-bold rounded-full text-sm transition-all hover:bg-brand-400 hover:scale-105 active:scale-95 btn-shine">Get Started</a>
+      <a href="#cta" class="magnetic-btn px-4 sm:px-5 py-2 sm:py-2.5 bg-white text-black font-bold rounded-full text-sm transition-all hover:bg-brand-400 hover:scale-105 active:scale-95 btn-shine">Join Waitlist</a>
     </div>
   </nav>
 
@@ -142,7 +142,7 @@
 
       <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 lg:gap-5 justify-center mb-10 sm:mb-12 lg:mb-16 reveal-up">
         <a href="#cta" class="magnetic-btn group px-6 sm:px-8 lg:px-10 py-3.5 sm:py-4 lg:py-5 bg-brand-500 hover:bg-brand-400 text-black font-bold rounded-xl lg:rounded-2xl text-base lg:text-lg transition-all hover:scale-105 active:scale-95 glow btn-shine flex items-center justify-center gap-2 sm:gap-3">
-          <span>Get Started Free</span>
+          <span>Join Waitlist</span>
           <i data-lucide="arrow-right" class="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform"></i>
         </a>
         <button class="magnetic-btn group px-6 sm:px-8 lg:px-10 py-3.5 sm:py-4 lg:py-5 glass-strong hover:bg-white/10 font-bold rounded-xl lg:rounded-2xl text-base lg:text-lg transition-all flex items-center justify-center gap-2 sm:gap-3">
@@ -616,11 +616,28 @@
       <p class="text-base sm:text-lg lg:text-xl xl:text-2xl text-zinc-400 mb-8 sm:mb-10 lg:mb-12 reveal-up">
         Join thousands of teams using MCPEngage to supercharge their HubSpot CRM.
       </p>
-      <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-xl mx-auto reveal-up">
-        <input type="email" placeholder="Enter your email" class="flex-1 px-4 sm:px-6 py-3.5 sm:py-4 lg:py-5 glass-strong rounded-xl lg:rounded-2xl text-base lg:text-lg outline-none focus:ring-2 focus:ring-brand-500/50 transition-all">
-        <button class="magnetic-btn px-6 sm:px-8 lg:px-10 py-3.5 sm:py-4 lg:py-5 bg-gradient-to-r from-brand-500 to-cyan-500 hover:from-brand-400 hover:to-cyan-400 text-black font-bold rounded-xl lg:rounded-2xl text-base lg:text-lg transition-all hover:scale-105 active:scale-95 glow btn-shine whitespace-nowrap">
-          Get Started Free
+      <form id="waitlist-form" class="max-w-md mx-auto reveal-up" onsubmit="return submitWaitlist(event)">
+        <div class="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
+          <div class="flex gap-3">
+            <input type="text" id="wl-first" name="firstName" placeholder="First Name *" required class="flex-1 px-4 sm:px-5 py-3 sm:py-3.5 glass-strong rounded-xl text-sm sm:text-base outline-none focus:ring-2 focus:ring-brand-500/50 transition-all placeholder:text-zinc-600">
+            <input type="text" id="wl-last" name="lastName" placeholder="Last Name *" required class="flex-1 px-4 sm:px-5 py-3 sm:py-3.5 glass-strong rounded-xl text-sm sm:text-base outline-none focus:ring-2 focus:ring-brand-500/50 transition-all placeholder:text-zinc-600">
+          </div>
+          <input type="tel" id="wl-phone" name="phone" placeholder="Phone Number *" required class="w-full px-4 sm:px-5 py-3 sm:py-3.5 glass-strong rounded-xl text-sm sm:text-base outline-none focus:ring-2 focus:ring-brand-500/50 transition-all placeholder:text-zinc-600">
+          <input type="email" id="wl-email" name="email" placeholder="Email (optional)" class="w-full px-4 sm:px-5 py-3 sm:py-3.5 glass-strong rounded-xl text-sm sm:text-base outline-none focus:ring-2 focus:ring-brand-500/50 transition-all placeholder:text-zinc-600">
+        </div>
+        <button type="submit" id="wl-btn" class="magnetic-btn w-full px-6 sm:px-8 py-3.5 sm:py-4 bg-gradient-to-r from-brand-500 to-cyan-500 hover:from-brand-400 hover:to-cyan-400 text-black font-bold rounded-xl text-base sm:text-lg transition-all hover:scale-105 active:scale-95 glow btn-shine">
+          Join Waitlist
         </button>
+        <p id="wl-status" class="text-xs sm:text-sm text-zinc-600 mt-3 sm:mt-4 hidden"></p>
+      </form>
+      <div id="wl-success" class="hidden max-w-md mx-auto reveal-up">
+        <div class="glass-strong rounded-2xl p-6 sm:p-8 text-center">
+          <div class="w-16 h-16 rounded-full bg-brand-500/20 flex items-center justify-center mx-auto mb-4">
+            <i data-lucide="check" class="w-8 h-8 text-brand-400"></i>
+          </div>
+          <h3 class="text-xl sm:text-2xl font-black mb-2">You're on the list!</h3>
+          <p class="text-zinc-400 text-sm sm:text-base">We'll notify you as soon as MCPEngage for HubSpot is ready.</p>
+        </div>
       </div>
       <p class="text-xs sm:text-sm text-zinc-600 mt-4 sm:mt-6 reveal-up">Free during beta. No credit card required.</p>
     </div>
@@ -781,6 +798,67 @@
       const wasOpen = item.classList.contains('open');
       document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
       if(!wasOpen) item.classList.add('open');
+    }
+
+    // WAITLIST FORM → GoHighLevel
+    async function submitWaitlist(e) {
+      e.preventDefault();
+      const btn = document.getElementById('wl-btn');
+      const status = document.getElementById('wl-status');
+      const form = document.getElementById('waitlist-form');
+      const success = document.getElementById('wl-success');
+      
+      btn.disabled = true;
+      btn.textContent = 'Joining...';
+      status.className = 'text-xs sm:text-sm text-zinc-400 mt-3 sm:mt-4';
+      status.textContent = 'Adding you to the waitlist...';
+      
+      const firstName = document.getElementById('wl-first').value.trim();
+      const lastName = document.getElementById('wl-last').value.trim();
+      const phone = document.getElementById('wl-phone').value.trim();
+      const email = document.getElementById('wl-email').value.trim();
+      const platformName = 'HubSpot';
+      
+      try {
+        const body = {
+          firstName,
+          lastName,
+          phone,
+          tags: ['MCP waitlist', platformName],
+          source: 'MCPEngage Waitlist — ' + platformName
+        };
+        if (email) body.email = email;
+        if (!body.name) body.name = firstName + ' ' + lastName;
+        
+        const res = await fetch('https://services.leadconnectorhq.com/contacts/', {
+          method: 'POST',
+          headers: {
+            'Authorization': 'Bearer pit-0480982f-750b-4baa-bc10-1340a9b2102b',
+            'Content-Type': 'application/json',
+            'Version': '2021-07-28'
+          },
+          body: JSON.stringify({
+            ...body,
+            locationId: 'DZEpRd43MxUJKdtrev9t'
+          })
+        });
+        
+        if (res.ok || res.status === 200 || res.status === 201) {
+          form.classList.add('hidden');
+          success.classList.remove('hidden');
+          lucide.createIcons();
+        } else {
+          const errData = await res.json().catch(() => ({}));
+          throw new Error(errData.message || 'Server error');
+        }
+      } catch (err) {
+        status.className = 'text-xs sm:text-sm text-red-400 mt-3 sm:mt-4';
+        status.textContent = 'Something went wrong. Please try again.';
+        btn.disabled = false;
+        btn.textContent = 'Join Waitlist';
+        console.error('Waitlist error:', err);
+      }
+      return false;
     }
 
     // MAGNETIC BUTTONS
