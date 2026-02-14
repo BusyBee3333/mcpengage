@@ -16,8 +16,14 @@
           fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
           colors: {
             brand: {
+              50: '#b4ffff',
+              100: '#96ffff',
+              200: '#78ffff',
+              300: '#50f1ff',
+              400: '#28c9ff',
               500: '#00A1E0',
-              600: '#00A1E0dd',
+              600: '#008dcc',
+              700: '#006fae',
             }
           }
         }
@@ -26,33 +32,103 @@
   </script>
   <style>
     .gradient-text {
-      background: linear-gradient(135deg, #00A1E0 0%, #8b5cf6 50%, #ec4899 100%);
+      background: linear-gradient(135deg, #00A1E0 0%, #ddff14 50%, #3cddff 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-    .hero-glow { background: radial-gradient(ellipse 80% 50% at 50% -20%, #00A1E025, transparent); }
-    .card-glow:hover { box-shadow: 0 0 40px #00A1E020; }
+    .hero-glow {
+      background: radial-gradient(ellipse 80% 50% at 50% -20%, #00A1E033, transparent);
+    }
+    .card-glow {
+      transition: all 0.3s ease;
+    }
+    .card-glow:hover {
+      box-shadow: 0 0 50px #00A1E026, 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      transform: translateY(-4px);
+      border-color: #00A1E04D;
+    }
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+    .animate-float-delayed {
+      animation: float 6s ease-in-out infinite 2s;
+    }
+    .animate-float-slow {
+      animation: float 8s ease-in-out infinite 1s;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    .video-glow {
+      box-shadow: 0 0 80px #00A1E033, 0 25px 80px -20px rgba(0, 0, 0, 0.8);
+    }
+    .btn-glow {
+      box-shadow: 0 0 30px #00A1E066;
+      transition: all 0.3s ease;
+    }
+    .btn-glow:hover {
+      box-shadow: 0 0 50px #00A1E099;
+      transform: scale(1.05);
+    }
+    .gradient-border {
+      background: linear-gradient(135deg, #00A1E033, #00A1E01A);
+      border: 1px solid #00A1E033;
+    }
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(-2deg); }
+      50% { transform: rotate(2deg); }
+    }
+    @keyframes glow-pulse {
+      0%, 100% { box-shadow: 0 0 20px 0 #00A1E066, 0 0 40px 0 #00A1E033; }
+      50% { box-shadow: 0 0 30px 5px #00A1E099, 0 0 60px 10px #00A1E04D; }
+    }
+    .sticky-btn {
+      animation: wiggle 2.5s ease-in-out infinite, glow-pulse 2s ease-in-out infinite;
+    }
+    .sticky-btn:hover {
+      animation: none;
+      transform: scale(1.1);
+    }
+    .feature-icon {
+      transition: all 0.3s ease;
+    }
+    .card-glow:hover .feature-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+    .stat-card {
+      background: linear-gradient(135deg, #00A1E01A, transparent);
+    }
   </style>
 </head>
-<body class="bg-zinc-950 text-zinc-100 font-sans antialiased">
+<body class="bg-zinc-950 text-zinc-100 font-sans antialiased overflow-x-hidden">
   
+  <!-- Ambient Background Elements -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden">
+    <div class="absolute top-1/4 -left-32 w-96 h-96 rounded-full blur-3xl animate-float" style="background: #00A1E01A"></div>
+    <div class="absolute top-3/4 -right-32 w-80 h-80 rounded-full blur-3xl animate-float-delayed" style="background: #ddff141A"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full blur-3xl animate-float-slow" style="background: #00A1E00D"></div>
+  </div>
+
   <!-- Nav -->
   <nav class="fixed top-0 w-full z-50 border-b border-zinc-800/50 bg-zinc-950/80 backdrop-blur-xl">
     <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <div class="flex items-center gap-2">
-        <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: #00A1E0">
-          <i data-lucide="zap" class="w-5 h-5" style="color: #fff"></i>
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg" style="background: linear-gradient(135deg, #00A1E0, #ddff14); box-shadow: 0 4px 14px #00A1E040">
+          <i data-lucide="cloud" class="w-5 h-5" style="color: #fff"></i>
         </div>
         <span class="font-bold text-xl">Salesforce Connect</span>
       </div>
       <div class="hidden md:flex items-center gap-8">
         <a href="#features" class="text-zinc-400 hover:text-white transition">Features</a>
+        <a href="#demo" class="text-zinc-400 hover:text-white transition">Demo</a>
         <a href="#pricing" class="text-zinc-400 hover:text-white transition">Waitlist</a>
         <a href="#faq" class="text-zinc-400 hover:text-white transition">FAQ</a>
       </div>
       <div class="flex items-center gap-4">
-        <a href="#pricing" class="px-4 py-2 rounded-lg font-medium transition" style="background: #00A1E0; color: #fff">
+        <a href="#" class="hidden sm:block text-zinc-400 hover:text-white transition">Sign In</a>
+        <a href="#pricing" class="px-5 py-2.5 rounded-lg font-medium transition shadow-lg" style="background: #00A1E0; color: #fff; box-shadow: 0 4px 14px #00A1E040">
           Join Waitlist
         </a>
       </div>
@@ -62,226 +138,575 @@
   <!-- Hero -->
   <section class="relative min-h-screen flex items-center hero-glow pt-20">
     <div class="max-w-6xl mx-auto px-6 py-20">
-      <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <div>
-          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-800/50 border border-zinc-700/50 text-sm text-zinc-300 mb-8">
-            <span class="w-2 h-2 rounded-full animate-pulse" style="background: #00A1E0"></span>
-            Open Source + Hosted
-          </div>
-          
-          <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">
-            Connect <span class="gradient-text">Salesforce</span><br>to AI in 2 Clicks
-          </h1>
-          
-          <p class="text-xl text-zinc-400 mb-8">
-            The complete Salesforce MCP server. Leads, opportunities, accounts, and pipeline analytics — all AI-accessible. <strong class="text-white">186 tools</strong> ready to automate.
-          </p>
-          
-          <div class="flex flex-col sm:flex-row gap-4">
-            <a href="#pricing" class="px-6 py-3 rounded-lg font-semibold text-center transition" style="background: #00A1E0; color: #fff">
-              Join the Waitlist
-            </a>
-            <a href="#features" class="px-6 py-3 rounded-lg font-semibold text-center border border-zinc-700 hover:border-zinc-500 transition">
-              See Features
-            </a>
-          </div>
+      <div class="max-w-3xl mx-auto text-center">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-800/50 border border-zinc-700/50 text-sm text-zinc-300 mb-8 backdrop-blur-sm">
+          <span class="w-2 h-2 rounded-full animate-pulse" style="background: #00A1E0"></span>
+          <span>Open Source + Hosted</span>
+          <span class="px-2 py-0.5 rounded-full text-xs font-medium ml-1" style="background: #00A1E033; color: #00A1E0">NEW</span>
         </div>
         
-        <div class="relative">
-          <div class="rounded-2xl overflow-hidden border border-zinc-800 shadow-2xl">
-            <video autoplay loop muted playsinline class="w-full">
-              <source src="../output/salesforce.mp4" type="video/mp4">
-            </video>
+        <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-[1.1]">
+          Connect <span class="gradient-text">Salesforce</span><br>to AI in 2 Clicks
+        </h1>
+        
+        <p class="text-xl text-zinc-400 mb-10 leading-relaxed max-w-xl mx-auto">
+          The complete Salesforce MCP server. Leads, accounts, opportunities, and automation. <strong class="text-white">246 tools</strong> for sales, contacts, pipeline. 
+          No OAuth headaches. Just connect and automate.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 mb-12 justify-center">
+          <a href="#pricing" class="btn-glow px-8 py-4 rounded-xl font-semibold text-lg text-center" style="background: #00A1E0; color: #fff">
+            Join the Waitlist
+          </a>
+          <a href="#demo" class="group px-8 py-4 bg-zinc-800/80 hover:bg-zinc-700 border border-zinc-700 rounded-xl font-semibold text-lg flex items-center justify-center gap-2 transition">
+            <i data-lucide="play-circle" class="w-5 h-5 group-hover:scale-110 transition"></i>
+            Watch Demo
+          </a>
+        </div>
+
+        <!-- Social Proof -->
+        <div class="flex items-center gap-4 justify-center">
+          <div class="flex -space-x-3">
+            <img src="https://i.pravatar.cc/100?img=16" class="w-10 h-10 rounded-full border-2 border-zinc-950 shadow-lg" alt="">
+            <img src="https://i.pravatar.cc/100?img=17" class="w-10 h-10 rounded-full border-2 border-zinc-950 shadow-lg" alt="">
+            <img src="https://i.pravatar.cc/100?img=18" class="w-10 h-10 rounded-full border-2 border-zinc-950 shadow-lg" alt="">
+            <img src="https://i.pravatar.cc/100?img=19" class="w-10 h-10 rounded-full border-2 border-zinc-950 shadow-lg" alt="">
+            <div class="w-10 h-10 rounded-full border-2 border-zinc-950 flex items-center justify-center text-xs font-bold shadow-lg" style="background: #00A1E0; color: #fff">
+              +125
+            </div>
           </div>
-          <div class="absolute -bottom-4 -right-4 px-4 py-2 rounded-lg text-sm font-medium" style="background: #00A1E0; color: #fff">
-            186 API Tools
+          <div class="text-left">
+            <div class="flex items-center gap-1 text-amber-400 text-sm">
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            </div>
+            <p class="text-zinc-400 text-sm">Trusted by <strong class="text-white">500+</strong> crm companies</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Pain Points -->
-  <section class="py-20 border-t border-zinc-800/50">
+  <!-- Video Demo -->
+  <section id="demo" class="py-20 border-t border-zinc-800/50">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">See It In Action</h2>
+        <p class="text-xl text-zinc-400">Watch how AI transforms your crm operations</p>
+      </div>
+      <div class="gradient-border rounded-2xl p-2">
+        <div class="rounded-xl overflow-hidden video-glow">
+          <video autoplay loop muted playsinline class="w-full">
+            <source src="./salesforce.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="flex justify-center mt-8">
+        <div class="inline-flex items-center gap-6 px-6 py-3 rounded-full bg-zinc-900/80 border border-zinc-800 backdrop-blur-sm">
+          <div class="flex items-center gap-2">
+            <i data-lucide="briefcase" class="w-4 h-4" style="color: #00A1E0"></i>
+            <span class="text-sm text-zinc-300">Sales</span>
+          </div>
+          <div class="w-px h-4 bg-zinc-700"></div>
+          <div class="flex items-center gap-2">
+            <i data-lucide="truck" class="w-4 h-4" style="color: #00A1E0"></i>
+            <span class="text-sm text-zinc-300">Contacts</span>
+          </div>
+          <div class="w-px h-4 bg-zinc-700"></div>
+          <div class="flex items-center gap-2">
+            <i data-lucide="file-text" class="w-4 h-4" style="color: #00A1E0"></i>
+            <span class="text-sm text-zinc-300">Pipeline</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Banner -->
+  <section class="py-12 border-t border-zinc-800/50">
     <div class="max-w-6xl mx-auto px-6">
-      <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">
-        Setting up Salesforce + AI<br><span class="text-zinc-500">shouldn't take a week</span>
-      </h2>
-      <div class="grid md:grid-cols-3 gap-8 mt-12">
-        
-        <div class="p-6 rounded-xl bg-zinc-900/50 border border-zinc-800">
-          <div class="flex items-start gap-3 mb-4">
-            <div class="w-6 h-6 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0 mt-1">
-              <i data-lucide="x" class="w-4 h-4 text-red-400"></i>
-            </div>
-            <p class="text-zinc-400">Drowning in data entry</p>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div class="stat-card rounded-2xl p-6 text-center border border-zinc-800/50">
+          <div class="text-3xl md:text-4xl font-bold mb-1" style="color: #00A1E0">246</div>
+          <div class="text-zinc-400 text-sm">API Tools</div>
+        </div>
+        <div class="stat-card rounded-2xl p-6 text-center border border-zinc-800/50">
+          <div class="text-3xl md:text-4xl font-bold mb-1" style="color: #00A1E0">2 min</div>
+          <div class="text-zinc-400 text-sm">Setup Time</div>
+        </div>
+        <div class="stat-card rounded-2xl p-6 text-center border border-zinc-800/50">
+          <div class="text-3xl md:text-4xl font-bold mb-1" style="color: #00A1E0">500+</div>
+          <div class="text-zinc-400 text-sm">Companies</div>
+        </div>
+        <div class="stat-card rounded-2xl p-6 text-center border border-zinc-800/50">
+          <div class="text-3xl md:text-4xl font-bold mb-1" style="color: #00A1E0">99.9%</div>
+          <div class="text-zinc-400 text-sm">Uptime</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pain Points / Solution -->
+  <section class="py-24 border-t border-zinc-800/50 relative">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-5xl font-bold mb-4">
+          Setting up Salesforce + AI<br>
+          <span class="text-zinc-500">shouldn't take a week</span>
+        </h2>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="group p-8 rounded-2xl bg-zinc-900/50 border border-zinc-800 hover:border-red-500/30 transition-all duration-300">
+          <div class="w-14 h-14 rounded-2xl bg-red-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition">
+            <i data-lucide="alert-circle" class="w-7 h-7 text-red-400"></i>
           </div>
-          <div class="flex items-start gap-3">
-            <div class="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-1" style="background: #00A1E030">
-              <i data-lucide="check" class="w-4 h-4" style="color: #00A1E0"></i>
+          <h3 class="font-semibold text-lg mb-2 text-red-400">Data entry hell for reps</h3>
+          <p class="text-zinc-500 mb-6">Manual processes slow you down and cost you time and money.</p>
+          <div class="pt-6 border-t border-zinc-800">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: #00A1E033">
+                <i data-lucide="check" class="w-5 h-5" style="color: #00A1E0"></i>
+              </div>
+              <p class="text-white font-medium">AI captures everything</p>
             </div>
-            <p class="text-white font-medium">AI logs everything for you</p>
           </div>
         </div>
-        
-        <div class="p-6 rounded-xl bg-zinc-900/50 border border-zinc-800">
-          <div class="flex items-start gap-3 mb-4">
-            <div class="w-6 h-6 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0 mt-1">
-              <i data-lucide="x" class="w-4 h-4 text-red-400"></i>
-            </div>
-            <p class="text-zinc-400">Deals falling through cracks</p>
+
+        <div class="group p-8 rounded-2xl bg-zinc-900/50 border border-zinc-800 hover:border-red-500/30 transition-all duration-300">
+          <div class="w-14 h-14 rounded-2xl bg-red-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition">
+            <i data-lucide="clock" class="w-7 h-7 text-red-400"></i>
           </div>
-          <div class="flex items-start gap-3">
-            <div class="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-1" style="background: #00A1E030">
-              <i data-lucide="check" class="w-4 h-4" style="color: #00A1E0"></i>
+          <h3 class="font-semibold text-lg mb-2 text-red-400">Stale pipeline data</h3>
+          <p class="text-zinc-500 mb-6">Manual processes slow you down and cost you time and money.</p>
+          <div class="pt-6 border-t border-zinc-800">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: #00A1E033">
+                <i data-lucide="check" class="w-5 h-5" style="color: #00A1E0"></i>
+              </div>
+              <p class="text-white font-medium">Real-time AI updates</p>
             </div>
-            <p class="text-white font-medium">Proactive AI deal alerts</p>
-          </div>
-        </div>
-        
-        <div class="p-6 rounded-xl bg-zinc-900/50 border border-zinc-800">
-          <div class="flex items-start gap-3 mb-4">
-            <div class="w-6 h-6 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0 mt-1">
-              <i data-lucide="x" class="w-4 h-4 text-red-400"></i>
-            </div>
-            <p class="text-zinc-400">Scattered customer context</p>
-          </div>
-          <div class="flex items-start gap-3">
-            <div class="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-1" style="background: #00A1E030">
-              <i data-lucide="check" class="w-4 h-4" style="color: #00A1E0"></i>
-            </div>
-            <p class="text-white font-medium">Full 360° view instantly</p>
           </div>
         </div>
-        
+
+        <div class="group p-8 rounded-2xl bg-zinc-900/50 border border-zinc-800 hover:border-red-500/30 transition-all duration-300">
+          <div class="w-14 h-14 rounded-2xl bg-red-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition">
+            <i data-lucide="x-circle" class="w-7 h-7 text-red-400"></i>
+          </div>
+          <h3 class="font-semibold text-lg mb-2 text-red-400">Manual reporting</h3>
+          <p class="text-zinc-500 mb-6">Manual processes slow you down and cost you time and money.</p>
+          <div class="pt-6 border-t border-zinc-800">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: #00A1E033">
+                <i data-lucide="check" class="w-5 h-5" style="color: #00A1E0"></i>
+              </div>
+              <p class="text-white font-medium">AI generates insights</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Features -->
-  <section id="features" class="py-20 border-t border-zinc-800/50">
+  <section id="features" class="py-24 border-t border-zinc-800/50">
     <div class="max-w-6xl mx-auto px-6">
-      <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Everything you need</h2>
-      <p class="text-zinc-400 text-center mb-12">Full Salesforce API access through one simple connection</p>
+      <div class="text-center mb-16">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-6" style="background: #00A1E01A; color: #00A1E0">
+          <i data-lucide="sparkles" class="w-4 h-4"></i>
+          Full API Coverage
+        </div>
+        <h2 class="text-3xl md:text-5xl font-bold mb-4">Everything you need</h2>
+        <p class="text-xl text-zinc-400 max-w-2xl mx-auto">Full Salesforce API access through one simple connection. 246 tools at your AI's fingertips.</p>
+      </div>
+      
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        
-        <div class="p-6 rounded-xl bg-zinc-900/50 border border-zinc-800 card-glow transition">
-          <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-4" style="background: #00A1E020">
-            <i data-lucide="layers" class="w-5 h-5" style="color: #00A1E0"></i>
+        <div class="group p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 card-glow">
+          <div class="feature-icon w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-500/20 to-amber-500/20 flex items-center justify-center mb-5">
+            <i data-lucide="briefcase" class="w-7 h-7 text-brand-400"></i>
           </div>
-          <h3 class="font-semibold text-lg mb-2">Lead & Opportunity Management</h3>
-          <p class="text-zinc-400 text-sm">Create, update, qualify leads. Move deals through pipeline stages automatically.</p>
+          <h3 class="font-semibold text-lg mb-2">Lead & Account Management</h3>
+          <p class="text-zinc-400 text-sm leading-relaxed">Create, qualify, convert leads. Manage account hierarchies.</p>
         </div>
-        
-        <div class="p-6 rounded-xl bg-zinc-900/50 border border-zinc-800 card-glow transition">
-          <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-4" style="background: #00A1E020">
-            <i data-lucide="layers" class="w-5 h-5" style="color: #00A1E0"></i>
+
+        <div class="group p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 card-glow">
+          <div class="feature-icon w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 flex items-center justify-center mb-5">
+            <i data-lucide="zap" class="w-7 h-7 text-blue-400"></i>
           </div>
-          <h3 class="font-semibold text-lg mb-2">Account & Contact Data</h3>
-          <p class="text-zinc-400 text-sm">Access customer profiles, relationships, history, and custom fields.</p>
+          <h3 class="font-semibold text-lg mb-2">Opportunity Pipeline</h3>
+          <p class="text-zinc-400 text-sm leading-relaxed">Track deals, forecast revenue, manage stages and probabilities.</p>
         </div>
-        
-        <div class="p-6 rounded-xl bg-zinc-900/50 border border-zinc-800 card-glow transition">
-          <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-4" style="background: #00A1E020">
-            <i data-lucide="layers" class="w-5 h-5" style="color: #00A1E0"></i>
+
+        <div class="group p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 card-glow">
+          <div class="feature-icon w-14 h-14 rounded-2xl bg-gradient-to-br from-green-500/20 to-emerald-500/20 flex items-center justify-center mb-5">
+            <i data-lucide="file-text" class="w-7 h-7 text-green-400"></i>
           </div>
-          <h3 class="font-semibold text-lg mb-2">Pipeline Analytics</h3>
-          <p class="text-zinc-400 text-sm">Track forecast, win rates, deal velocity, and revenue trends.</p>
+          <h3 class="font-semibold text-lg mb-2">Activity Logging</h3>
+          <p class="text-zinc-400 text-sm leading-relaxed">Log calls, emails, meetings. Capture all customer interactions.</p>
         </div>
-        
-        <div class="p-6 rounded-xl bg-zinc-900/50 border border-zinc-800 card-glow transition">
-          <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-4" style="background: #00A1E020">
-            <i data-lucide="layers" class="w-5 h-5" style="color: #00A1E0"></i>
+
+        <div class="group p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 card-glow">
+          <div class="feature-icon w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center mb-5">
+            <i data-lucide="users" class="w-7 h-7 text-purple-400"></i>
           </div>
-          <h3 class="font-semibold text-lg mb-2">Task Automation</h3>
-          <p class="text-zinc-400 text-sm">Create follow-ups, log activities, sync calendar events automatically.</p>
+          <h3 class="font-semibold text-lg mb-2">Custom Objects</h3>
+          <p class="text-zinc-400 text-sm leading-relaxed">Access any custom Salesforce data, fields, and relationships.</p>
         </div>
-        
+      </div>
+
+      <div class="mt-12 text-center">
+        <p class="text-zinc-400 mb-6">+ 222 more endpoints including:</p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <span class="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-full text-sm hover:border-brand-500/50 transition cursor-default">Leads</span>
+          <span class="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-full text-sm hover:border-brand-500/50 transition cursor-default">Contacts</span>
+          <span class="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-full text-sm hover:border-brand-500/50 transition cursor-default">Accounts</span>
+          <span class="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-full text-sm hover:border-brand-500/50 transition cursor-default">Campaigns</span>
+          <span class="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-full text-sm hover:border-brand-500/50 transition cursor-default">Reports</span>
+          <span class="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-full text-sm hover:border-brand-500/50 transition cursor-default">Tasks</span>
+          <span class="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-full text-sm hover:border-brand-500/50 transition cursor-default">Notes</span>
+          <span class="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-full text-sm hover:border-brand-500/50 transition cursor-default">Emails</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Use Cases -->
+  <section class="py-24 border-t border-zinc-800/50">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Built for CRM</h2>
+        <p class="text-zinc-400 text-lg">Whatever your use case — we've got you covered</p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="p-6 rounded-2xl bg-gradient-to-br from-blue-500/10 to-cyan-500/5 border border-blue-500/20">
+          <div class="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center mb-4">
+            <i data-lucide="building-2" class="w-6 h-6 text-blue-400"></i>
+          </div>
+          <h3 class="font-semibold text-lg mb-2">Enterprise Sales</h3>
+          <p class="text-zinc-400 text-sm">Complex deal management, account hierarchies, multi-touch attribution — all automated.</p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-gradient-to-br from-cyan-500/10 to-teal-500/5 border border-cyan-500/20">
+          <div class="w-12 h-12 rounded-xl bg-cyan-500/20 flex items-center justify-center mb-4">
+            <i data-lucide="users" class="w-6 h-6 text-cyan-400"></i>
+          </div>
+          <h3 class="font-semibold text-lg mb-2">SMB Sales Teams</h3>
+          <p class="text-zinc-400 text-sm">Lead qualification, pipeline management, activity tracking without the data entry.</p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-gradient-to-br from-amber-500/10 to-yellow-500/5 border border-amber-500/20">
+          <div class="w-12 h-12 rounded-xl bg-amber-500/20 flex items-center justify-center mb-4">
+            <i data-lucide="bar-chart-3" class="w-6 h-6 text-amber-400"></i>
+          </div>
+          <h3 class="font-semibold text-lg mb-2">Revenue Operations</h3>
+          <p class="text-zinc-400 text-sm">Forecasting, territory management, quota tracking with AI precision.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Waitlist -->
-  <section id="pricing" class="py-20 border-t border-zinc-800/50">
-    <div class="max-w-xl mx-auto px-6 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold mb-4">Join the Waitlist</h2>
-      <p class="text-zinc-400 mb-8">Be the first to know when we launch. Early access + exclusive perks.</p>
-      <form class="flex flex-col sm:flex-row gap-3" onsubmit="event.preventDefault(); this.innerHTML = '<p class=\'text-green-400 py-4\'>You\'re on the list! We\'ll reach out soon.</p>'">
-        <input type="email" placeholder="you@company.com" required class="flex-1 px-4 py-3 rounded-lg bg-zinc-900 border border-zinc-700 focus:border-zinc-500 focus:outline-none">
-        <button type="submit" class="px-6 py-3 rounded-lg font-semibold transition" style="background: #00A1E0; color: #fff">
-          Get Early Access
-        </button>
-      </form>
-      <p class="text-zinc-500 text-sm mt-4">We respect your privacy. No spam, ever.</p>
+  <section id="pricing" class="py-24 border-t border-zinc-800/50">
+    <div class="max-w-2xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-6" style="background: #00A1E033; color: #00A1E0">
+          <i data-lucide="sparkles" class="w-4 h-4"></i>
+          Coming Soon
+        </div>
+        <h2 class="text-3xl md:text-5xl font-bold mb-4">Join the Waitlist</h2>
+        <p class="text-xl text-zinc-400">Be the first to know when we launch. Early access + exclusive perks for waitlist members.</p>
+      </div>
+      
+      <div class="gradient-border rounded-2xl p-8 bg-zinc-900/80 backdrop-blur-sm">
+        <form id="waitlist-form" class="space-y-6">
+          <div>
+            <label for="name" class="block text-sm font-medium text-zinc-300 mb-2">Name <span style="color: #00A1E0">*</span></label>
+            <input 
+              type="text" 
+              id="wl-name" 
+              name="name" 
+              required
+              placeholder="Your full name"
+              class="w-full px-4 py-3.5 bg-zinc-800/80 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:ring-2 transition"
+              style="--tw-ring-color: #00A1E033"
+            >
+          </div>
+          
+          <div>
+            <label for="phone" class="block text-sm font-medium text-zinc-300 mb-2">Phone <span style="color: #00A1E0">*</span></label>
+            <input 
+              type="tel" 
+              id="phone" 
+              name="phone" 
+              required
+              placeholder="(555) 123-4567"
+              class="w-full px-4 py-3.5 bg-zinc-800/80 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:ring-2 transition"
+              style="--tw-ring-color: #00A1E033"
+            >
+          </div>
+
+          <div>
+            <label for="email" class="block text-sm font-medium text-zinc-300 mb-2">Email</label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              placeholder="you@company.com"
+              class="w-full px-4 py-3.5 bg-zinc-800/80 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:ring-2 transition"
+              style="--tw-ring-color: #00A1E033"
+            >
+          </div>
+          
+          <button 
+            type="submit" 
+            id="submit-btn"
+            class="w-full py-4 rounded-xl font-semibold text-lg transition transform hover:scale-[1.02] flex items-center justify-center gap-2 shadow-lg"
+            style="background: #00A1E0; color: #fff; box-shadow: 0 4px 14px #00A1E040"
+          >
+            <span>Join the Waitlist</span>
+            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+          </button>
+        </form>
+        
+        <!-- Success Message -->
+        <div id="success-message" class="hidden text-center py-8">
+          <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style="background: #00A1E033">
+            <i data-lucide="check" class="w-8 h-8" style="color: #00A1E0"></i>
+          </div>
+          <h3 class="text-2xl font-bold mb-2">You're on the list!</h3>
+          <p class="text-zinc-400">We'll reach out as soon as we're ready for you.</p>
+        </div>
+        
+        <p class="text-zinc-500 text-sm text-center mt-6 flex items-center justify-center gap-2">
+          <i data-lucide="shield-check" class="w-4 h-4"></i>
+          We respect your privacy. No spam, ever.
+        </p>
+      </div>
     </div>
   </section>
 
+  <script>
+    document.getElementById('waitlist-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const form = this;
+      const successMsg = document.getElementById('success-message');
+      form.classList.add('hidden');
+      successMsg.classList.remove('hidden');
+    });
+  </script>
+
   <!-- Open Source -->
-  <section class="py-20 border-t border-zinc-800/50">
-    <div class="max-w-4xl mx-auto px-6">
-      <div class="flex items-center gap-3 mb-4">
-        <span class="px-3 py-1 rounded-full text-xs font-medium bg-zinc-800 text-zinc-300">Open Source</span>
+  <section class="py-24 border-t border-zinc-800/50">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="gradient-border rounded-3xl p-8 md:p-12 bg-zinc-900/80">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-800 text-sm mb-6">
+              <i data-lucide="github" class="w-4 h-4"></i>
+              Open Source
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">
+              Self-host if you want.<br>
+              <span class="text-zinc-500">We won't stop you.</span>
+            </h2>
+            <p class="text-zinc-400 mb-6 leading-relaxed">
+              The entire MCP server is open source. Run it yourself, modify it, contribute back. 
+              The hosted version just saves you the hassle of OAuth and token management.
+            </p>
+            <a href="https://github.com/BusyBee3333/salesforce-mcp-2026-complete" target="_blank" rel="noopener" class="inline-flex items-center gap-2 font-medium group" style="color: #00A1E0">
+              View on GitHub
+              <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition"></i>
+            </a>
+          </div>
+          <div class="bg-zinc-950 rounded-xl p-6 font-mono text-sm border border-zinc-800">
+            <div class="flex items-center gap-2 text-zinc-500 mb-4">
+              <span class="w-3 h-3 rounded-full bg-red-500"></span>
+              <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+              <span class="w-3 h-3 rounded-full bg-green-500"></span>
+              <span class="ml-2">Terminal</span>
+            </div>
+            <pre class="text-zinc-300 overflow-x-auto"><code><span class="text-zinc-500">$</span> git clone https://github.com/BusyBee3333/salesforce-mcp-2026-complete.git
+<span class="text-zinc-500">$</span> cd mcp && npm install
+<span class="text-zinc-500">$</span> npm run build
+<span class="text-zinc-500">$</span> node dist/server.js
+
+<span style="color: #00A1E0">✓ Salesforce MCP Server running</span>
+<span style="color: #00A1E0">✓ 246 tools loaded</span>
+<span class="text-zinc-500">Listening on stdio...</span></code></pre>
+          </div>
+        </div>
       </div>
-      <h2 class="text-3xl md:text-4xl font-bold mb-4">
-        Self-host if you want.<br><span class="text-zinc-500">We won't stop you.</span>
-      </h2>
-      <p class="text-zinc-400 mb-6">
-        The entire MCP server is open source. Run it yourself, modify it, contribute back.
-        The hosted version just saves you the hassle.
-      </p>
-      <a href="#" class="inline-flex items-center gap-2 text-zinc-300 hover:text-white transition">
-        <i data-lucide="github" class="w-5 h-5"></i>
-        View on GitHub
-      </a>
     </div>
   </section>
 
   <!-- FAQ -->
-  <section id="faq" class="py-20 border-t border-zinc-800/50">
+  <section id="faq" class="py-24 border-t border-zinc-800/50">
     <div class="max-w-3xl mx-auto px-6">
-      <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Frequently asked questions</h2>
-      <div class="space-y-6">
-        <details class="group p-6 rounded-xl bg-zinc-900/50 border border-zinc-800">
-          <summary class="font-semibold cursor-pointer list-none flex justify-between items-center">
-            What is MCP?
-            <i data-lucide="chevron-down" class="w-5 h-5 transition group-open:rotate-180"></i>
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Frequently asked questions</h2>
+        <p class="text-zinc-400">Everything you need to know about Salesforce Connect</p>
+      </div>
+      
+      <div class="space-y-4">
+        <details class="group bg-zinc-900/50 rounded-2xl border border-zinc-800 p-6 hover:border-zinc-700 transition">
+          <summary class="flex items-center justify-between cursor-pointer list-none">
+            <span class="font-semibold text-lg">What is MCP?</span>
+            <div class="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center transition" style="--open-bg: #00A1E033">
+              <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 group-open:rotate-180 transition"></i>
+            </div>
           </summary>
-          <p class="mt-4 text-zinc-400">MCP (Model Context Protocol) is a standard for connecting AI assistants to external tools and data. It's supported by Claude, and lets AI actually take actions in your systems — not just chat about them.</p>
+          <p class="mt-4 text-zinc-400 leading-relaxed">
+            MCP (Model Context Protocol) is a standard for connecting AI assistants to external tools and data. 
+            It's supported by Claude, and lets AI actually take actions in your systems — not just chat about them.
+          </p>
         </details>
-        <details class="group p-6 rounded-xl bg-zinc-900/50 border border-zinc-800">
-          <summary class="font-semibold cursor-pointer list-none flex justify-between items-center">
-            Do I need to install anything?
-            <i data-lucide="chevron-down" class="w-5 h-5 transition group-open:rotate-180"></i>
+        
+        <details class="group bg-zinc-900/50 rounded-2xl border border-zinc-800 p-6 hover:border-zinc-700 transition">
+          <summary class="flex items-center justify-between cursor-pointer list-none">
+            <span class="font-semibold text-lg">Do I need to install anything?</span>
+            <div class="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center transition">
+              <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 group-open:rotate-180 transition"></i>
+            </div>
           </summary>
-          <p class="mt-4 text-zinc-400">For the hosted version, no. Just connect your Salesforce account via OAuth and add the MCP endpoint to your AI client (Claude Desktop, etc.). If you self-host, you'll need Node.js.</p>
+          <p class="mt-4 text-zinc-400 leading-relaxed">
+            For the hosted version, no. Just connect your Salesforce account via OAuth and add the MCP endpoint to your AI client (Claude Desktop, etc.). 
+            If you self-host, you'll need Node.js.
+          </p>
         </details>
-        <details class="group p-6 rounded-xl bg-zinc-900/50 border border-zinc-800">
-          <summary class="font-semibold cursor-pointer list-none flex justify-between items-center">
-            Is my data secure?
-            <i data-lucide="chevron-down" class="w-5 h-5 transition group-open:rotate-180"></i>
+        
+        <details class="group bg-zinc-900/50 rounded-2xl border border-zinc-800 p-6 hover:border-zinc-700 transition">
+          <summary class="flex items-center justify-between cursor-pointer list-none">
+            <span class="font-semibold text-lg">Is my data secure?</span>
+            <div class="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center transition">
+              <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 group-open:rotate-180 transition"></i>
+            </div>
           </summary>
-          <p class="mt-4 text-zinc-400">Yes. We use OAuth 2.0 and never store your Salesforce API keys. Tokens are encrypted at rest and in transit. You can revoke access anytime from your Salesforce settings.</p>
+          <p class="mt-4 text-zinc-400 leading-relaxed">
+            Yes. We use OAuth 2.0 and never store your Salesforce API keys. Tokens are encrypted at rest and in transit. 
+            You can revoke access anytime from your Salesforce settings.
+          </p>
+        </details>
+
+        <details class="group bg-zinc-900/50 rounded-2xl border border-zinc-800 p-6 hover:border-zinc-700 transition">
+          <summary class="flex items-center justify-between cursor-pointer list-none">
+            <span class="font-semibold text-lg">How many API endpoints are supported?</span>
+            <div class="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center transition">
+              <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 group-open:rotate-180 transition"></i>
+            </div>
+          </summary>
+          <p class="mt-4 text-zinc-400 leading-relaxed">
+            Salesforce Connect includes 246 tools covering the full Salesforce API surface. This includes sales, contacts, pipeline, and more. 
+            We continuously add new endpoints as Salesforce releases them.
+          </p>
+        </details>
+        
+        <details class="group bg-zinc-900/50 rounded-2xl border border-zinc-800 p-6 hover:border-zinc-700 transition">
+          <summary class="flex items-center justify-between cursor-pointer list-none">
+            <span class="font-semibold text-lg">Can I use this with GPT or other AI models?</span>
+            <div class="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center transition">
+              <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 group-open:rotate-180 transition"></i>
+            </div>
+          </summary>
+          <p class="mt-4 text-zinc-400 leading-relaxed">
+            MCP is currently best supported by Claude (Anthropic). GPT can use it via custom implementations. 
+            As MCP adoption grows, more clients will support it natively.
+          </p>
         </details>
       </div>
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="py-20 border-t border-zinc-800/50">
-    <div class="max-w-4xl mx-auto px-6 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold mb-4">Ready to AI-power your Salesforce?</h2>
-      <p class="text-zinc-400 mb-8">Join hundreds of businesses already automating with Salesforce Connect.</p>
-      <a href="#pricing" class="inline-block px-8 py-4 rounded-lg font-semibold text-lg transition" style="background: #00A1E0; color: #fff">
-        Join the Waitlist →
-      </a>
+  <!-- Final CTA -->
+  <section class="py-24 border-t border-zinc-800/50 relative">
+    <div class="absolute inset-0 hero-glow"></div>
+    <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+      <h2 class="text-3xl md:text-5xl font-bold mb-6">
+        Ready to AI-power your Salesforce?
+      </h2>
+      <p class="text-xl text-zinc-400 mb-10 max-w-2xl mx-auto">
+        Join 500+ crm companies already automating with Salesforce Connect. Be first in line when we launch.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#pricing" class="btn-glow px-8 py-4 rounded-xl font-semibold text-lg" style="background: #00A1E0; color: #fff">
+          Join the Waitlist
+        </a>
+        <a href="#" class="px-8 py-4 bg-zinc-800 hover:bg-zinc-700 rounded-xl font-semibold text-lg transition flex items-center gap-2">
+          <i data-lucide="calendar" class="w-5 h-5"></i>
+          Book a Demo
+        </a>
+      </div>
     </div>
   </section>
 
-  <footer class="py-8 border-t border-zinc-800/50">
-    <div class="max-w-6xl mx-auto px-6 text-center text-zinc-500 text-sm">
-      © 2026 Salesforce Connect. Not affiliated with Salesforce.
+  <!-- Footer -->
+  <footer class="border-t border-zinc-800/50 py-12">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #00A1E0, #ddff14)">
+            <i data-lucide="cloud" class="w-5 h-5" style="color: #fff"></i>
+          </div>
+          <span class="font-bold text-xl">Salesforce Connect</span>
+        </div>
+        <div class="flex items-center gap-8 text-zinc-400">
+          <a href="https://github.com/BusyBee3333/salesforce-mcp-2026-complete" target="_blank" rel="noopener" class="hover:text-white transition">Privacy</a>
+          <a href="https://github.com/BusyBee3333/salesforce-mcp-2026-complete" target="_blank" rel="noopener" class="hover:text-white transition">Terms</a>
+          <a href="https://github.com/BusyBee3333/salesforce-mcp-2026-complete" target="_blank" rel="noopener" class="hover:text-white transition flex items-center gap-2">
+            <i data-lucide="github" class="w-4 h-4"></i>
+            GitHub
+          </a>
+          <a href="https://github.com/BusyBee3333/salesforce-mcp-2026-complete" target="_blank" rel="noopener" class="hover:text-white transition flex items-center gap-2">
+            <i data-lucide="twitter" class="w-4 h-4"></i>
+            Twitter
+          </a>
+        </div>
+      </div>
+      <div class="mt-8 pt-8 border-t border-zinc-800/50 text-center">
+        <p class="text-zinc-500 text-sm">© 2026 Salesforce Connect. Not affiliated with Salesforce.</p>
+      </div>
     </div>
   </footer>
+
+  <!-- Sticky Floating CTA -->
+  <div id="sticky-cta" class="fixed bottom-6 right-6 z-50 opacity-0 translate-y-4 transition-all duration-300 pointer-events-none">
+    <a 
+      href="#pricing" 
+      class="sticky-btn flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all shadow-xl"
+      style="background: #00A1E0; color: #fff"
+    >
+      <i data-lucide="sparkles" class="w-5 h-5"></i>
+      <span>Join Waitlist</span>
+    </a>
+  </div>
+
+  <script>
+    const stickyCta = document.getElementById('sticky-cta');
+    const pricingSection = document.getElementById('pricing');
+    
+    function updateStickyCta() {
+      const scrollY = window.scrollY;
+      const pricingTop = pricingSection.offsetTop;
+      const pricingBottom = pricingTop + pricingSection.offsetHeight;
+      const viewportBottom = scrollY + window.innerHeight;
+      
+      const shouldShow = scrollY > 400 && (viewportBottom < pricingTop || scrollY > pricingBottom);
+      
+      if (shouldShow) {
+        stickyCta.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+        stickyCta.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+      } else {
+        stickyCta.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+        stickyCta.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+      }
+    }
+    
+    window.addEventListener('scroll', updateStickyCta);
+    updateStickyCta();
+  </script>
 
   <script>lucide.createIcons();</script>
 </body>
