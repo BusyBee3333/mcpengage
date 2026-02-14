@@ -3,30 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BambooHR Connect — AI-Power Your HR in 2 Clicks</title>
+  <title>MCPEngage for BambooHR — AI-Power Your BambooHR in 2 Clicks</title>
+  <meta name="description" content="Connect BambooHR to any AI model with MCPEngage. Manage employees, time off, and HR operations through natural conversation.">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: {
-            sans: ['Inter', 'system-ui', 'sans-serif'],
-          },
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
           colors: {
-            brand: {
-              50: '#f7fee7',
-              100: '#ecfccb',
-              200: '#d9f99d',
-              300: '#bef264',
-              400: '#a3e635',
-              500: '#73C41D',
-              600: '#65a30d',
-              700: '#4d7c0f',
-            }
+            brand: { 400: '#4dd8c9', 500: '#17c3b2', 600: '#0fa898' },
           }
         }
       }
@@ -34,633 +26,853 @@
   </script>
   <style>
     .gradient-text {
-      background: linear-gradient(135deg, #73C41D 0%, #84cc16 50%, #65a30d 100%);
+      background: linear-gradient(135deg, #17c3b2 0%, #0fa898 25%, #06b6d4 50%, #8b5cf6 75%, #17c3b2 100%);
+      background-size: 200% 200%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      animation: gradient-shift 6s ease infinite;
     }
-    .hero-glow {
-      background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(115, 196, 29, 0.2), transparent);
+    @keyframes gradient-shift { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+    .mesh-gradient {
+      background:
+        radial-gradient(at 40% 20%, rgba(23,195,178,0.15) 0px, transparent 50%),
+        radial-gradient(at 80% 0%, rgba(6,182,212,0.12) 0px, transparent 50%),
+        radial-gradient(at 0% 50%, rgba(139,92,246,0.1) 0px, transparent 50%),
+        radial-gradient(at 80% 50%, rgba(23,195,178,0.08) 0px, transparent 50%),
+        radial-gradient(at 0% 100%, rgba(23,195,178,0.12) 0px, transparent 50%);
     }
-    .card-glow:hover {
-      box-shadow: 0 0 60px rgba(115, 196, 29, 0.15), 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-      transform: translateY(-4px);
+    .glass { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); }
+    @supports (backdrop-filter: blur(20px)) { .glass { background: rgba(255,255,255,0.03); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); } }
+    .glass-strong { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); }
+    @supports (backdrop-filter: blur(40px)) { .glass-strong { background: rgba(255,255,255,0.05); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); border: 1px solid rgba(255,255,255,0.1); } }
+    .glow { box-shadow: 0 0 60px rgba(23,195,178,0.2), 0 0 100px rgba(23,195,178,0.1); }
+    .glow-hover:hover { box-shadow: 0 0 80px rgba(23,195,178,0.3), 0 0 120px rgba(23,195,178,0.15); }
+    .float { animation: float 6s ease-in-out infinite; }
+    .float-delayed { animation: float 6s ease-in-out infinite; animation-delay: -3s; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-20px)} }
+    .gradient-border { position: relative; }
+    .gradient-border::before {
+      content:''; position:absolute; inset:0; padding:2px;
+      background: linear-gradient(135deg, #17c3b2, #0fa898, #06b6d4, #8b5cf6, #17c3b2);
+      background-size: 300% 300%; animation: gradient-shift 4s linear infinite;
+      border-radius: inherit;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
     }
-    .video-glow {
-      box-shadow: 0 0 80px rgba(115, 196, 29, 0.3), 0 25px 80px -12px rgba(0, 0, 0, 0.8);
-    }
-    .animate-float {
-      animation: float 6s ease-in-out infinite;
-    }
-    .animate-float-delayed {
-      animation: float 6s ease-in-out infinite 2s;
-    }
-    .animate-float-slow {
-      animation: float 8s ease-in-out infinite 1s;
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-20px); }
-    }
-    @keyframes pulse-glow {
-      0%, 100% { box-shadow: 0 0 20px rgba(115, 196, 29, 0.4); }
-      50% { box-shadow: 0 0 40px rgba(115, 196, 29, 0.6); }
-    }
-    @keyframes wiggle {
-      0%, 100% { transform: rotate(-2deg); }
-      50% { transform: rotate(2deg); }
-    }
-    @keyframes glow-pulse {
-      0%, 100% { box-shadow: 0 0 20px 0 rgba(115, 196, 29, 0.4), 0 0 40px 0 rgba(115, 196, 29, 0.2); }
-      50% { box-shadow: 0 0 30px 5px rgba(115, 196, 29, 0.6), 0 0 60px 10px rgba(115, 196, 29, 0.3); }
-    }
-    .sticky-btn {
-      animation: wiggle 2.5s ease-in-out infinite, glow-pulse 2s ease-in-out infinite;
-    }
-    .sticky-btn:hover {
-      animation: none;
-    }
-    .feature-icon {
-      transition: all 0.3s ease;
-    }
-    .feature-card:hover .feature-icon {
-      transform: scale(1.1) rotate(5deg);
-    }
-    .gradient-border {
-      background: linear-gradient(135deg, rgba(115, 196, 29, 0.5), rgba(101, 163, 13, 0.2));
-      padding: 1px;
-      border-radius: 1rem;
-    }
-    .gradient-border-inner {
-      background: rgb(24 24 27);
-      border-radius: calc(1rem - 1px);
-    }
-    .text-shadow {
-      text-shadow: 0 0 40px rgba(115, 196, 29, 0.5);
-    }
-    .bg-grid {
-      background-image: 
-        linear-gradient(rgba(115, 196, 29, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(115, 196, 29, 0.03) 1px, transparent 1px);
-      background-size: 50px 50px;
-    }
-    .stat-card {
-      background: linear-gradient(135deg, rgba(115, 196, 29, 0.1) 0%, rgba(115, 196, 29, 0.02) 100%);
-    }
+    .feature-card { transition: all 0.4s cubic-bezier(0.25,0.46,0.45,0.94); }
+    .feature-card:hover { transform: translateY(-8px); box-shadow: 0 25px 50px -12px rgba(23,195,178,0.15); border-color: rgba(23,195,178,0.3); }
+    .feature-card:hover .feature-icon { transform: scale(1.1) rotate(5deg); }
+    .feature-icon { transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94); }
+    .shimmer { background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.05) 50%, transparent 100%); background-size: 200% 100%; animation: shimmer 2s infinite; }
+    @keyframes shimmer { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
+    .btn-shine { position:relative; overflow:hidden; }
+    .btn-shine::after { content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%; background: linear-gradient(to right, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%); transform: rotate(45deg) translateX(-100%); transition: transform 0.6s; }
+    .btn-shine:hover::after { transform: rotate(45deg) translateX(100%); }
+    .scroll-indicator { animation: scroll-bounce 2s ease-in-out infinite; }
+    @keyframes scroll-bounce { 0%,100%{transform:translateY(0);opacity:1} 50%{transform:translateY(10px);opacity:0.5} }
+    .noise::before { content:''; position:fixed; inset:0; pointer-events:none; z-index:9998; opacity:0.02; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); }
+    .reveal-up, .reveal-scale, .stagger-item { opacity:1; transform:none; }
+    .js-loaded .reveal-up { opacity:0; transform:translateY(60px); }
+    .js-loaded .reveal-scale { opacity:0; transform:scale(0.95); }
+    .js-loaded .stagger-item { opacity:0; transform:translateY(40px); }
+    .counter { font-variant-numeric: tabular-nums; }
+    .stat-card { transition: transform 0.3s ease; }
+    .stat-card:hover { transform: translateY(-5px); }
+    @media (min-width:1024px) { .magnetic-btn { transition: transform 0.3s cubic-bezier(0.25,0.46,0.45,0.94); } }
+    .terminal-cursor { display:inline-block; width:8px; height:18px; background:#17c3b2; animation:blink 1s step-end infinite; vertical-align:middle; margin-left:2px; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+    .faq-answer { max-height:0; overflow:hidden; transition: max-height 0.4s cubic-bezier(0.25,0.46,0.45,0.94), padding 0.4s ease; padding-top:0; padding-bottom:0; }
+    .faq-item.open .faq-answer { max-height:300px; padding-top:1rem; padding-bottom:0.25rem; }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+    .faq-chevron { transition: transform 0.3s ease; }
   </style>
 </head>
-<body class="bg-zinc-950 text-zinc-100 font-sans antialiased">
-  
-  <!-- Floating Background Elements -->
-  <div class="fixed inset-0 overflow-hidden pointer-events-none">
-    <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-500/5 rounded-full blur-3xl animate-float"></div>
-    <div class="absolute top-3/4 right-1/4 w-64 h-64 bg-lime-500/5 rounded-full blur-3xl animate-float-delayed"></div>
-    <div class="absolute top-1/2 right-1/3 w-48 h-48 bg-green-400/5 rounded-full blur-3xl animate-float-slow"></div>
-  </div>
+<body class="bg-[#030303] text-white font-sans antialiased overflow-x-hidden noise">
 
-  <!-- Nav -->
-  <nav class="fixed top-0 w-full z-50 border-b border-zinc-800/50 bg-zinc-950/80 backdrop-blur-xl">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <div class="flex items-center gap-2">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-lime-600 flex items-center justify-center shadow-lg shadow-brand-500/25">
-          <i data-lucide="users" class="w-5 h-5 text-white"></i>
+  <!-- NAVBAR -->
+  <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" id="navbar">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 lg:py-5 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2 sm:gap-3 group">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-brand-500 via-teal-400 to-cyan-400 flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
+          <span class="font-black text-xs sm:text-sm text-black">ME</span>
         </div>
-        <span class="font-bold text-xl">BambooHR Connect</span>
+        <span class="font-black text-xl sm:text-2xl tracking-tight">MCPEngage</span>
+      </a>
+      <div class="hidden md:flex items-center gap-8 lg:gap-10 text-sm font-medium text-zinc-400">
+        <a href="#features" class="hover:text-white transition-colors relative group">Features<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-500 group-hover:w-full transition-all duration-300"></span></a>
+        <a href="#how-it-works" class="hover:text-white transition-colors relative group">How It Works<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-500 group-hover:w-full transition-all duration-300"></span></a>
+        <a href="#faq" class="hover:text-white transition-colors relative group">FAQ<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-500 group-hover:w-full transition-all duration-300"></span></a>
       </div>
-      <div class="hidden md:flex items-center gap-8">
-        <a href="#features" class="text-zinc-400 hover:text-white transition">Features</a>
-        <a href="#demo" class="text-zinc-400 hover:text-white transition">Demo</a>
-        <a href="#pricing" class="text-zinc-400 hover:text-white transition">Waitlist</a>
-        <a href="#faq" class="text-zinc-400 hover:text-white transition">FAQ</a>
-      </div>
-      <div class="flex items-center gap-4">
-        <a href="#" class="text-zinc-400 hover:text-white transition hidden sm:block">Sign In</a>
-        <a href="#pricing" class="px-5 py-2.5 bg-gradient-to-r from-brand-500 to-lime-600 hover:from-brand-600 hover:to-lime-700 rounded-lg font-medium transition shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40">
-          Join Waitlist
-        </a>
-      </div>
+      <a href="#cta" class="magnetic-btn px-4 sm:px-5 py-2 sm:py-2.5 bg-white text-black font-bold rounded-full text-sm transition-all hover:bg-brand-400 hover:scale-105 active:scale-95 btn-shine">Join Waitlist</a>
     </div>
   </nav>
 
-  <!-- Hero -->
-  <section class="relative min-h-screen flex items-center hero-glow pt-20 bg-grid">
-    <div class="max-w-6xl mx-auto px-6 py-20 text-center relative z-10">
-      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-800/50 border border-zinc-700/50 text-sm text-zinc-300 mb-8 backdrop-blur-sm">
-        <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
-        Open Source + Hosted
+  <!-- HERO -->
+  <section class="min-h-screen pt-24 sm:pt-28 lg:pt-32 pb-12 sm:pb-16 lg:pb-20 px-4 sm:px-6 relative overflow-hidden">
+    <div class="absolute inset-0 mesh-gradient opacity-60"></div>
+    <div class="hidden lg:block absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-brand-500/20 blur-[100px] float"></div>
+    <div class="hidden lg:block absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-cyan-500/15 blur-[120px] float-delayed"></div>
+    <div class="hidden lg:block absolute top-1/2 right-1/3 w-48 h-48 rounded-full bg-violet-500/15 blur-[80px] float"></div>
+    <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 60px 60px;"></div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
+      <div class="flex justify-center mb-6 sm:mb-8 reveal-up">
+        <div class="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full glass-strong text-xs sm:text-sm font-medium text-zinc-300 shimmer">
+          <span class="relative flex h-2 w-2 sm:h-2.5 sm:w-2.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 sm:h-2.5 sm:w-2.5 bg-brand-500"></span>
+          </span>
+          Now Available — Connect BambooHR + AI
+        </div>
       </div>
-      
-      <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
-        Connect <span class="gradient-text text-shadow">BambooHR</span><br>
-        to AI in 2 Clicks
-      </h1>
-      
-      <p class="text-xl md:text-2xl text-zinc-400 max-w-3xl mx-auto mb-10">
-        The most comprehensive BambooHR MCP server. <strong class="text-white">56 tools</strong> for employees, time-off, and performance. 
-        No setup. No OAuth headaches. Just connect and automate.
+
+      <div class="text-center mb-6 sm:mb-8">
+        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tight mb-4 sm:mb-6 leading-[1.1]">
+          <span class="block">AI-Power Your</span>
+          <span class="block gradient-text">BambooHR</span>
+          <span class="block">in 2 Clicks</span>
+        </h1>
+      </div>
+
+      <p class="text-base sm:text-lg md:text-xl lg:text-2xl text-zinc-400 max-w-3xl mx-auto mb-8 sm:mb-10 lg:mb-12 text-center leading-relaxed reveal-up px-2">
+        MCPEngage connects BambooHR to any AI model via MCP.<br class="hidden sm:block"><span class="text-white font-semibold">Manage employees, track time off, and handle HR tasks — all through conversation.</span>
       </p>
-      
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-        <a href="#pricing" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-brand-500 to-lime-600 hover:from-brand-600 hover:to-lime-700 rounded-xl font-semibold text-lg transition transform hover:scale-105 shadow-xl shadow-brand-500/25">
-          Join the Waitlist
+
+      <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 lg:gap-5 justify-center mb-10 sm:mb-12 lg:mb-16 reveal-up">
+        <a href="#cta" class="magnetic-btn group px-6 sm:px-8 lg:px-10 py-3.5 sm:py-4 lg:py-5 bg-brand-500 hover:bg-brand-400 text-black font-bold rounded-xl lg:rounded-2xl text-base lg:text-lg transition-all hover:scale-105 active:scale-95 glow btn-shine flex items-center justify-center gap-2 sm:gap-3">
+          <span>Join Waitlist</span>
+          <i data-lucide="arrow-right" class="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform"></i>
         </a>
-        <a href="#demo" class="w-full sm:w-auto px-8 py-4 bg-zinc-800/80 hover:bg-zinc-700 border border-zinc-700 hover:border-zinc-600 rounded-xl font-semibold text-lg transition flex items-center justify-center gap-2 backdrop-blur-sm">
-          <i data-lucide="play" class="w-5 h-5"></i>
-          Watch Demo
+        <a href="https://github.com/BusyBee3333/mcpengine/tree/main/servers/bamboohr" target="_blank" rel="noopener" class="magnetic-btn group px-6 sm:px-8 lg:px-10 py-3.5 sm:py-4 lg:py-5 glass-strong hover:bg-white/10 font-bold rounded-xl lg:rounded-2xl text-base lg:text-lg transition-all flex items-center justify-center gap-2 sm:gap-3">
+          <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-colors">
+            <i data-lucide="github" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+          </div>
+          <span>View on GitHub</span>
         </a>
       </div>
 
-      <!-- Stats Row -->
-      <div class="grid grid-cols-3 gap-4 max-w-2xl mx-auto mb-12">
-        <div class="stat-card rounded-xl border border-brand-500/20 p-4">
-          <div class="text-3xl font-bold text-brand-400">56</div>
-          <div class="text-zinc-400 text-sm">API Tools</div>
-        </div>
-        <div class="stat-card rounded-xl border border-brand-500/20 p-4">
-          <div class="text-3xl font-bold text-brand-400">2s</div>
-          <div class="text-zinc-400 text-sm">Setup Time</div>
-        </div>
-        <div class="stat-card rounded-xl border border-brand-500/20 p-4">
-          <div class="text-3xl font-bold text-brand-400">∞</div>
-          <div class="text-zinc-400 text-sm">Token Refresh</div>
+      <!-- Product Mockup -->
+      <div class="relative max-w-6xl mx-auto reveal-scale">
+        <div class="absolute inset-0 bg-gradient-to-r from-brand-500/20 via-cyan-500/20 to-violet-500/20 blur-[60px] rounded-3xl transform scale-95"></div>
+        <div class="gradient-border rounded-2xl lg:rounded-3xl glow relative">
+          <div class="bg-[#0a0a0a] rounded-2xl lg:rounded-3xl p-1 sm:p-1.5">
+            <div class="bg-zinc-900/80 rounded-xl lg:rounded-2xl overflow-hidden">
+              <div class="flex items-center justify-between px-3 sm:px-5 py-2.5 sm:py-4 border-b border-white/5">
+                <div class="flex items-center gap-1.5 sm:gap-2">
+                  <div class="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 rounded-full bg-red-500"></div>
+                  <div class="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 rounded-full bg-yellow-500"></div>
+                  <div class="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 rounded-full bg-green-500"></div>
+                </div>
+                <div class="hidden sm:flex items-center gap-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-lg bg-white/5 text-xs sm:text-sm text-zinc-500 font-mono">
+                  <i data-lucide="lock" class="w-3 h-3"></i>
+                  app.mcpengage.com/bamboohr
+                </div>
+                <div class="w-16 sm:w-20"></div>
+              </div>
+
+              <div class="flex h-[320px] sm:h-[420px] md:h-[500px] lg:h-[600px]">
+                <!-- Sidebar -->
+                <div class="hidden md:flex w-14 lg:w-16 border-r border-white/5 flex-col items-center py-3 lg:py-4 gap-3 lg:gap-4">
+                  
+                  <div class="w-9 h-9 lg:w-10 lg:h-10 rounded-xl bg-brand-500/20 flex items-center justify-center text-brand-400 transition-colors">
+                    <i data-lucide="message-square" class="w-4 h-4 lg:w-5 lg:h-5"></i>
+                  </div>
+                  <div class="w-9 h-9 lg:w-10 lg:h-10 rounded-xl hover:bg-white/5 flex items-center justify-center text-zinc-600 transition-colors">
+                    <i data-lucide="users" class="w-4 h-4 lg:w-5 lg:h-5"></i>
+                  </div>
+                  <div class="w-9 h-9 lg:w-10 lg:h-10 rounded-xl hover:bg-white/5 flex items-center justify-center text-zinc-600 transition-colors">
+                    <i data-lucide="calendar" class="w-4 h-4 lg:w-5 lg:h-5"></i>
+                  </div>
+                  <div class="w-9 h-9 lg:w-10 lg:h-10 rounded-xl hover:bg-white/5 flex items-center justify-center text-zinc-600 transition-colors">
+                    <i data-lucide="award" class="w-4 h-4 lg:w-5 lg:h-5"></i>
+                  </div>
+                </div>
+
+                <!-- Chat panel -->
+                <div class="flex-1 flex flex-col">
+                  <div class="flex-1 p-3 sm:p-4 lg:p-6 space-y-3 sm:space-y-4 lg:space-y-5 overflow-y-auto overflow-x-hidden" id="chat-demo" style="scrollbar-width:none;-ms-overflow-style:none;"></div>
+                  <div class="p-2 sm:p-3 lg:p-4 border-t border-white/5">
+                    <div class="glass-strong rounded-xl lg:rounded-2xl px-3 sm:px-4 lg:px-5 py-2.5 sm:py-3 lg:py-4 flex items-center gap-2 sm:gap-3 lg:gap-4">
+                      <input type="text" placeholder="Ask about your BambooHR employees..." class="flex-1 bg-transparent text-xs sm:text-sm outline-none text-zinc-300 placeholder:text-zinc-600 min-w-0">
+                      <button class="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 rounded-lg lg:rounded-xl bg-brand-500 flex items-center justify-center hover:bg-brand-400 transition-colors flex-shrink-0">
+                        <i data-lucide="arrow-up" class="w-4 h-4 lg:w-5 lg:h-5 text-black"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Right panel -->
+                <div class="hidden lg:flex w-80 xl:w-96 flex-col border-l border-white/5">
+                  <div class="flex border-b border-white/5">
+                    <button class="flex-1 px-4 xl:px-5 py-3 xl:py-4 text-sm font-semibold text-brand-400 border-b-2 border-brand-500 flex items-center justify-center gap-2">
+                      <i data-lucide="calendar" class="w-4 h-4"></i>
+                      Time Off
+                      <span class="px-2 py-0.5 rounded-full bg-brand-500/20 text-xs">8</span>
+                    </button>
+                    <button class="flex-1 px-4 xl:px-5 py-3 xl:py-4 text-sm font-medium text-zinc-500 hover:text-zinc-300 flex items-center justify-center gap-2">
+                      <i data-lucide="users" class="w-4 h-4"></i>
+                      Employees
+                    </button>
+                  </div>
+                  <div class="flex-1 p-3 xl:p-4 space-y-2.5 xl:space-y-3 overflow-auto">
+                    
+                    <div class="glass rounded-xl xl:rounded-2xl p-4 xl:p-5 hover:bg-white/5 transition-all cursor-pointer group border border-transparent hover:border-brand-500/30">
+                      <div class="flex items-start justify-between mb-2 xl:mb-3">
+                        <div>
+                          <h4 class="font-bold text-sm xl:text-base group-hover:text-brand-400 transition-colors">Sarah Chen — Vacation</h4>
+                          <p class="text-[10px] xl:text-xs text-zinc-500">Engineering • Feb 10-17 (5 days)</p>
+                        </div>
+                        <span class="px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[10px] xl:text-xs font-bold">Approved</span>
+                      </div>
+                      <div class="flex gap-1.5 xl:gap-2">
+                        <span class="px-2 xl:px-2.5 py-0.5 xl:py-1 rounded-md xl:rounded-lg bg-blue-500/15 text-blue-400 text-[10px] xl:text-xs font-medium">PTO balance: 12d</span>
+                        <span class="px-2 xl:px-2.5 py-0.5 xl:py-1 rounded-md xl:rounded-lg bg-zinc-800 text-zinc-400 text-[10px] xl:text-xs font-medium">Vacation</span>
+                      </div>
+                    </div>
+                    <div class="glass rounded-xl xl:rounded-2xl p-4 xl:p-5 hover:bg-white/5 transition-all cursor-pointer group border border-transparent hover:border-brand-500/30">
+                      <div class="flex items-start justify-between mb-2 xl:mb-3">
+                        <div>
+                          <h4 class="font-bold text-sm xl:text-base group-hover:text-brand-400 transition-colors">Jake Shore — Sick Leave</h4>
+                          <p class="text-[10px] xl:text-xs text-zinc-500">Product • Jan 20 (1 day)</p>
+                        </div>
+                        <span class="px-2 py-0.5 rounded-md bg-yellow-500/20 text-yellow-400 text-[10px] xl:text-xs font-bold">Pending</span>
+                      </div>
+                      <div class="flex gap-1.5 xl:gap-2">
+                        <span class="px-2 xl:px-2.5 py-0.5 xl:py-1 rounded-md xl:rounded-lg bg-yellow-500/15 text-yellow-400 text-[10px] xl:text-xs font-medium">Needs approval</span>
+                        <span class="px-2 xl:px-2.5 py-0.5 xl:py-1 rounded-md xl:rounded-lg bg-zinc-800 text-zinc-400 text-[10px] xl:text-xs font-medium">Sick</span>
+                      </div>
+                    </div>
+                    <div class="glass rounded-xl xl:rounded-2xl p-4 xl:p-5 hover:bg-white/5 transition-all cursor-pointer group border border-transparent hover:border-brand-500/30">
+                      <div class="flex items-start justify-between mb-2 xl:mb-3">
+                        <div>
+                          <h4 class="font-bold text-sm xl:text-base group-hover:text-brand-400 transition-colors">Alex Martinez — Parental Leave</h4>
+                          <p class="text-[10px] xl:text-xs text-zinc-500">Design • Mar 1 - Apr 30 (43 days)</p>
+                        </div>
+                        <span class="px-2 py-0.5 rounded-md bg-green-500/20 text-green-400 text-[10px] xl:text-xs font-bold">Approved</span>
+                      </div>
+                      <div class="flex gap-1.5 xl:gap-2">
+                        <span class="px-2 xl:px-2.5 py-0.5 xl:py-1 rounded-md xl:rounded-lg bg-green-500/15 text-green-400 text-[10px] xl:text-xs font-medium">FMLA</span>
+                        <span class="px-2 xl:px-2.5 py-0.5 xl:py-1 rounded-md xl:rounded-lg bg-zinc-800 text-zinc-400 text-[10px] xl:text-xs font-medium">Parental</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Social Proof -->
-      <div class="flex flex-col items-center gap-4">
-        <div class="flex -space-x-3">
-          <img src="https://i.pravatar.cc/100?img=21" class="w-10 h-10 rounded-full border-2 border-zinc-950" alt="">
-          <img src="https://i.pravatar.cc/100?img=22" class="w-10 h-10 rounded-full border-2 border-zinc-950" alt="">
-          <img src="https://i.pravatar.cc/100?img=23" class="w-10 h-10 rounded-full border-2 border-zinc-950" alt="">
-          <img src="https://i.pravatar.cc/100?img=24" class="w-10 h-10 rounded-full border-2 border-zinc-950" alt="">
-          <img src="https://i.pravatar.cc/100?img=25" class="w-10 h-10 rounded-full border-2 border-zinc-950" alt="">
+      <div class="hidden sm:flex justify-center mt-10 lg:mt-16">
+        <div class="scroll-indicator flex flex-col items-center gap-2 text-zinc-600">
+          <span class="text-xs font-medium tracking-wider uppercase">Scroll to explore</span>
+          <i data-lucide="chevron-down" class="w-5 h-5"></i>
         </div>
-        <p class="text-zinc-400">
-          Trusted by <strong class="text-white">200+</strong> HR teams worldwide
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS BAR -->
+  <section class="py-8 sm:py-10 lg:py-12 px-4 sm:px-6 border-y border-white/5 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-brand-500/5 via-transparent to-cyan-500/5"></div>
+    <div class="max-w-7xl mx-auto relative">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+        
+        <div class="stat-card text-center">
+          <div class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-black text-brand-400 mb-1 sm:mb-2"><span class="counter" data-target="46">0</span>+</div>
+          <div class="text-xs sm:text-sm text-zinc-500 font-medium">BambooHR Tools</div>
+        </div>
+        <div class="stat-card text-center">
+          <div class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-black text-cyan-400 mb-1 sm:mb-2">$<span class="counter" data-target="0">0</span></div>
+          <div class="text-xs sm:text-sm text-zinc-500 font-medium">Setup Cost</div>
+        </div>
+        <div class="stat-card text-center">
+          <div class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-black text-violet-400 mb-1 sm:mb-2"><span class="counter" data-target="2">0</span>min</div>
+          <div class="text-xs sm:text-sm text-zinc-500 font-medium">Install Time</div>
+        </div>
+        <div class="stat-card text-center">
+          <div class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-black text-emerald-400 mb-1 sm:mb-2">24/7</div>
+          <div class="text-xs sm:text-sm text-zinc-500 font-medium">AI HR</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TERMINAL / INSTALL -->
+  <section class="py-16 sm:py-20 lg:py-32 px-4 sm:px-6 relative">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-10 sm:mb-14 reveal-up">
+        <div class="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full glass text-xs sm:text-sm text-brand-400 mb-4 sm:mb-6">
+          <i data-lucide="terminal" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+          Quick Install
+        </div>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black mb-4 sm:mb-6 leading-tight">
+          Up and Running in<br><span class="gradient-text">One Command</span>
+        </h2>
+      </div>
+      <div class="reveal-scale">
+        <div class="gradient-border rounded-2xl lg:rounded-3xl glow relative">
+          <div class="bg-[#0a0a0a] rounded-2xl lg:rounded-3xl overflow-hidden">
+            <div class="flex items-center justify-between px-4 sm:px-5 py-3 sm:py-4 border-b border-white/5">
+              <div class="flex items-center gap-1.5 sm:gap-2">
+                <div class="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-500"></div>
+                <div class="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-yellow-500"></div>
+                <div class="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-green-500"></div>
+              </div>
+              <span class="text-xs text-zinc-600 font-mono">~/projects</span>
+              <button id="copy-btn" onclick="navigator.clipboard.writeText('npx mcpengage init');this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',2000)" class="px-3 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-zinc-400 font-medium transition-colors">Copy</button>
+            </div>
+            <div class="p-5 sm:p-6 lg:p-8 font-mono text-sm sm:text-base leading-relaxed" id="terminal-body">
+              <div id="terminal-lines" class="space-y-1"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-6 sm:mt-8 text-center reveal-up">
+        <a href="https://github.com/BusyBee3333/mcpengine/tree/main/servers/bamboohr" target="_blank" rel="noopener" class="inline-flex items-center gap-2 sm:gap-3 text-zinc-400 hover:text-white transition-colors group">
+          <i data-lucide="github" class="w-5 h-5"></i>
+          <span class="text-sm sm:text-base font-medium">Open source — view the full code on GitHub</span>
+          <i data-lucide="external-link" class="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEFORE & AFTER -->
+  <section class="py-16 sm:py-20 lg:py-32 px-4 sm:px-6 relative overflow-hidden">
+    <div class="absolute inset-0 mesh-gradient opacity-20"></div>
+    <div class="max-w-6xl mx-auto relative">
+      <div class="text-center mb-10 sm:mb-14 lg:mb-20">
+        <div class="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full glass text-xs sm:text-sm text-brand-400 mb-4 sm:mb-6 reveal-up">
+          <i data-lucide="arrow-left-right" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+          The Difference
+        </div>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black mb-4 sm:mb-6 reveal-up leading-tight">
+          Before vs. <span class="gradient-text">After</span>
+        </h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
+        <div class="glass rounded-2xl lg:rounded-3xl p-5 sm:p-6 lg:p-8 border border-red-500/20 feature-card stagger-item">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-red-500/10 flex items-center justify-center">
+              <i data-lucide="x" class="w-5 h-5 sm:w-6 sm:h-6 text-red-400"></i>
+            </div>
+            <h3 class="text-lg sm:text-xl lg:text-2xl font-black text-red-400">Before MCPEngage</h3>
+          </div>
+          <ul class="space-y-4">
+            
+            <li class="flex items-start gap-3"><div class="w-6 h-6 rounded-full bg-red-500/10 flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="clock" class="w-3.5 h-3.5 text-red-400"></i></div><div><p class="text-sm sm:text-base text-zinc-300 font-medium">Time-off approval bottleneck</p><p class="text-xs sm:text-sm text-zinc-500">Manually reviewing requests, checking balances, updating calendars — 10 minutes per request</p></div></li>
+            <li class="flex items-start gap-3"><div class="w-6 h-6 rounded-full bg-red-500/10 flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="copy" class="w-3.5 h-3.5 text-red-400"></i></div><div><p class="text-sm sm:text-base text-zinc-300 font-medium">Employee data scattered</p><p class="text-xs sm:text-sm text-zinc-500">Jumping between employee profiles, spreadsheets, and documents to find basic info</p></div></li>
+            <li class="flex items-start gap-3"><div class="w-6 h-6 rounded-full bg-red-500/10 flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="layout-grid" class="w-3.5 h-3.5 text-red-400"></i></div><div><p class="text-sm sm:text-base text-zinc-300 font-medium">Reporting is painful</p><p class="text-xs sm:text-sm text-zinc-500">Generating headcount reports, PTO balances, or org charts requires exporting CSVs and manual work</p></div></li>
+            <li class="flex items-start gap-3"><div class="w-6 h-6 rounded-full bg-red-500/10 flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="hourglass" class="w-3.5 h-3.5 text-red-400"></i></div><div><p class="text-sm sm:text-base text-zinc-300 font-medium">Onboarding chaos</p><p class="text-xs sm:text-sm text-zinc-500">Creating profiles, assigning benefits, setting up permissions — hours per new hire</p></div></li>
+          </ul>
+        </div>
+        <div class="glass rounded-2xl lg:rounded-3xl p-5 sm:p-6 lg:p-8 border border-brand-500/20 feature-card stagger-item">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-brand-500/10 flex items-center justify-center">
+              <i data-lucide="check" class="w-5 h-5 sm:w-6 sm:h-6 text-brand-400"></i>
+            </div>
+            <h3 class="text-lg sm:text-xl lg:text-2xl font-black text-brand-400">After MCPEngage</h3>
+          </div>
+          <ul class="space-y-4">
+            
+            <li class="flex items-start gap-3"><div class="w-6 h-6 rounded-full bg-brand-500/10 flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="zap" class="w-3.5 h-3.5 text-brand-400"></i></div><div><p class="text-sm sm:text-base text-zinc-300 font-medium">Instant time-off handling</p><p class="text-xs sm:text-sm text-zinc-500">"Approve Sarah's vacation request" — AI checks balance, updates calendar, and notifies team in seconds</p></div></li>
+            <li class="flex items-start gap-3"><div class="w-6 h-6 rounded-full bg-brand-500/10 flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-400"></i></div><div><p class="text-sm sm:text-base text-zinc-300 font-medium">360° employee view</p><p class="text-xs sm:text-sm text-zinc-500">Ask "Show me Sarah's PTO balance and performance reviews" — full profile in one query</p></div></li>
+            <li class="flex items-start gap-3"><div class="w-6 h-6 rounded-full bg-brand-500/10 flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="message-square" class="w-3.5 h-3.5 text-brand-400"></i></div><div><p class="text-sm sm:text-base text-zinc-300 font-medium">One-command reports</p><p class="text-xs sm:text-sm text-zinc-500">"Generate headcount by department" or "Show me Q1 turnover rate" — instant, formatted reports</p></div></li>
+            <li class="flex items-start gap-3"><div class="w-6 h-6 rounded-full bg-brand-500/10 flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="rocket" class="w-3.5 h-3.5 text-brand-400"></i></div><div><p class="text-sm sm:text-base text-zinc-300 font-medium">Automated onboarding</p><p class="text-xs sm:text-sm text-zinc-500">"Onboard new hire: Jake Shore, Engineering, start date Feb 1" — AI creates profile, assigns benefits, sends welcome</p></div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAIN POINTS -->
+  <section class="py-16 sm:py-20 lg:py-32 px-4 sm:px-6 relative">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-10 sm:mb-14 lg:mb-20">
+        <div class="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full glass text-xs sm:text-sm text-red-400 mb-4 sm:mb-6 reveal-up">
+          <i data-lucide="alert-triangle" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+          The Problem
+        </div>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black mb-4 sm:mb-6 lg:mb-8 reveal-up leading-tight">
+          Your HR Team Is<br><span class="text-red-400">Stuck in Admin Hell</span>
+        </h2>
+        <p class="text-base sm:text-lg lg:text-xl xl:text-2xl text-zinc-400 max-w-3xl mx-auto reveal-up">
+          BambooHR has the data, but you're too busy clicking to focus on actual people work.
         </p>
       </div>
-    </div>
-  </section>
-
-  <!-- Video Demo -->
-  <section id="demo" class="py-20 border-t border-zinc-800/50">
-    <div class="max-w-5xl mx-auto px-6">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">See It In Action</h2>
-        <p class="text-xl text-zinc-400">Watch how AI transforms your HR operations</p>
-      </div>
-      <div class="gradient-border">
-        <div class="gradient-border-inner p-2">
-          <div class="rounded-xl overflow-hidden video-glow">
-            <video autoplay loop muted playsinline class="w-full">
-              <source src="../output/bamboohr.mp4" type="video/mp4">
-            </video>
-          </div>
-        </div>
-      </div>
-      <div class="flex justify-center mt-8">
-        <div class="inline-flex items-center gap-6 px-6 py-3 rounded-full bg-zinc-900/80 border border-zinc-800 backdrop-blur-sm">
-          <div class="flex items-center gap-2">
-            <i data-lucide="users" class="w-4 h-4 text-brand-500"></i>
-            <span class="text-sm text-zinc-300">Employee Data</span>
-          </div>
-          <div class="w-px h-4 bg-zinc-700"></div>
-          <div class="flex items-center gap-2">
-            <i data-lucide="calendar-off" class="w-4 h-4 text-brand-500"></i>
-            <span class="text-sm text-zinc-300">Time-Off</span>
-          </div>
-          <div class="w-px h-4 bg-zinc-700"></div>
-          <div class="flex items-center gap-2">
-            <i data-lucide="trophy" class="w-4 h-4 text-brand-500"></i>
-            <span class="text-sm text-zinc-300">Performance</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Problem/Solution -->
-  <section class="py-20 border-t border-zinc-800/50">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="grid md:grid-cols-2 gap-12 items-center">
-        <div>
-          <h2 class="text-3xl md:text-4xl font-bold mb-6">
-            HR + AI shouldn't<br>
-            <span class="text-zinc-500">require a dev team</span>
-          </h2>
-          <div class="space-y-5">
-            <div class="flex items-start gap-4 p-4 rounded-xl bg-red-500/5 border border-red-500/10">
-              <div class="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center flex-shrink-0">
-                <i data-lucide="x" class="w-5 h-5 text-red-400"></i>
-              </div>
-              <div>
-                <p class="font-medium text-white">PTO request chaos</p>
-                <p class="text-zinc-500 text-sm mt-1">Endless email threads. Lost requests. Frustrated employees.</p>
-              </div>
-            </div>
-            <div class="flex items-start gap-4 p-4 rounded-xl bg-red-500/5 border border-red-500/10">
-              <div class="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center flex-shrink-0">
-                <i data-lucide="x" class="w-5 h-5 text-red-400"></i>
-              </div>
-              <div>
-                <p class="font-medium text-white">Onboarding checklists</p>
-                <p class="text-zinc-500 text-sm mt-1">Paper forms. Missed tasks. New hires left hanging.</p>
-              </div>
-            </div>
-            <div class="flex items-start gap-4 p-4 rounded-xl bg-red-500/5 border border-red-500/10">
-              <div class="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center flex-shrink-0">
-                <i data-lucide="x" class="w-5 h-5 text-red-400"></i>
-              </div>
-              <div>
-                <p class="font-medium text-white">Scattered employee data</p>
-                <p class="text-zinc-500 text-sm mt-1">Hunting through spreadsheets for basic info.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="bg-gradient-to-br from-zinc-900 to-zinc-900/50 rounded-2xl border border-zinc-800 p-8 shadow-2xl">
-          <div class="flex items-center gap-3 mb-6">
-            <div class="w-12 h-12 rounded-xl bg-brand-500/20 flex items-center justify-center">
-              <i data-lucide="check" class="w-6 h-6 text-brand-400"></i>
-            </div>
-            <h3 class="text-2xl font-semibold">With BambooHR Connect</h3>
-          </div>
-          <div class="space-y-4">
-            <div class="flex items-center gap-3 p-3 rounded-lg bg-brand-500/5 border border-brand-500/10">
-              <i data-lucide="check-circle" class="w-5 h-5 text-brand-400"></i>
-              <span>AI handles approvals instantly</span>
-            </div>
-            <div class="flex items-center gap-3 p-3 rounded-lg bg-brand-500/5 border border-brand-500/10">
-              <i data-lucide="check-circle" class="w-5 h-5 text-brand-400"></i>
-              <span>Automated new hire workflows</span>
-            </div>
-            <div class="flex items-center gap-3 p-3 rounded-lg bg-brand-500/5 border border-brand-500/10">
-              <i data-lucide="check-circle" class="w-5 h-5 text-brand-400"></i>
-              <span>AI answers HR questions fast</span>
-            </div>
-            <div class="flex items-center gap-3 p-3 rounded-lg bg-brand-500/5 border border-brand-500/10">
-              <i data-lucide="check-circle" class="w-5 h-5 text-brand-400"></i>
-              <span>Works with Claude, GPT, any MCP client</span>
-            </div>
-            <div class="flex items-center gap-3 p-3 rounded-lg bg-brand-500/5 border border-brand-500/10">
-              <i data-lucide="check-circle" class="w-5 h-5 text-brand-400"></i>
-              <span>Full employee directory access</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Features -->
-  <section id="features" class="py-20 border-t border-zinc-800/50">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">Everything you need</h2>
-        <p class="text-xl text-zinc-400">Full BambooHR API access through one simple connection</p>
-      </div>
-      
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="feature-card group bg-gradient-to-br from-zinc-900 to-zinc-900/30 rounded-2xl border border-zinc-800 p-6 card-glow transition-all duration-300">
-          <div class="feature-icon w-14 h-14 rounded-xl bg-brand-500/10 flex items-center justify-center mb-5 group-hover:bg-brand-500/20 transition-all">
-            <i data-lucide="contact" class="w-7 h-7 text-brand-400"></i>
-          </div>
-          <h3 class="text-xl font-semibold mb-2">Employee Directory</h3>
-          <p class="text-zinc-400">Access profiles, org charts, and contact info. Full employee database.</p>
-        </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
         
-        <div class="feature-card group bg-gradient-to-br from-zinc-900 to-zinc-900/30 rounded-2xl border border-zinc-800 p-6 card-glow transition-all duration-300">
-          <div class="feature-icon w-14 h-14 rounded-xl bg-purple-500/10 flex items-center justify-center mb-5 group-hover:bg-purple-500/20 transition-all">
-            <i data-lucide="calendar-clock" class="w-7 h-7 text-purple-400"></i>
+        <div class="glass rounded-2xl lg:rounded-3xl p-5 sm:p-6 lg:p-8 border border-red-500/10 hover:border-red-500/30 transition-all group feature-card  stagger-item">
+          <div class="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-xl lg:rounded-2xl bg-red-500/10 flex items-center justify-center mb-4 sm:mb-5 lg:mb-6 feature-icon">
+            <i data-lucide="clock" class="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-red-400"></i>
           </div>
-          <h3 class="text-xl font-semibold mb-2">Time-Off Management</h3>
-          <p class="text-zinc-400">Request, approve, track PTO automatically. Balances & accruals.</p>
+          <h3 class="font-bold text-lg sm:text-xl lg:text-2xl mb-2 sm:mb-3 lg:mb-4">Time-Off Approval Tax</h3>
+          <p class="text-zinc-400 text-sm sm:text-base lg:text-lg leading-relaxed">Every PTO request needs manual review, balance check, and calendar update. You lose 2+ hours weekly on approval admin.</p>
         </div>
+        <div class="glass rounded-2xl lg:rounded-3xl p-5 sm:p-6 lg:p-8 border border-red-500/10 hover:border-red-500/30 transition-all group feature-card  stagger-item">
+          <div class="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-xl lg:rounded-2xl bg-red-500/10 flex items-center justify-center mb-4 sm:mb-5 lg:mb-6 feature-icon">
+            <i data-lucide="file-text" class="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-red-400"></i>
+          </div>
+          <h3 class="font-bold text-lg sm:text-xl lg:text-2xl mb-2 sm:mb-3 lg:mb-4">Reporting Nightmare</h3>
+          <p class="text-zinc-400 text-sm sm:text-base lg:text-lg leading-relaxed">Executives ask for headcount data and you spend half a day exporting CSVs, pivoting tables, and formatting slides. By then, the meeting is over.</p>
+        </div>
+        <div class="glass rounded-2xl lg:rounded-3xl p-5 sm:p-6 lg:p-8 border border-red-500/10 hover:border-red-500/30 transition-all group feature-card sm:col-span-2 lg:col-span-1 stagger-item">
+          <div class="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-xl lg:rounded-2xl bg-red-500/10 flex items-center justify-center mb-4 sm:mb-5 lg:mb-6 feature-icon">
+            <i data-lucide="user-plus" class="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-red-400"></i>
+          </div>
+          <h3 class="font-bold text-lg sm:text-xl lg:text-2xl mb-2 sm:mb-3 lg:mb-4">Onboarding Overhead</h3>
+          <p class="text-zinc-400 text-sm sm:text-base lg:text-lg leading-relaxed">New hires wait days for system access because creating profiles, assigning benefits, and setting permissions is a 15-step manual process.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how-it-works" class="py-16 sm:py-20 lg:py-32 px-4 sm:px-6 relative overflow-hidden">
+    <div class="absolute inset-0 mesh-gradient opacity-30"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-brand-500/5 to-transparent pointer-events-none"></div>
+    <div class="max-w-5xl mx-auto relative">
+      <div class="text-center mb-10 sm:mb-14 lg:mb-20">
+        <div class="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full glass text-xs sm:text-sm text-brand-400 mb-4 sm:mb-6 reveal-up">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+          The Solution
+        </div>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black mb-4 sm:mb-6 lg:mb-8 reveal-up leading-tight">
+          Three Steps to<br><span class="gradient-text">AI-Powered HR</span>
+        </h2>
+      </div>
+      <div class="space-y-4 sm:space-y-6 lg:space-y-8">
         
-        <div class="feature-card group bg-gradient-to-br from-zinc-900 to-zinc-900/30 rounded-2xl border border-zinc-800 p-6 card-glow transition-all duration-300">
-          <div class="feature-icon w-14 h-14 rounded-xl bg-cyan-500/10 flex items-center justify-center mb-5 group-hover:bg-cyan-500/20 transition-all">
-            <i data-lucide="user-plus" class="w-7 h-7 text-cyan-400"></i>
+        <div class="flex flex-col lg:flex-row items-center gap-4 sm:gap-6 lg:gap-10 glass rounded-2xl lg:rounded-3xl p-5 sm:p-6 lg:p-10 feature-card stagger-item">
+          <div class="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-2xl lg:rounded-3xl bg-gradient-to-br from-brand-500 to-teal-400 flex items-center justify-center flex-shrink-0 shadow-2xl shadow-brand-500/30">
+            <span class="text-3xl sm:text-4xl lg:text-5xl font-black text-black">1</span>
           </div>
-          <h3 class="text-xl font-semibold mb-2">Onboarding</h3>
-          <p class="text-zinc-400">Manage new hire tasks, documents, and training. Seamless start.</p>
+          <div class="text-center lg:text-left">
+            <h3 class="text-xl sm:text-2xl lg:text-3xl font-black mb-2 sm:mb-3 lg:mb-4">Connect Your BambooHR</h3>
+            <p class="text-zinc-400 text-sm sm:text-base lg:text-xl leading-relaxed">Paste your BambooHR API key. MCPEngage discovers all employees, time-off policies, benefits, and org structure — building 46+ tools automatically. No code, no configuration.</p>
+          </div>
         </div>
+        <div class="flex flex-col lg:flex-row items-center gap-4 sm:gap-6 lg:gap-10 glass rounded-2xl lg:rounded-3xl p-5 sm:p-6 lg:p-10 feature-card stagger-item">
+          <div class="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-2xl lg:rounded-3xl bg-gradient-to-br from-cyan-500 to-blue-400 flex items-center justify-center flex-shrink-0 shadow-2xl shadow-cyan-500/30">
+            <span class="text-3xl sm:text-4xl lg:text-5xl font-black text-black">2</span>
+          </div>
+          <div class="text-center lg:text-left">
+            <h3 class="text-xl sm:text-2xl lg:text-3xl font-black mb-2 sm:mb-3 lg:mb-4">Ask in Plain English</h3>
+            <p class="text-zinc-400 text-sm sm:text-base lg:text-xl leading-relaxed">"Approve Jake's PTO request." "Show me all employees in Engineering." "What's the company PTO balance?" Your AI understands and acts.</p>
+          </div>
+        </div>
+        <div class="flex flex-col lg:flex-row items-center gap-4 sm:gap-6 lg:gap-10 glass rounded-2xl lg:rounded-3xl p-5 sm:p-6 lg:p-10 feature-card stagger-item">
+          <div class="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-2xl lg:rounded-3xl bg-gradient-to-br from-violet-500 to-purple-400 flex items-center justify-center flex-shrink-0 shadow-2xl shadow-violet-500/30">
+            <span class="text-3xl sm:text-4xl lg:text-5xl font-black text-black">3</span>
+          </div>
+          <div class="text-center lg:text-left">
+            <h3 class="text-xl sm:text-2xl lg:text-3xl font-black mb-2 sm:mb-3 lg:mb-4">Automate Your Workflow</h3>
+            <p class="text-zinc-400 text-sm sm:text-base lg:text-xl leading-relaxed">Set recurring tasks: auto-approve eligible PTO, flag policy violations, generate weekly headcount reports, and sync HR data across your stack.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES GRID -->
+  <section id="features" class="py-16 sm:py-20 lg:py-32 px-4 sm:px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-10 sm:mb-14 lg:mb-20">
+        <div class="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full glass text-xs sm:text-sm text-brand-400 mb-4 sm:mb-6 reveal-up">
+          <i data-lucide="layers" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+          Features
+        </div>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black mb-4 sm:mb-6 lg:mb-8 reveal-up leading-tight">
+          Everything to<br><span class="gradient-text">Supercharge BambooHR</span>
+        </h2>
+        <p class="text-base sm:text-lg lg:text-xl xl:text-2xl text-zinc-400 max-w-3xl mx-auto reveal-up">
+          46+ BambooHR tools accessible through one natural-language interface.
+        </p>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
         
-        <div class="feature-card group bg-gradient-to-br from-zinc-900 to-zinc-900/30 rounded-2xl border border-zinc-800 p-6 card-glow transition-all duration-300">
-          <div class="feature-icon w-14 h-14 rounded-xl bg-amber-500/10 flex items-center justify-center mb-5 group-hover:bg-amber-500/20 transition-all">
-            <i data-lucide="line-chart" class="w-7 h-7 text-amber-400"></i>
+        <div class="glass rounded-2xl lg:rounded-3xl p-5 sm:p-6 lg:p-8 feature-card stagger-item group">
+          <div class="w-11 h-11 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-xl lg:rounded-2xl bg-gradient-to-br from-brand-500/20 to-teal-500/20 flex items-center justify-center mb-4 sm:mb-5 lg:mb-6 feature-icon">
+            <i data-lucide="users" class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-brand-400"></i>
           </div>
-          <h3 class="text-xl font-semibold mb-2">Performance</h3>
-          <p class="text-zinc-400">Track goals, reviews, and feedback cycles. Continuous improvement.</p>
+          <h3 class="font-bold text-base sm:text-lg lg:text-xl mb-2 sm:mb-3 group-hover:text-brand-400 transition-colors">Employee Management</h3>
+          <p class="text-zinc-400 text-sm sm:text-base">Access employee profiles, update records, and manage org structure. "Show me all remote employees."</p>
         </div>
-      </div>
-      
-      <div class="mt-12 text-center">
-        <p class="text-zinc-400 mb-4">+ 50 more endpoints including:</p>
-        <div class="flex flex-wrap justify-center gap-2">
-          <span class="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-full text-sm hover:bg-zinc-700/50 transition cursor-default">Benefits</span>
-          <span class="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-full text-sm hover:bg-zinc-700/50 transition cursor-default">Compensation</span>
-          <span class="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-full text-sm hover:bg-zinc-700/50 transition cursor-default">Documents</span>
-          <span class="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-full text-sm hover:bg-zinc-700/50 transition cursor-default">Reports</span>
-          <span class="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-full text-sm hover:bg-zinc-700/50 transition cursor-default">Training</span>
-          <span class="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-full text-sm hover:bg-zinc-700/50 transition cursor-default">Applicants</span>
-          <span class="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-full text-sm hover:bg-zinc-700/50 transition cursor-default">Timesheets</span>
-          <span class="px-4 py-2 bg-zinc-800/50 border border-zinc-700/50 rounded-full text-sm hover:bg-zinc-700/50 transition cursor-default">Webhooks</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Use Cases -->
-  <section class="py-20 border-t border-zinc-800/50">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">What you can automate</h2>
-        <p class="text-xl text-zinc-400">Real HR workflows, powered by AI</p>
-      </div>
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="p-6 rounded-2xl bg-gradient-to-br from-brand-500/10 to-transparent border border-brand-500/20">
-          <div class="text-4xl mb-4">🏖️</div>
-          <h3 class="text-lg font-semibold mb-2">PTO Assistant</h3>
-          <p class="text-zinc-400 text-sm">"Check my PTO balance and submit a request for next Friday."</p>
-        </div>
-        <div class="p-6 rounded-2xl bg-gradient-to-br from-purple-500/10 to-transparent border border-purple-500/20">
-          <div class="text-4xl mb-4">📋</div>
-          <h3 class="text-lg font-semibold mb-2">Onboarding Bot</h3>
-          <p class="text-zinc-400 text-sm">"Create onboarding tasks for our new engineer starting Monday."</p>
-        </div>
-        <div class="p-6 rounded-2xl bg-gradient-to-br from-cyan-500/10 to-transparent border border-cyan-500/20">
-          <div class="text-4xl mb-4">📊</div>
-          <h3 class="text-lg font-semibold mb-2">HR Reports</h3>
-          <p class="text-zinc-400 text-sm">"Generate a headcount report by department for Q1."</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Waitlist -->
-  <section id="pricing" class="py-20 border-t border-zinc-800/50">
-    <div class="max-w-2xl mx-auto px-6">
-      <div class="text-center mb-12">
-        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-500/20 text-brand-400 text-sm font-medium mb-6">
-          <i data-lucide="sparkles" class="w-4 h-4"></i>
-          Coming Soon
-        </div>
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">Join the Waitlist</h2>
-        <p class="text-xl text-zinc-400">Be the first to know when we launch. Early access + exclusive perks for waitlist members.</p>
-      </div>
-      
-      <div class="gradient-border">
-        <div class="gradient-border-inner p-8">
-          <form id="waitlist-form" class="space-y-6">
-            <div>
-              <label for="name" class="block text-sm font-medium text-zinc-300 mb-2">Name <span class="text-brand-400">*</span></label>
-              <input 
-                type="text" 
-                id="name" 
-                name="name" 
-                required
-                placeholder="Your full name"
-                class="w-full px-4 py-3 bg-zinc-800/50 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition"
-              >
-            </div>
-            
-            <div>
-              <label for="phone" class="block text-sm font-medium text-zinc-300 mb-2">Phone <span class="text-brand-400">*</span></label>
-              <input 
-                type="tel" 
-                id="phone" 
-                name="phone" 
-                required
-                placeholder="Your phone number"
-                class="w-full px-4 py-3 bg-zinc-800/50 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition"
-              >
-            </div>
-            
-            <div>
-              <label for="email" class="block text-sm font-medium text-zinc-300 mb-2">Email</label>
-              <input 
-                type="email" 
-                id="email" 
-                name="email"
-                placeholder="you@company.com"
-                class="w-full px-4 py-3 bg-zinc-800/50 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition"
-              >
-            </div>
-            
-            <button 
-              type="submit" 
-              id="submit-btn"
-              class="w-full py-4 bg-gradient-to-r from-brand-500 to-lime-600 hover:from-brand-600 hover:to-lime-700 rounded-xl font-semibold text-lg transition transform hover:scale-[1.02] flex items-center justify-center gap-2 shadow-xl shadow-brand-500/25"
-            >
-              <span>Join the Waitlist</span>
-              <i data-lucide="arrow-right" class="w-5 h-5"></i>
-            </button>
-          </form>
-          
-          <div id="success-message" class="hidden text-center py-8">
-            <div class="w-16 h-16 bg-brand-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <i data-lucide="check" class="w-8 h-8 text-brand-400"></i>
-            </div>
-            <h3 class="text-2xl font-bold mb-2">You're on the list!</h3>
-            <p class="text-zinc-400">We'll reach out as soon as we're ready for you.</p>
+        <div class="glass rounded-2xl lg:rounded-3xl p-5 sm:p-6 lg:p-8 feature-card stagger-item group">
+          <div class="w-11 h-11 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-xl lg:rounded-2xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center mb-4 sm:mb-5 lg:mb-6 feature-icon">
+            <i data-lucide="calendar" class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-cyan-400"></i>
           </div>
-          
-          <p class="text-zinc-500 text-sm text-center mt-6">
-            <i data-lucide="lock" class="w-4 h-4 inline mr-1"></i>
-            We respect your privacy. No spam, ever.
-          </p>
+          <h3 class="font-bold text-base sm:text-lg lg:text-xl mb-2 sm:mb-3 group-hover:text-cyan-400 transition-colors">Time-Off Automation</h3>
+          <p class="text-zinc-400 text-sm sm:text-base">Approve requests, check balances, and track accruals automatically. "Who's out next week?"</p>
         </div>
-      </div>
-    </div>
-  </section>
-  
-  <script>
-    document.getElementById('waitlist-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      this.classList.add('hidden');
-      document.getElementById('success-message').classList.remove('hidden');
-    });
-  </script>
-
-  <!-- Open Source -->
-  <section class="py-20 border-t border-zinc-800/50">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="bg-gradient-to-br from-zinc-900 to-zinc-900/50 rounded-3xl border border-zinc-800 p-8 md:p-12 shadow-2xl">
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-800 text-sm mb-6">
-              <i data-lucide="github" class="w-4 h-4"></i>
-              Open Source
-            </div>
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">
-              Self-host if you want.<br>
-              <span class="text-zinc-500">We won't stop you.</span>
-            </h2>
-            <p class="text-zinc-400 mb-6">
-              The entire MCP server is open source. Run it yourself, modify it, contribute back. 
-              The hosted version just saves you the hassle.
-            </p>
-            <a href="https://github.com/BusyBee3333/bamboohr-mcp-2026-complete" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-brand-400 hover:text-brand-300 font-medium group">
-              View on GitHub
-              <i data-lucide="arrow-right" class="w-4 h-4 transition group-hover:translate-x-1"></i>
-            </a>
+        <div class="glass rounded-2xl lg:rounded-3xl p-5 sm:p-6 lg:p-8 feature-card stagger-item group">
+          <div class="w-11 h-11 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-xl lg:rounded-2xl bg-gradient-to-br from-violet-500/20 to-purple-500/20 flex items-center justify-center mb-4 sm:mb-5 lg:mb-6 feature-icon">
+            <i data-lucide="award" class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-violet-400"></i>
           </div>
-          <div class="bg-zinc-950 rounded-xl p-6 font-mono text-sm border border-zinc-800">
-            <div class="flex items-center gap-2 text-zinc-500 mb-4">
-              <span class="w-3 h-3 rounded-full bg-red-500"></span>
-              <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
-              <span class="w-3 h-3 rounded-full bg-green-500"></span>
-              <span class="ml-2">Terminal</span>
-            </div>
-            <pre class="text-zinc-300 overflow-x-auto"><code><span class="text-zinc-500">$</span> git clone https://github.com/BusyBee3333/bamboohr-mcp-2026-complete.git
-<span class="text-zinc-500">$</span> cd mcp && npm install
-<span class="text-zinc-500">$</span> npm run build
-<span class="text-zinc-500">$</span> node dist/server.js
-
-<span class="text-brand-400">✓ BambooHR MCP Server running</span>
-<span class="text-brand-400">✓ 56 tools loaded</span>
-<span class="text-zinc-500">Listening on stdio...</span></code></pre>
+          <h3 class="font-bold text-base sm:text-lg lg:text-xl mb-2 sm:mb-3 group-hover:text-violet-400 transition-colors">Benefits Intelligence</h3>
+          <p class="text-zinc-400 text-sm sm:text-base">Manage enrollments, track coverage, and answer benefits questions instantly.</p>
+        </div>
+        <div class="glass rounded-2xl lg:rounded-3xl p-5 sm:p-6 lg:p-8 feature-card stagger-item group">
+          <div class="w-11 h-11 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-xl lg:rounded-2xl bg-gradient-to-br from-orange-500/20 to-red-500/20 flex items-center justify-center mb-4 sm:mb-5 lg:mb-6 feature-icon">
+            <i data-lucide="trending-up" class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-orange-400"></i>
           </div>
+          <h3 class="font-bold text-base sm:text-lg lg:text-xl mb-2 sm:mb-3 group-hover:text-orange-400 transition-colors">HR Analytics</h3>
+          <p class="text-zinc-400 text-sm sm:text-base">Generate headcount reports, turnover rates, and diversity metrics on demand.</p>
+        </div>
+        <div class="glass rounded-2xl lg:rounded-3xl p-5 sm:p-6 lg:p-8 feature-card stagger-item group">
+          <div class="w-11 h-11 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-xl lg:rounded-2xl bg-gradient-to-br from-pink-500/20 to-rose-500/20 flex items-center justify-center mb-4 sm:mb-5 lg:mb-6 feature-icon">
+            <i data-lucide="user-plus" class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-pink-400"></i>
+          </div>
+          <h3 class="font-bold text-base sm:text-lg lg:text-xl mb-2 sm:mb-3 group-hover:text-pink-400 transition-colors">Onboarding Workflows</h3>
+          <p class="text-zinc-400 text-sm sm:text-base">Create new hire profiles, assign tasks, and track completion. "Onboard new engineer starting Monday."</p>
+        </div>
+        <div class="glass rounded-2xl lg:rounded-3xl p-5 sm:p-6 lg:p-8 feature-card stagger-item group">
+          <div class="w-11 h-11 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-xl lg:rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 flex items-center justify-center mb-4 sm:mb-5 lg:mb-6 feature-icon">
+            <i data-lucide="file-text" class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-emerald-400"></i>
+          </div>
+          <h3 class="font-bold text-base sm:text-lg lg:text-xl mb-2 sm:mb-3 group-hover:text-emerald-400 transition-colors">Custom Reports</h3>
+          <p class="text-zinc-400 text-sm sm:text-base">Pull any employee data field, filter by criteria, and export formatted reports through chat.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- FAQ -->
-  <section id="faq" class="py-20 border-t border-zinc-800/50">
-    <div class="max-w-3xl mx-auto px-6">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">Frequently asked questions</h2>
+  <section id="faq" class="py-16 sm:py-20 lg:py-32 px-4 sm:px-6">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center mb-10 sm:mb-14 lg:mb-20">
+        <div class="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full glass text-xs sm:text-sm text-brand-400 mb-4 sm:mb-6 reveal-up">
+          <i data-lucide="help-circle" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+          FAQ
+        </div>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black mb-4 sm:mb-6 reveal-up leading-tight">
+          Common <span class="gradient-text">Questions</span>
+        </h2>
       </div>
-      
-      <div class="space-y-4">
-        <details class="group bg-gradient-to-br from-zinc-900 to-zinc-900/30 rounded-xl border border-zinc-800 p-6 transition hover:border-zinc-700">
-          <summary class="flex items-center justify-between cursor-pointer list-none">
-            <span class="font-medium">What is MCP?</span>
-            <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 group-open:rotate-180 transition"></i>
-          </summary>
-          <p class="mt-4 text-zinc-400">
-            MCP (Model Context Protocol) is a standard for connecting AI assistants to external tools and data. 
-            It's supported by Claude, and lets AI actually take actions in your systems — not just chat about them.
-          </p>
-        </details>
+      <div class="space-y-3 sm:space-y-4" id="faq-list">
         
-        <details class="group bg-gradient-to-br from-zinc-900 to-zinc-900/30 rounded-xl border border-zinc-800 p-6 transition hover:border-zinc-700">
-          <summary class="flex items-center justify-between cursor-pointer list-none">
-            <span class="font-medium">Is employee data secure?</span>
-            <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 group-open:rotate-180 transition"></i>
-          </summary>
-          <p class="mt-4 text-zinc-400">
-            Absolutely. We use OAuth 2.0 and never store your BambooHR API keys. All data is encrypted at rest and in transit. 
-            You control exactly what the AI can access through BambooHR's permissions.
-          </p>
-        </details>
-        
-        <details class="group bg-gradient-to-br from-zinc-900 to-zinc-900/30 rounded-xl border border-zinc-800 p-6 transition hover:border-zinc-700">
-          <summary class="flex items-center justify-between cursor-pointer list-none">
-            <span class="font-medium">Can AI approve PTO requests?</span>
-            <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 group-open:rotate-180 transition"></i>
-          </summary>
-          <p class="mt-4 text-zinc-400">
-            Yes! With the right permissions, AI can read requests, check balances, and approve or flag requests based on rules you define.
-            You stay in control of the approval logic.
-          </p>
-        </details>
-        
-        <details class="group bg-gradient-to-br from-zinc-900 to-zinc-900/30 rounded-xl border border-zinc-800 p-6 transition hover:border-zinc-700">
-          <summary class="flex items-center justify-between cursor-pointer list-none">
-            <span class="font-medium">Does it work with our HRIS setup?</span>
-            <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 group-open:rotate-180 transition"></i>
-          </summary>
-          <p class="mt-4 text-zinc-400">
-            If you use BambooHR, yes. We support the full BambooHR API including custom fields, reports, and webhooks.
-            Works with any BambooHR plan that includes API access.
-          </p>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="py-20 border-t border-zinc-800/50">
-    <div class="max-w-4xl mx-auto px-6 text-center">
-      <h2 class="text-3xl md:text-5xl font-bold mb-6">
-        Ready to AI-power your HR?
-      </h2>
-      <p class="text-xl text-zinc-400 mb-10">
-        Join 200+ HR teams already automating with BambooHR Connect.
-      </p>
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href="#pricing" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-brand-500 to-lime-600 hover:from-brand-600 hover:to-lime-700 rounded-xl font-semibold text-lg transition shadow-xl shadow-brand-500/25">
-          Join the Waitlist
-        </a>
-        <a href="#" class="w-full sm:w-auto px-8 py-4 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 rounded-xl font-semibold text-lg transition">
-          Book a Demo
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="border-t border-zinc-800/50 py-12">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-        <div class="flex items-center gap-2">
-          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-lime-600 flex items-center justify-center">
-            <i data-lucide="users" class="w-5 h-5 text-white"></i>
+        <div class="faq-item glass rounded-2xl overflow-hidden feature-card stagger-item">
+          <button class="faq-toggle w-full flex items-center justify-between p-5 sm:p-6 text-left" onclick="toggleFaq(this)">
+            <span class="font-bold text-sm sm:text-base lg:text-lg pr-4">What is MCP?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 faq-chevron flex-shrink-0"></i>
+          </button>
+          <div class="faq-answer px-5 sm:px-6 text-zinc-400 text-sm sm:text-base leading-relaxed">
+            MCP (Model Context Protocol) is an open standard created by Anthropic that lets AI models securely connect to external tools and data sources. Think of it as a USB port for AI — MCPEngage uses MCP to give your AI real-time read/write access to BambooHR.
           </div>
-          <span class="font-bold text-xl">BambooHR Connect</span>
         </div>
-        <div class="flex items-center gap-8 text-zinc-400">
-          <a href="https://github.com/BusyBee3333/bamboohr-mcp-2026-complete" target="_blank" rel="noopener" class="hover:text-white transition">Privacy</a>
-          <a href="https://github.com/BusyBee3333/bamboohr-mcp-2026-complete" target="_blank" rel="noopener" class="hover:text-white transition">Terms</a>
-          <a href="https://github.com/BusyBee3333/bamboohr-mcp-2026-complete" target="_blank" rel="noopener" class="hover:text-white transition flex items-center gap-1">
-            <i data-lucide="github" class="w-4 h-4"></i>
-            GitHub
-          </a>
-          <a href="https://github.com/BusyBee3333/bamboohr-mcp-2026-complete" target="_blank" rel="noopener" class="hover:text-white transition">Twitter</a>
+        <div class="faq-item glass rounded-2xl overflow-hidden feature-card stagger-item">
+          <button class="faq-toggle w-full flex items-center justify-between p-5 sm:p-6 text-left" onclick="toggleFaq(this)">
+            <span class="font-bold text-sm sm:text-base lg:text-lg pr-4">How does it connect to BambooHR?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 faq-chevron flex-shrink-0"></i>
+          </button>
+          <div class="faq-answer px-5 sm:px-6 text-zinc-400 text-sm sm:text-base leading-relaxed">
+            You provide a BambooHR API key (generated in Settings > API Keys). MCPEngage uses the BambooHR API to create 46+ tools covering employees, time off, benefits, and reports. Your credentials are encrypted and never stored on our servers.
+          </div>
         </div>
-        <p class="text-zinc-500 text-sm">© 2026 BambooHR Connect. Not affiliated with BambooHR.</p>
+        <div class="faq-item glass rounded-2xl overflow-hidden feature-card stagger-item">
+          <button class="faq-toggle w-full flex items-center justify-between p-5 sm:p-6 text-left" onclick="toggleFaq(this)">
+            <span class="font-bold text-sm sm:text-base lg:text-lg pr-4">Will it mess up my BambooHR data?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 faq-chevron flex-shrink-0"></i>
+          </button>
+          <div class="faq-answer px-5 sm:px-6 text-zinc-400 text-sm sm:text-base leading-relaxed">
+            No. MCPEngage uses BambooHR's official API with the same permissions as any integration. You control which scopes to grant. All changes are logged in BambooHR's activity feed, and you can set read-only mode if preferred.
+          </div>
+        </div>
+        <div class="faq-item glass rounded-2xl overflow-hidden feature-card stagger-item">
+          <button class="faq-toggle w-full flex items-center justify-between p-5 sm:p-6 text-left" onclick="toggleFaq(this)">
+            <span class="font-bold text-sm sm:text-base lg:text-lg pr-4">Can it sync with Workday or ADP?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 faq-chevron flex-shrink-0"></i>
+          </button>
+          <div class="faq-answer px-5 sm:px-6 text-zinc-400 text-sm sm:text-base leading-relaxed">
+            Yes! You can connect multiple platforms simultaneously. Use BambooHR as your source of truth and have AI sync employee data to Workday, ADP, or any other MCP-enabled platform in your stack.
+          </div>
+        </div>
+        <div class="faq-item glass rounded-2xl overflow-hidden feature-card stagger-item">
+          <button class="faq-toggle w-full flex items-center justify-between p-5 sm:p-6 text-left" onclick="toggleFaq(this)">
+            <span class="font-bold text-sm sm:text-base lg:text-lg pr-4">How much does it cost?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 faq-chevron flex-shrink-0"></i>
+          </button>
+          <div class="faq-answer px-5 sm:px-6 text-zinc-400 text-sm sm:text-base leading-relaxed">
+            MCPEngage is free during the beta period. After launch, pricing starts at $29/month per platform connection. Enterprise plans with custom integrations and priority support are available on request.
+          </div>
+        </div>
+        <div class="faq-item glass rounded-2xl overflow-hidden feature-card stagger-item">
+          <button class="faq-toggle w-full flex items-center justify-between p-5 sm:p-6 text-left" onclick="toggleFaq(this)">
+            <span class="font-bold text-sm sm:text-base lg:text-lg pr-4">Can I use it with other platforms?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 faq-chevron flex-shrink-0"></i>
+          </button>
+          <div class="faq-answer px-5 sm:px-6 text-zinc-400 text-sm sm:text-base leading-relaxed">
+            Yes! MCPEngage supports 66+ platforms including Workday, ADP, Gusto, Slack, HubSpot, and many more. Each platform gets its own MCP server with platform-specific tools. Connect as many as you need.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section id="cta" class="py-16 sm:py-20 lg:py-32 px-4 sm:px-6 relative overflow-hidden">
+    <div class="absolute inset-0 mesh-gradient"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-[#030303] via-transparent to-[#030303]"></div>
+    <div class="max-w-4xl mx-auto text-center relative">
+      <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black mb-4 sm:mb-6 lg:mb-8 reveal-up leading-tight">
+        Start Automating BambooHR<br><span class="gradient-text">Today</span>
+      </h2>
+      <p class="text-base sm:text-lg lg:text-xl xl:text-2xl text-zinc-400 mb-8 sm:mb-10 lg:mb-12 reveal-up">
+        Join thousands of HR teams using MCPEngage to supercharge their people operations.
+      </p>
+      <form id="waitlist-form" class="max-w-md mx-auto reveal-up" onsubmit="return submitWaitlist(event)">
+        <div class="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
+          <div class="flex gap-3">
+            <input type="text" id="wl-first" name="firstName" placeholder="First Name *" required class="flex-1 px-4 sm:px-5 py-3 sm:py-3.5 glass-strong rounded-xl text-sm sm:text-base outline-none focus:ring-2 focus:ring-brand-500/50 transition-all placeholder:text-zinc-600">
+            <input type="text" id="wl-last" name="lastName" placeholder="Last Name *" required class="flex-1 px-4 sm:px-5 py-3 sm:py-3.5 glass-strong rounded-xl text-sm sm:text-base outline-none focus:ring-2 focus:ring-brand-500/50 transition-all placeholder:text-zinc-600">
+          </div>
+          <input type="tel" id="wl-phone" name="phone" placeholder="Phone Number *" required class="w-full px-4 sm:px-5 py-3 sm:py-3.5 glass-strong rounded-xl text-sm sm:text-base outline-none focus:ring-2 focus:ring-brand-500/50 transition-all placeholder:text-zinc-600">
+          <input type="email" id="wl-email" name="email" placeholder="Email (optional)" class="w-full px-4 sm:px-5 py-3 sm:py-3.5 glass-strong rounded-xl text-sm sm:text-base outline-none focus:ring-2 focus:ring-brand-500/50 transition-all placeholder:text-zinc-600">
+        </div>
+        <button type="submit" id="wl-btn" class="magnetic-btn w-full px-6 sm:px-8 py-3.5 sm:py-4 bg-gradient-to-r from-brand-500 to-cyan-500 hover:from-brand-400 hover:to-cyan-400 text-black font-bold rounded-xl text-base sm:text-lg transition-all hover:scale-105 active:scale-95 glow btn-shine">
+          Join Waitlist
+        </button>
+        <p id="wl-status" class="text-xs sm:text-sm text-zinc-600 mt-3 sm:mt-4 hidden"></p>
+      </form>
+      <div id="wl-success" class="hidden max-w-md mx-auto reveal-up">
+        <div class="glass-strong rounded-2xl p-6 sm:p-8 text-center">
+          <div class="w-16 h-16 rounded-full bg-brand-500/20 flex items-center justify-center mx-auto mb-4">
+            <i data-lucide="check" class="w-8 h-8 text-brand-400"></i>
+          </div>
+          <h3 class="text-xl sm:text-2xl font-black mb-2">You're on the list!</h3>
+          <p class="text-zinc-400 text-sm sm:text-base">We'll notify you as soon as MCPEngage for BambooHR is ready.</p>
+        </div>
+      </div>
+      <p class="text-xs sm:text-sm text-zinc-600 mt-4 sm:mt-6 reveal-up">Free during beta. No credit card required.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-10 sm:py-12 lg:py-16 px-4 sm:px-6 border-t border-white/5">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col lg:flex-row items-center justify-between gap-6 sm:gap-8 lg:gap-10">
+        <a href="/" class="flex items-center gap-2 sm:gap-3">
+          <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-brand-500 via-teal-400 to-cyan-400 flex items-center justify-center">
+            <span class="font-black text-base sm:text-lg text-black">ME</span>
+          </div>
+          <span class="font-black text-xl sm:text-2xl tracking-tight">MCPEngage</span>
+        </a>
+        <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-6 lg:gap-8 text-sm font-medium text-zinc-500">
+          <a href="#features" class="hover:text-white transition-colors">Features</a>
+          <a href="#how-it-works" class="hover:text-white transition-colors">How It Works</a>
+          <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
+          <a href="#" class="hover:text-white transition-colors">Privacy</a>
+          <a href="#" class="hover:text-white transition-colors">Terms</a>
+          <a href="https://github.com/BusyBee3333/mcpengine" target="_blank" rel="noopener" class="hover:text-white transition-colors">GitHub</a>
+        </div>
+        <p class="text-xs sm:text-sm text-zinc-600">&copy; 2025 MCPEngage. All rights reserved.</p>
       </div>
     </div>
   </footer>
 
-  <!-- Sticky Floating CTA -->
-  <div id="sticky-cta" class="fixed bottom-6 right-6 z-50 opacity-0 translate-y-4 transition-all duration-300 pointer-events-none">
-    <a 
-      href="#pricing" 
-      class="sticky-btn flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-brand-500 to-lime-600 rounded-full font-semibold transition-all transform hover:scale-110"
-    >
-      <i data-lucide="sparkles" class="w-5 h-5"></i>
-      <span>Join Waitlist</span>
-    </a>
-  </div>
-
+  <!-- SCRIPTS -->
   <script>
-    const stickyCta = document.getElementById('sticky-cta');
-    const pricingSection = document.getElementById('pricing');
-    
-    function updateStickyCta() {
-      const scrollY = window.scrollY;
-      const pricingTop = pricingSection.offsetTop;
-      const pricingBottom = pricingTop + pricingSection.offsetHeight;
-      const viewportBottom = scrollY + window.innerHeight;
-      
-      const shouldShow = scrollY > 300 && (viewportBottom < pricingTop || scrollY > pricingBottom);
-      
-      if (shouldShow) {
-        stickyCta.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
-        stickyCta.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
-      } else {
-        stickyCta.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
-        stickyCta.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
-      }
-    }
-    
-    window.addEventListener('scroll', updateStickyCta);
-    updateStickyCta();
-  </script>
+    lucide.createIcons();
+    document.body.classList.add('js-loaded');
 
-  <script>lucide.createIcons();</script>
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.utils.toArray('.reveal-up').forEach(el => {
+      gsap.fromTo(el, { opacity:0, y:50 }, { opacity:1, y:0, duration:0.8, ease:"power3.out",
+        scrollTrigger:{ trigger:el, start:"top 85%", toggleActions:"play none none none" }
+      });
+    });
+    gsap.utils.toArray('.reveal-scale').forEach(el => {
+      gsap.fromTo(el, { opacity:0, scale:0.95 }, { opacity:1, scale:1, duration:1, ease:"power3.out",
+        scrollTrigger:{ trigger:el, start:"top 85%", toggleActions:"play none none none" }
+      });
+    });
+    gsap.utils.toArray('.stagger-item').forEach((el, i) => {
+      gsap.fromTo(el, { opacity:0, y:30 }, { opacity:1, y:0, duration:0.6, ease:"power3.out",
+        scrollTrigger:{ trigger:el, start:"top 85%", toggleActions:"play none none none" },
+        delay: (i % 4) * 0.1
+      });
+    });
+
+    document.querySelectorAll('.counter').forEach(counter => {
+      const target = parseInt(counter.dataset.target);
+      ScrollTrigger.create({
+        trigger: counter, start:"top 80%",
+        onEnter: () => { gsap.to(counter, { innerText:target, duration:2, snap:{innerText:1}, ease:"power2.out" }); },
+        once: true
+      });
+    });
+
+    const navbar = document.getElementById('navbar');
+    ScrollTrigger.create({
+      start:"top -80",
+      onUpdate: self => {
+        if(self.scroll()>80){ navbar.classList.add('glass-strong'); navbar.style.borderBottom='1px solid rgba(255,255,255,0.05)'; }
+        else { navbar.classList.remove('glass-strong'); navbar.style.borderBottom='none'; }
+      }
+    });
+
+    // CHAT DEMO
+    const chatDemo = document.getElementById('chat-demo');
+        const embed_1 = `<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;margin-top:8px;max-width:420px;"><div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.06);background:rgba(245,158,11,0.05);"><div style="display:flex;align-items:center;gap:8px;"><div style="width:6px;height:6px;border-radius:50%;background:#f59e0b;"></div><span style="font-size:11px;font-weight:700;color:#f59e0b;text-transform:uppercase;letter-spacing:0.5px;">Pending Requests</span></div><span style="font-size:10px;color:rgba(255,255,255,0.3);font-family:monospace;">2 requests</span></div><div style="padding:0;"><div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.04);"><div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;color:#e4e4e7;margin-bottom:2px;">Jake Shore — Sick Leave</div><div style="display:flex;align-items:center;gap:6px;"><span style="font-size:10px;color:rgba(255,255,255,0.3);">Product · Jan 20 (1 day)</span><span style="padding:1px 6px;border-radius:4px;font-size:9px;font-weight:600;background:rgba(245,158,11,0.15);color:#fbbf24;">Awaiting approval</span></div></div></div><div style="display:flex;align-items:center;gap:10px;padding:10px 14px;"><div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;color:#e4e4e7;margin-bottom:2px;">Emma Davis — Vacation</div><div style="display:flex;align-items:center;gap:6px;"><span style="font-size:10px;color:rgba(255,255,255,0.3);">Marketing · Mar 5-9 (3 days)</span><span style="padding:1px 6px;border-radius:4px;font-size:9px;font-weight:600;background:rgba(245,158,11,0.15);color:#fbbf24;">Awaiting approval</span></div></div></div></div></div>`;
+    const embed_3 = `<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;margin-top:8px;max-width:420px;"><div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.06);background:rgba(34,197,94,0.05);"><div style="display:flex;align-items:center;gap:8px;"><div style="width:6px;height:6px;border-radius:50%;background:#22c55e;"></div><span style="font-size:11px;font-weight:700;color:#22c55e;text-transform:uppercase;letter-spacing:0.5px;">Request Approved</span></div></div><div style="padding:10px 14px;"><div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:8px;padding:10px 12px;"><div style="font-size:12px;font-weight:600;color:#e4e4e7;margin-bottom:6px;">Jake Shore — Sick Leave</div><div style="display:flex;flex-direction:column;gap:4px;"><div style="font-size:10px;color:rgba(255,255,255,0.4);">📅 Date: Monday, Jan 20 (1 day)</div><div style="font-size:10px;color:rgba(255,255,255,0.4);">✅ Approved by: HR Manager</div><div style="font-size:10px;color:rgba(255,255,255,0.4);">📧 Product team notified</div></div></div></div></div>`;
+
+    const messages = [
+      { type:'user', text:'Show me all pending time-off requests' },
+      { type:'ai', text:'Found 2 pending requests:', embed: embed_1 },
+      { type:'user', text:'Approve Jake\'s sick leave request and notify the team' },
+      { type:'ai', text:'Request approved and team notified:', embed: embed_3 },
+    ];
+    function createMessage(msg){
+      const div = document.createElement('div');
+      div.className = msg.type==='user' ? 'flex justify-end' : 'flex gap-2 sm:gap-3';
+      div.style.opacity='0'; div.style.transform='translateY(15px)';
+      if(msg.type==='user'){
+        div.innerHTML=`<div class="bg-brand-500/20 border border-brand-500/30 rounded-xl sm:rounded-2xl rounded-br-sm px-3 sm:px-4 lg:px-5 py-2 sm:py-3 max-w-[85%]"><p class="text-xs sm:text-sm">${msg.text}</p></div>`;
+      } else {
+        const embedHtml = msg.embed || '';
+        div.innerHTML=`<div class="w-7 h-7 sm:w-8 sm:h-8 lg:w-9 lg:h-9 rounded-lg sm:rounded-xl bg-gradient-to-br from-brand-500 to-teal-400 flex items-center justify-center flex-shrink-0"><span class="font-bold text-[10px] sm:text-xs text-black">ME</span></div><div class="max-w-[90%]"><div class="glass rounded-xl sm:rounded-2xl rounded-tl-sm px-3 sm:px-4 lg:px-5 py-2 sm:py-3"><p class="text-xs sm:text-sm text-zinc-300">${msg.text}</p>${embedHtml}</div></div>`;
+      }
+      return div;
+    }
+    let chatAnimated = false;
+    ScrollTrigger.create({
+      trigger: chatDemo, start:"top 75%",
+      onEnter: () => {
+        if(chatAnimated) return; chatAnimated = true;
+        messages.forEach((msg,i) => {
+          setTimeout(() => {
+            const el = createMessage(msg);
+            chatDemo.appendChild(el);
+            lucide.createIcons();
+            gsap.to(el, { opacity:1, y:0, duration:0.4, ease:"power2.out" });
+            chatDemo.scrollTop = chatDemo.scrollHeight;
+          }, i*1200);
+        });
+      },
+      once: true
+    });
+
+    // TERMINAL TYPING
+    const termLines = [
+      { text:'$ npx mcpengage init', color:'text-white', delay:0 },
+      { text:'', color:'text-white', delay:600 },
+      { text:'? Select your platform: BambooHR', color:'text-cyan-400', delay:1200 },
+      { text:'', color:'text-white', delay:1600 },
+      { text:'  Connecting to BambooHR API...', color:'text-zinc-500', delay:2000 },
+      { text:'✓ Connected to BambooHR API', color:'text-green-400', delay:3000 },
+      { text:'✓ 46 tools loaded', color:'text-green-400', delay:3600 },
+      { text:'✓ Ready! Ask your AI anything about BambooHR', color:'text-green-400', delay:4200 },
+    ];
+    const termContainer = document.getElementById('terminal-lines');
+    let termAnimated = false;
+    function typeTermLine(lineEl, text, speed=30) {
+      return new Promise(resolve => {
+        let idx = 0;
+        const cursor = document.createElement('span');
+        cursor.className = 'terminal-cursor';
+        lineEl.appendChild(cursor);
+        function tick() {
+          if(idx < text.length) { lineEl.insertBefore(document.createTextNode(text[idx]), cursor); idx++; setTimeout(tick, speed); }
+          else { cursor.remove(); resolve(); }
+        }
+        tick();
+      });
+    }
+    ScrollTrigger.create({
+      trigger: termContainer, start:"top 80%",
+      onEnter: async () => {
+        if(termAnimated) return; termAnimated = true;
+        for(const line of termLines) {
+          await new Promise(r => setTimeout(r, line.delay ? 400 : 200));
+          const lineEl = document.createElement('div');
+          lineEl.className = line.color || 'text-white';
+          termContainer.appendChild(lineEl);
+          if(line.text) { await typeTermLine(lineEl, line.text, line.text.startsWith('$') ? 40 : 20); }
+        }
+        const finalCursor = document.createElement('div');
+        finalCursor.innerHTML = '<span class="text-white">$ </span><span class="terminal-cursor"></span>';
+        termContainer.appendChild(finalCursor);
+      },
+      once: true
+    });
+
+    // FAQ
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+      if(!wasOpen) item.classList.add('open');
+    }
+
+    // WAITLIST FORM → GoHighLevel
+    async function submitWaitlist(e) {
+      e.preventDefault();
+      const btn = document.getElementById('wl-btn');
+      const status = document.getElementById('wl-status');
+      const form = document.getElementById('waitlist-form');
+      const success = document.getElementById('wl-success');
+      
+      btn.disabled = true;
+      btn.textContent = 'Joining...';
+      status.className = 'text-xs sm:text-sm text-zinc-400 mt-3 sm:mt-4';
+      status.textContent = 'Adding you to the waitlist...';
+      
+      const firstName = document.getElementById('wl-first').value.trim();
+      const lastName = document.getElementById('wl-last').value.trim();
+      const phone = document.getElementById('wl-phone').value.trim();
+      const email = document.getElementById('wl-email').value.trim();
+      const platformName = 'BambooHR';
+      
+      try {
+        const body = {
+          firstName,
+          lastName,
+          phone,
+          tags: ['MCP waitlist', platformName],
+          source: 'MCPEngage Waitlist — ' + platformName
+        };
+        if (email) body.email = email;
+        if (!body.name) body.name = firstName + ' ' + lastName;
+        
+        const res = await fetch('https://mcpengage-waitlist.jake-2ab.workers.dev', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+        
+        if (res.ok || res.status === 200 || res.status === 201) {
+          form.classList.add('hidden');
+          success.classList.remove('hidden');
+          lucide.createIcons();
+        } else {
+          const errData = await res.json().catch(() => ({}));
+          throw new Error(errData.message || 'Server error');
+        }
+      } catch (err) {
+        status.className = 'text-xs sm:text-sm text-red-400 mt-3 sm:mt-4';
+        status.textContent = 'Something went wrong. Please try again.';
+        btn.disabled = false;
+        btn.textContent = 'Join Waitlist';
+        console.error('Waitlist error:', err);
+      }
+      return false;
+    }
+
+    // MAGNETIC BUTTONS
+    if(window.innerWidth >= 1024) {
+      document.querySelectorAll('.magnetic-btn').forEach(btn => {
+        btn.addEventListener('mousemove', e => {
+          const rect = btn.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width/2;
+          const y = e.clientY - rect.top - rect.height/2;
+          btn.style.transform = `translate(${x*0.15}px, ${y*0.15}px) scale(1.02)`;
+        });
+        btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+      });
+    }
+  </script>
 </body>
 </html>
