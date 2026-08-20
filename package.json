@@ -1,0 +1,57 @@
+{
+  "name": "revenue-copilot",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Revenue-first freelancer decision support and MCP Apps companion for official marketplace providers.",
+  "scripts": {
+    "build": "npm run build:ui && npm run typecheck",
+    "build:ui": "vite build",
+    "dev": "npm run build:ui && wrangler dev",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "playwright test",
+    "preview:ui": "vite preview --host 127.0.0.1 --port 4173",
+    "check": "npm run typecheck && npm run test",
+    "audit": "npm audit --audit-level=high",
+    "cf:types": "wrangler types",
+    "db:migrate:local": "wrangler d1 migrations apply CONTROL_DB --local && wrangler d1 migrations apply DATA_DB --local",
+    "deploy:staging": "npm run build && wrangler deploy --env staging",
+    "deploy:beta": "npm run build && wrangler deploy --env beta",
+    "deploy:production": "npm run build && wrangler deploy --env production",
+    "deploy:dry-run": "npm run build && wrangler deploy --dry-run --env=\"\" --outdir .wrangler/dry-run",
+    "migrate:legacy:dry-run": "tsx scripts/migrate-legacy.ts"
+  },
+  "dependencies": {
+    "@cloudflare/workers-oauth-provider": "0.10.3",
+    "@modelcontextprotocol/ext-apps": "1.7.5",
+    "@modelcontextprotocol/sdk": "1.30.0",
+    "@modelcontextprotocol/server": "2.0.0",
+    "@openai/apps-sdk-ui": "0.2.2",
+    "agents": "0.21.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.10.2",
+    "@cloudflare/workers-types": "5.20260820.1",
+    "@playwright/test": "^1.62.1",
+    "@tailwindcss/postcss": "^4.1.14",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
+    "@vitejs/plugin-react": "6.1.0",
+    "postcss": "8.5.26",
+    "tailwindcss": "^4.1.14",
+    "tsx": "4.23.12",
+    "typescript": "6.0.3",
+    "vite": "8.2.2",
+    "vite-plugin-singlefile": "2.3.3",
+    "vitest": "4.1.11",
+    "wrangler": "4.124.0"
+  },
+  "overrides": {
+    "lodash": "4.18.1"
+  }
+}

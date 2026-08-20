@@ -1,0 +1,114 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "revenue-copilot",
+  "main": "src/worker/index.ts",
+  "compatibility_date": "2026-08-20",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 0.1
+  },
+  "rules": [
+    {
+      "type": "Text",
+      "globs": ["**/*.html"],
+      "fallthrough": true
+    }
+  ],
+  "vars": {
+    "ENVIRONMENT": "development",
+    "AUTH_MODE": "development",
+    "PUBLIC_ORIGIN": "http://localhost:8787",
+    "DATA_RETENTION_MODE": "until_user_deletes"
+  },
+  "d1_databases": [
+    {
+      "binding": "CONTROL_DB",
+      "database_name": "revenue-copilot-control-local",
+      "database_id": "00000000-0000-0000-0000-000000000001",
+      "migrations_dir": "migrations/control"
+    },
+    {
+      "binding": "DATA_DB",
+      "database_name": "revenue-copilot-data-local",
+      "database_id": "00000000-0000-0000-0000-000000000002",
+      "migrations_dir": "migrations/data"
+    }
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "OAUTH_KV",
+      "id": "00000000000000000000000000000000"
+    }
+  ],
+  "r2_buckets": [
+    { "binding": "EXPORTS", "bucket_name": "revenue-copilot-exports-local" }
+  ],
+  "queues": {
+    "producers": [{ "binding": "DERIVED_QUEUE", "queue": "revenue-copilot-derived-local" }],
+    "consumers": [{ "queue": "revenue-copilot-derived-local", "max_batch_size": 10, "max_batch_timeout": 5, "max_retries": 3, "dead_letter_queue": "revenue-copilot-derived-dlq-local" }]
+  },
+  "workflows": [
+    { "name": "revenue-copilot-account-lifecycle-local", "binding": "ACCOUNT_LIFECYCLE", "class_name": "AccountLifecycleWorkflow" }
+  ],
+  "triggers": { "crons": ["17 5 * * *"] },
+  "env": {
+    "staging": {
+      "name": "revenue-copilot-staging",
+      "routes": [{ "pattern": "revenue-staging.mcpengage.com", "custom_domain": true }],
+      "vars": {
+        "ENVIRONMENT": "staging",
+        "AUTH_MODE": "oauth",
+        "PUBLIC_ORIGIN": "https://revenue-staging.mcpengage.com",
+        "DATA_RETENTION_MODE": "until_user_deletes"
+      },
+      "d1_databases": [
+        { "binding": "CONTROL_DB", "database_name": "revenue-copilot-control-staging", "database_id": "00000000-0000-0000-0000-000000000011", "migrations_dir": "migrations/control" },
+        { "binding": "DATA_DB", "database_name": "revenue-copilot-data-staging", "database_id": "00000000-0000-0000-0000-000000000012", "migrations_dir": "migrations/data" }
+      ],
+      "kv_namespaces": [{ "binding": "OAUTH_KV", "id": "00000000000000000000000000000011" }],
+      "r2_buckets": [{ "binding": "EXPORTS", "bucket_name": "revenue-copilot-exports-staging" }],
+      "queues": { "producers": [{ "binding": "DERIVED_QUEUE", "queue": "revenue-copilot-derived-staging" }], "consumers": [{ "queue": "revenue-copilot-derived-staging", "max_batch_size": 10, "max_batch_timeout": 5, "max_retries": 3, "dead_letter_queue": "revenue-copilot-derived-dlq-staging" }] },
+      "workflows": [{ "name": "revenue-copilot-account-lifecycle-staging", "binding": "ACCOUNT_LIFECYCLE", "class_name": "AccountLifecycleWorkflow" }],
+      "triggers": { "crons": ["17 5 * * *"] }
+    },
+    "beta": {
+      "name": "revenue-copilot-beta",
+      "routes": [{ "pattern": "revenue-beta.mcpengage.com", "custom_domain": true }],
+      "vars": {
+        "ENVIRONMENT": "beta",
+        "AUTH_MODE": "oauth",
+        "PUBLIC_ORIGIN": "https://revenue-beta.mcpengage.com",
+        "DATA_RETENTION_MODE": "until_user_deletes"
+      },
+      "d1_databases": [
+        { "binding": "CONTROL_DB", "database_name": "revenue-copilot-control-beta", "database_id": "968a2a9c-9893-4bd3-800b-f93912581551", "migrations_dir": "migrations/control" },
+        { "binding": "DATA_DB", "database_name": "revenue-copilot-data-beta", "database_id": "99a441ab-a79d-4b1a-9f2d-e5baa8817d54", "migrations_dir": "migrations/data" }
+      ],
+      "kv_namespaces": [{ "binding": "OAUTH_KV", "id": "34206cd1f8f142119e8259d64aa546cd" }],
+      "r2_buckets": [{ "binding": "EXPORTS", "bucket_name": "revenue-copilot-exports-beta" }],
+      "queues": { "producers": [{ "binding": "DERIVED_QUEUE", "queue": "revenue-copilot-derived-beta" }], "consumers": [{ "queue": "revenue-copilot-derived-beta", "max_batch_size": 10, "max_batch_timeout": 5, "max_retries": 3, "dead_letter_queue": "revenue-copilot-derived-dlq-beta" }] },
+      "workflows": [{ "name": "revenue-copilot-account-lifecycle-beta", "binding": "ACCOUNT_LIFECYCLE", "class_name": "AccountLifecycleWorkflow" }],
+      "triggers": { "crons": ["17 5 * * *"] }
+    },
+    "production": {
+      "name": "revenue-copilot",
+      "routes": [{ "pattern": "revenue.mcpengage.com", "custom_domain": true }],
+      "vars": {
+        "ENVIRONMENT": "production",
+        "AUTH_MODE": "oauth",
+        "PUBLIC_ORIGIN": "https://revenue.mcpengage.com",
+        "DATA_RETENTION_MODE": "until_user_deletes"
+      },
+      "d1_databases": [
+        { "binding": "CONTROL_DB", "database_name": "revenue-copilot-control", "database_id": "00000000-0000-0000-0000-000000000031", "migrations_dir": "migrations/control" },
+        { "binding": "DATA_DB", "database_name": "revenue-copilot-data-0", "database_id": "00000000-0000-0000-0000-000000000032", "migrations_dir": "migrations/data" }
+      ],
+      "kv_namespaces": [{ "binding": "OAUTH_KV", "id": "00000000000000000000000000000031" }],
+      "r2_buckets": [{ "binding": "EXPORTS", "bucket_name": "revenue-copilot-exports" }],
+      "queues": { "producers": [{ "binding": "DERIVED_QUEUE", "queue": "revenue-copilot-derived" }], "consumers": [{ "queue": "revenue-copilot-derived", "max_batch_size": 10, "max_batch_timeout": 5, "max_retries": 3, "dead_letter_queue": "revenue-copilot-derived-dlq" }] },
+      "workflows": [{ "name": "revenue-copilot-account-lifecycle", "binding": "ACCOUNT_LIFECYCLE", "class_name": "AccountLifecycleWorkflow" }],
+      "triggers": { "crons": ["17 5 * * *"] }
+    }
+  }
+}

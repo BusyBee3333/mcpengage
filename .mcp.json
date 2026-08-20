@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "revenue-copilot": {
+      "type": "http",
+      "url": "https://revenue.mcpengage.com/mcp"
+    }
+  }
+}

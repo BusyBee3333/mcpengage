@@ -1,0 +1,28 @@
+{
+  "name": "revenue-copilot",
+  "version": "0.1.0",
+  "description": "Revenue-first opportunity scoring, truthful proposals, workflow history, and polished MCP Apps.",
+  "author": {
+    "name": "Revenue Copilot"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Revenue Copilot",
+    "shortDescription": "Find and execute the highest-value freelance revenue actions.",
+    "longDescription": "Revenue Copilot scores opportunities, grounds proposals in verified proof, organizes marketplace work, and preserves trustworthy operational history while official providers remain the authority for external actions.",
+    "developerName": "Revenue Copilot",
+    "category": "Productivity",
+    "capabilities": ["Interactive", "Read", "Write"],
+    "websiteURL": "https://revenue.mcpengage.com/",
+    "privacyPolicyURL": "https://revenue.mcpengage.com/privacy",
+    "termsOfServiceURL": "https://revenue.mcpengage.com/terms",
+    "brandColor": "#2F5BD3",
+    "defaultPrompt": [
+      "Show my highest-value revenue actions today.",
+      "Rank my strongest new freelance opportunities.",
+      "Draft a truthful proposal for the best fit."
+    ]
+  },
+  "mcpServers": "./.mcp.json",
+  "apps": "./.app.json"
+}

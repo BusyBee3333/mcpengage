@@ -1,0 +1,9 @@
+{
+  "apps": {
+    "revenue-copilot": {
+      "name": "Revenue Copilot",
+      "description": "Guided revenue decisions, drafts, history, and provider-safe handoffs.",
+      "mcpServer": "revenue-copilot"
+    }
+  }
+}
