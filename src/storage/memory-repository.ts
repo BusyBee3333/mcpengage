@@ -12,7 +12,7 @@ import {
   type UserPreferences,
   type WorkspaceStatus
 } from "../domain/contracts";
-import type { RevenueCopilotRepository, SaveResult } from "./repository";
+import type { LocalDraftRecord, RevenueCopilotRepository, SaveResult } from "./repository";
 
 interface TenantState {
   preferences: UserPreferences;
@@ -21,6 +21,7 @@ interface TenantState {
   capabilities: Record<string, CapabilityState>;
   providerLastCheckedAt?: string;
   drafts: Map<string, ProposalDraft>;
+  localDrafts: Map<string, LocalDraftRecord>;
   intents: Map<string, ActionIntent>;
   receipts: Map<string, ProviderReceipt>;
   idempotency: Map<string, { body: string; result: object }>;
@@ -38,7 +39,7 @@ export class MemoryRepository implements RevenueCopilotRepository {
       ...(state.providerLastCheckedAt ? { providerLastCheckedAt: state.providerLastCheckedAt } : {}),
       capabilities: { ...state.capabilities },
       historyCounts,
-      draftCount: state.drafts.size,
+      draftCount: state.drafts.size + state.localDrafts.size,
       proofCount: [...state.proofs.values()].filter((proof) => !proof.archivedAt).length,
       dataRetention: "until_user_deletes"
     };
@@ -118,7 +119,7 @@ export class MemoryRepository implements RevenueCopilotRepository {
   }
 
   async saveProposalDraft(tenantId: string, draft: ProposalDraft, idempotencyKey: string): Promise<SaveResult<ProposalDraft>> {
-    return this.idempotent(tenantId, "save_proposal_draft", idempotencyKey, draft, () => {
+    return this.idempotent(tenantId, "save_proposal_draft", idempotencyKey, proposalDraftRequest(draft), () => {
       this.state(tenantId).drafts.set(draft.id, structuredClone(draft));
       return structuredClone(draft);
     });
@@ -130,8 +131,17 @@ export class MemoryRepository implements RevenueCopilotRepository {
       .map((draft) => structuredClone(draft));
   }
 
+  async saveLocalDraft(tenantId: string, draft: LocalDraftRecord, idempotencyKey: string): Promise<SaveResult<LocalDraftRecord>> {
+    return this.idempotent(tenantId, `save_${draft.kind}`, idempotencyKey, { id: draft.id, kind: draft.kind, payloadJson: draft.payloadJson }, () => {
+      this.state(tenantId).localDrafts.set(draft.id, structuredClone(draft));
+      return structuredClone(draft);
+    });
+  }
+
+  async listLocalDrafts(tenantId: string): Promise<LocalDraftRecord[]> { return [...this.state(tenantId).localDrafts.values()].map((draft) => structuredClone(draft)); }
+
   async saveActionIntent(tenantId: string, intent: ActionIntent, idempotencyKey: string): Promise<SaveResult<ActionIntent>> {
-    return this.idempotent(tenantId, "save_action_intent", idempotencyKey, intent, () => {
+    return this.idempotent(tenantId, "save_action_intent", idempotencyKey, actionIntentRequest(intent), () => {
       this.state(tenantId).intents.set(intent.id, structuredClone(intent));
       return structuredClone(intent);
     });
@@ -150,7 +160,7 @@ export class MemoryRepository implements RevenueCopilotRepository {
   }
 
   async recordProviderReceipt(tenantId: string, receipt: ProviderReceipt, idempotencyKey: string): Promise<SaveResult<ProviderReceipt>> {
-    return this.idempotent(tenantId, "record_provider_receipt", idempotencyKey, receipt, () => {
+    return this.idempotent(tenantId, "record_provider_receipt", idempotencyKey, providerReceiptRequest(receipt), () => {
       this.state(tenantId).receipts.set(`${receipt.intentId}:${receipt.recordedAt}`, structuredClone(receipt));
       return structuredClone(receipt);
     });
@@ -163,6 +173,7 @@ export class MemoryRepository implements RevenueCopilotRepository {
       proofs: [...state.proofs.values()].map((value) => structuredClone(value)),
       providerRecords: [...state.records.values()].map((value) => structuredClone(value)),
       proposalDrafts: [...state.drafts.values()].map((value) => structuredClone(value)),
+      localDrafts: [...state.localDrafts.values()].map((value) => structuredClone(value)),
       actionIntents: [...state.intents.values()].map((value) => structuredClone(value)),
       providerReceipts: [...state.receipts.values()].map((value) => structuredClone(value)),
       capabilities: { ...state.capabilities }
@@ -172,13 +183,13 @@ export class MemoryRepository implements RevenueCopilotRepository {
   async deleteTenantData(tenantId: string, scope: "record" | "domain" | "account", target?: string): Promise<{ deleted: number }> {
     const state = this.state(tenantId);
     if (scope === "account") {
-      const before = state.records.size + state.proofs.size + state.drafts.size + state.intents.size + state.receipts.size;
+      const before = state.records.size + state.proofs.size + state.drafts.size + state.localDrafts.size + state.intents.size + state.receipts.size;
       this.tenants.delete(tenantId);
       return { deleted: before };
     }
     if (!target) return { deleted: 0 };
     if (scope === "record") {
-      const collections = [state.records, state.proofs, state.drafts, state.intents, state.receipts] as Array<Map<string, object>>;
+      const collections = [state.records, state.proofs, state.drafts, state.localDrafts, state.intents, state.receipts] as Array<Map<string, object>>;
       for (const collection of collections) if (collection.delete(target)) return { deleted: 1 };
       return { deleted: 0 };
     }
@@ -201,6 +212,7 @@ export class MemoryRepository implements RevenueCopilotRepository {
         records: new Map(),
         capabilities: {},
         drafts: new Map(),
+        localDrafts: new Map(),
         intents: new Map(),
         receipts: new Map(),
         idempotency: new Map()
@@ -239,3 +251,7 @@ function compareAuthority(incoming: ProviderRecord, existing: ProviderRecord): n
   const existingTime = new Date(existing.providerUpdatedAt ?? existing.observedAt).getTime();
   return incomingTime - existingTime;
 }
+
+function proposalDraftRequest(value: ProposalDraft): object { const { id: _id, version: _version, createdAt: _createdAt, updatedAt: _updatedAt, ...request } = value; return request; }
+function actionIntentRequest(value: ActionIntent): object { const { id: _id, state: _state, expiresAt: _expiresAt, createdAt: _createdAt, outcome: _outcome, providerReceiptId: _providerReceiptId, providerReadBackAt: _providerReadBackAt, ...request } = value; return request; }
+function providerReceiptRequest(value: ProviderReceipt): object { const { recordedAt: _recordedAt, ...request } = value; return request; }

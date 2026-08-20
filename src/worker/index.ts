@@ -3,6 +3,7 @@ import { OAuthProvider } from "@cloudflare/workers-oauth-provider";
 import { createMcpHandler } from "agents/mcp/server";
 import appHtml from "../../dist/revenue-copilot.html";
 import { createRevenueCopilotServer } from "../server/register";
+import { sha256Hex } from "../domain/hash";
 import { D1Repository } from "../storage/d1-repository";
 import { MemoryRepository } from "../storage/memory-repository";
 import { handleAuthorizationRoutes, publicRoute, type AuthProps } from "./auth";
@@ -98,6 +99,35 @@ async function runInternalMaintenance(env: Env): Promise<void> {
   for (const row of expired.results) {
     await env.EXPORTS.delete(row.object_key);
     await env.CONTROL_DB.prepare("UPDATE lifecycle_jobs SET object_key=NULL WHERE id=?").bind(row.id).run();
+  }
+  await scheduleTenantBackups(env);
+}
+
+async function scheduleTenantBackups(env: Env): Promise<void> {
+  const date = new Date();
+  const today = date.toISOString().slice(0, 10);
+  const accounts = await env.CONTROL_DB.prepare("SELECT id FROM accounts ORDER BY id").all<{ id: string }>();
+  for (const account of accounts.results) {
+    const tenantDigest = await sha256Hex(account.id);
+    const suffix = tenantDigest.slice(0, 16);
+    const jobId = `rc-backup-${today}-${suffix}`;
+    const exists = await env.CONTROL_DB.prepare("SELECT id FROM lifecycle_jobs WHERE id=?").bind(jobId).first();
+    if (!exists) {
+      await env.CONTROL_DB.prepare("INSERT INTO lifecycle_jobs (id,tenant_id,job_type,status,requested_at) VALUES (?,?, 'backup','queued',?)")
+        .bind(jobId, account.id, new Date().toISOString()).run();
+      await env.ACCOUNT_LIFECYCLE.create({ id: jobId, params: { jobId, jobType: "backup", tenantId: account.id, mode: "create" } });
+    }
+    if (date.getUTCDate() !== 1 || ![0, 3, 6, 9].includes(date.getUTCMonth())) continue;
+    const manifest = await env.CONTROL_DB.prepare("SELECT id FROM backup_manifests WHERE tenant_id=? AND expires_at>? ORDER BY created_at DESC LIMIT 1")
+      .bind(account.id, new Date().toISOString()).first<{ id: string }>();
+    if (!manifest) continue;
+    const drillId = `rc-drill-${today}-${suffix}`;
+    const drill = await env.CONTROL_DB.prepare("SELECT id FROM lifecycle_jobs WHERE id=?").bind(drillId).first();
+    if (!drill) {
+      await env.CONTROL_DB.prepare("INSERT INTO lifecycle_jobs (id,tenant_id,job_type,status,target,requested_at) VALUES (?,?, 'backup','queued',?,?)")
+        .bind(drillId, account.id, manifest.id, new Date().toISOString()).run();
+      await env.ACCOUNT_LIFECYCLE.create({ id: drillId, params: { jobId: drillId, jobType: "backup", tenantId: account.id, mode: "restore_drill", backupManifestId: manifest.id } });
+    }
   }
 }
 

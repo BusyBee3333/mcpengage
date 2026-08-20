@@ -71,7 +71,8 @@ export const AttachmentMetadataSchema = z.object({
   name: z.string().min(1).max(500),
   mediaType: z.string().max(200).optional(),
   sizeBytes: z.number().int().min(0).optional(),
-  digest: z.string().max(256).optional()
+  digest: z.string().max(256).optional(),
+  accessible: z.boolean().optional()
 }).strict();
 
 export const ClientSignalsSchema = z.object({
@@ -97,6 +98,7 @@ export const JobRecordSchema = z.object({
   title: z.string().min(1).max(500),
   description: z.string().min(1).max(100_000),
   skills: z.array(z.string().min(1).max(150)).max(100),
+  mustHaveSkills: z.array(z.string().min(1).max(150)).max(50).optional(),
   status: z.enum(["open", "closed", "unavailable", "unknown"]),
   contractType: z.enum(["hourly", "fixed", "unknown"]),
   currency: z.string().length(3),

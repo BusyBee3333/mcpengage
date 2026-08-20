@@ -81,7 +81,7 @@ export const PrepareProfileRevisionOutput = surfaceEnvelopeSchema(z.literal("mar
 
 const ServiceTier = z.object({ name: z.string().min(1).max(100), priceMinor: z.number().int().min(0), deliveryDays: z.number().int().min(1).max(365), description: z.string().max(10_000) }).strict();
 export const PrepareServicePackageInput = z.object({ providerObjectId: Identifier.optional(), title: z.string().min(1).max(500), category: z.string().max(200).optional(), currency: z.string().length(3), tiers: z.array(ServiceTier).min(1).max(3), description: z.string().max(100_000), idempotencyKey: IdempotencyKey }).strict();
-export const PrepareServicePackageOutput = surfaceEnvelopeSchema(z.literal("market_presence"), z.object({ packageId: Identifier, title: z.string(), category: z.string().optional(), currency: z.string(), tiers: z.array(ServiceTier), description: z.string(), capability: CapabilityStateSchema, nothingChanged: z.literal(true), replayed: z.boolean() }).strict());
+export const PrepareServicePackageOutput = surfaceEnvelopeSchema(z.literal("market_presence"), z.object({ packageId: Identifier, title: z.string(), category: z.string().optional(), currency: z.string(), tiers: z.array(ServiceTier), description: z.string(), unsupportedClaims: z.array(z.string()), capability: CapabilityStateSchema, nothingChanged: z.literal(true), replayed: z.boolean() }).strict());
 
 export const PrepareProviderHandoffInput = z.object({
   actionKind: z.enum(["proposal_submission", "reply_send", "milestone_submission", "profile_update", "service_update"]),
@@ -100,11 +100,11 @@ export const RecordProviderOutcomeInput = z.object({ intentId: Identifier, outco
 export const RecordProviderOutcomeOutput = z.object({ schemaVersion: z.literal("1.0"), summary: z.string(), intent: ActionIntentSchema, replayed: z.boolean() }).strict();
 
 export const ExportAccountDataInput = z.object({ format: z.enum(["json", "json_csv"]).default("json_csv"), idempotencyKey: IdempotencyKey }).strict();
-export const ExportAccountDataOutput = z.object({ schemaVersion: z.literal("1.0"), summary: z.string(), status: z.enum(["ready_inline", "queued", "ready"]), exportId: Identifier, format: z.enum(["json", "json_csv"]), expiresAt: IsoDate, downloadUrl: z.string().url().optional(), data: z.record(z.string(), z.union([z.object({}).passthrough(), z.array(z.object({}).passthrough())])).optional() }).strict();
+export const ExportAccountDataOutput = z.object({ schemaVersion: z.literal("1.0"), summary: z.string(), status: z.enum(["ready_inline", "queued", "ready"]), exportId: Identifier, format: z.enum(["json", "json_csv"]), expiresAt: IsoDate, downloadUrl: z.string().url().optional(), inlineJson: z.string().optional() }).strict();
 
 export const DeleteAccountDataInput = z.object({ scope: z.enum(["record", "domain", "account"]), target: z.string().max(300).optional(), confirmation: z.literal("DELETE REVENUE COPILOT DATA"), idempotencyKey: IdempotencyKey }).strict().superRefine((value, ctx) => {
   if (value.scope !== "account" && !value.target) ctx.addIssue({ code: "custom", message: "A target is required for record and domain deletion." });
 });
-export const DeleteAccountDataOutput = z.object({ schemaVersion: z.literal("1.0"), summary: z.string(), status: z.enum(["queued", "complete"]), deletionJobId: Identifier, deleted: z.number().int().min(0).optional(), scope: z.enum(["record", "domain", "account"]), completedAt: IsoDate }).strict();
+export const DeleteAccountDataOutput = z.object({ schemaVersion: z.literal("1.0"), summary: z.string(), status: z.enum(["queued", "complete"]), deletionJobId: Identifier, deleted: z.number().int().min(0).optional(), scope: z.enum(["record", "domain", "account"]), completedAt: IsoDate.optional() }).strict();
 
 export type AnyToolOutput = Record<string, unknown>;

@@ -61,9 +61,10 @@ export class RevenueCopilotService {
     const activeMilestone = milestones.filter((item) => item.status === "active" && item.dueAt).sort((a, b) => String(a.dueAt).localeCompare(String(b.dueAt)))[0];
     if (activeMilestone) actions.push({ id: `milestone:${activeMilestone.providerObjectId}`, kind: "workroom", title: `Check ${activeMilestone.title}`, reason: `The next official milestone deadline is ${activeMilestone.dueAt}.`, estimatedUpside: "Protect delivery and payment", priority: actions.length + 1, targetId: activeMilestone.providerObjectId });
     if (!profile[0] && actions.length < limit) actions.push({ id: "setup:profile", kind: "setup", title: "Check official market presence", reason: "No current official profile observation has been provided.", estimatedUpside: "Improve decision completeness", priority: actions.length + 1 });
-    const officialRevenueMinor = revenue.filter((item) => item.source === "official_provider").reduce((sum, item) => sum + item.amountMinor, 0);
-    const currency = revenue.find((item) => item.source === "official_provider")?.currency;
-    return this.envelope("revenue_pulse", {}, [...jobs, ...conversations, ...messages, ...contracts, ...milestones, ...profile], { actions: actions.slice(0, limit), ...(revenue.length ? { officialRevenueMinor, ...(currency ? { officialRevenueCurrency: currency } : {}) } : {}), ...(connects[0] ? { connectsBalance: connects[0].balance } : {}) }, actions.length ? `${Math.min(limit, actions.length)} highest-value next move${Math.min(limit, actions.length) === 1 ? "" : "s"} identified.` : "No urgent action is supported by current data.");
+    const officialRevenue = revenue.filter((item) => item.source === "official_provider"); const officialConnects = connects.find((item) => item.source === "official_provider");
+    const officialRevenueMinor = officialRevenue.reduce((sum, item) => sum + item.amountMinor, 0);
+    const currency = officialRevenue[0]?.currency;
+    return this.envelope("revenue_pulse", {}, [...jobs, ...conversations, ...messages, ...contracts, ...milestones, ...profile], { actions: actions.slice(0, limit), ...(officialRevenue.length ? { officialRevenueMinor, ...(currency ? { officialRevenueCurrency: currency } : {}) } : {}), ...(officialConnects ? { connectsBalance: officialConnects.balance } : {}) }, actions.length ? `${Math.min(limit, actions.length)} highest-value next move${Math.min(limit, actions.length) === 1 ? "" : "s"} identified.` : "No urgent action is supported by current data.");
   }
 
   async findOpportunities(classification: string, limit: number) {
@@ -85,15 +86,18 @@ export class RevenueCopilotService {
     const [job, prefs, allProof, existing] = await Promise.all([this.repository.getProviderRecord<JobRecord>(this.tenantId, "job", input.jobProviderObjectId), this.repository.getPreferences(this.tenantId), this.repository.listProofClaims(this.tenantId), this.repository.listProposalDrafts(this.tenantId)]);
     if (!job) throw new Error("JOB_NOT_FOUND");
     const score = scoreOpportunity(job, prefs, allProof);
-    const selected = allProof.filter((claim) => input.proofClaimIds.includes(claim.id) && claim.verified && !claim.archivedAt);
+    const selected = allProof.filter((claim) => input.proofClaimIds.includes(claim.id) && claim.verified && !claim.archivedAt && claim.allowedContexts.includes("proposals"));
     const rejectedIds = input.proofClaimIds.filter((id) => !selected.some((claim) => claim.id === id));
+    const proposalText = [input.opening, input.approach, input.closing, ...input.screeningAnswers.map((item) => item.answer)].filter((value): value is string => Boolean(value)).join("\n");
+    const unsupportedTextClaims = findUnsupportedProposalClaims(proposalText, selected);
+    const selectedCoverage = selectedProofCoversJob(job, selected);
     const current = existing.find((draft) => draft.jobProviderObjectId === job.providerObjectId);
     const now = new Date().toISOString();
     const draft: ProposalDraft = {
       id: current?.id ?? `rc-proposal-${crypto.randomUUID()}`,
       jobProviderObjectId: job.providerObjectId,
       version: (current?.version ?? 0) + 1,
-      status: score.hardGateReasons.length === 0 && selected.length > 0 && rejectedIds.length === 0 ? "ready_for_review" : "draft",
+      status: score.hardGateReasons.length === 0 && selectedCoverage && rejectedIds.length === 0 && unsupportedTextClaims.length === 0 ? "ready_for_review" : "draft",
       opening: input.opening ?? `Your ${job.title} project appears to need a clear, revenue-focused implementation plan before tools are changed.`,
       proof: selected.map((claim) => claim.claim).join("\n\n"),
       approach: input.approach ?? "I would validate the current workflow and revenue bottleneck first, then implement the smallest high-leverage change and measure the result.",
@@ -103,7 +107,7 @@ export class RevenueCopilotService {
       ...(input.currency ? { currency: input.currency } : {}),
       screeningAnswers: input.screeningAnswers,
       proofClaimIds: selected.map((claim) => claim.id),
-      unsupportedClaims: rejectedIds.map((id) => `Proof claim ${id} is missing, archived, or unverified.`),
+      unsupportedClaims: [...rejectedIds.map((id) => `Proof claim ${id} is missing, archived, or unverified.`), ...(!selectedCoverage ? ["Selected proof does not cover the job's required skills."] : []), ...unsupportedTextClaims],
       createdAt: current?.createdAt ?? now,
       updatedAt: now
     };
@@ -151,17 +155,24 @@ export class RevenueCopilotService {
   }
 
   async prepareProfileRevision(input: { providerObjectId: string; proposedTitle?: string | undefined; proposedOverview?: string | undefined; proposedSkills?: string[] | undefined; idempotencyKey: string }) {
-    const [profile, capabilities] = await Promise.all([this.repository.getProviderRecord<ProfileRecord>(this.tenantId, "profile", input.providerObjectId), this.repository.getWorkspaceStatus(this.tenantId)]);
+    const [profile, capabilities, localDrafts] = await Promise.all([this.repository.getProviderRecord<ProfileRecord>(this.tenantId, "profile", input.providerObjectId), this.repository.getWorkspaceStatus(this.tenantId), this.repository.listLocalDrafts(this.tenantId)]);
     if (!profile) throw new Error("PROFILE_NOT_FOUND");
     const changes = [input.proposedTitle !== undefined && input.proposedTitle !== profile.title ? { field: "title", before: profile.title, after: input.proposedTitle } : null, input.proposedOverview !== undefined && input.proposedOverview !== profile.overview ? { field: "overview", before: profile.overview, after: input.proposedOverview } : null, input.proposedSkills !== undefined && canonicalJson({ value: input.proposedSkills }) !== canonicalJson({ value: profile.skills }) ? { field: "skills", before: profile.skills.join(", "), after: input.proposedSkills.join(", ") } : null].filter((value): value is { field: string; before: string; after: string } => value !== null);
-    const unsupportedClaims = await this.detectUnsupportedClaims(input.proposedOverview ?? "");
+    const unsupportedClaims = await this.detectUnsupportedClaims(input.proposedOverview ?? "", "profile");
     const capability = capabilities.capabilities.profile_update ?? "unknown";
-    return this.envelope("market_presence", { profile_update: capability }, [profile], { revisionId: `rc-profile-${await shortHash(input)}`, providerObjectId: input.providerObjectId, changes, unsupportedClaims, capability, nothingChanged: true as const, replayed: false }, `Profile revision prepared with ${changes.length} change${changes.length === 1 ? "" : "s"}. Nothing has been changed on the provider.`);
+    const revisionId = `rc-profile-${await shortHash({ providerObjectId: input.providerObjectId })}`; const prior = localDrafts.find((draft) => draft.id === revisionId); const now = new Date().toISOString();
+    const payload = { revisionId, providerObjectId: input.providerObjectId, changes, unsupportedClaims, capability, nothingChanged: true as const };
+    const saved = await this.repository.saveLocalDraft(this.tenantId, { id: revisionId, kind: "profile_revision", version: (prior?.version ?? 0) + 1, payloadJson: canonicalJson(payload), createdAt: prior?.createdAt ?? now, updatedAt: now }, input.idempotencyKey);
+    return this.envelope("market_presence", { profile_update: capability }, [profile], { ...JSON.parse(saved.value.payloadJson) as typeof payload, replayed: saved.replayed }, `Profile revision prepared with ${changes.length} change${changes.length === 1 ? "" : "s"}. Nothing has been changed on the provider.`);
   }
 
   async prepareServicePackage(input: { providerObjectId?: string | undefined; title: string; category?: string | undefined; currency: string; tiers: Array<{ name: string; priceMinor: number; deliveryDays: number; description: string }>; description: string; idempotencyKey: string }) {
-    const status = await this.repository.getWorkspaceStatus(this.tenantId); const capability = status.capabilities.service_update ?? "unknown";
-    return this.envelope("market_presence", { service_update: capability }, [], { packageId: input.providerObjectId ?? `rc-service-${await shortHash(input)}`, title: input.title, ...(input.category ? { category: input.category } : {}), currency: input.currency, tiers: input.tiers, description: input.description, capability, nothingChanged: true as const, replayed: false }, "Service package prepared. Nothing has been changed on the provider.");
+    const [status, localDrafts] = await Promise.all([this.repository.getWorkspaceStatus(this.tenantId), this.repository.listLocalDrafts(this.tenantId)]); const capability = status.capabilities.service_update ?? "unknown";
+    const packageId = input.providerObjectId ?? `rc-service-${await shortHash({ title: input.title, category: input.category ?? "" })}`; const prior = localDrafts.find((draft) => draft.id === packageId); const now = new Date().toISOString();
+    const unsupportedClaims = await this.detectUnsupportedClaims([input.title, input.description, ...input.tiers.map((tier) => tier.description)].join("\n"), "services");
+    const payload = { packageId, title: input.title, ...(input.category ? { category: input.category } : {}), currency: input.currency, tiers: input.tiers, description: input.description, unsupportedClaims, capability, nothingChanged: true as const };
+    const saved = await this.repository.saveLocalDraft(this.tenantId, { id: packageId, kind: "service_package", version: (prior?.version ?? 0) + 1, payloadJson: canonicalJson(payload), createdAt: prior?.createdAt ?? now, updatedAt: now }, input.idempotencyKey);
+    return this.envelope("market_presence", { service_update: capability }, [], { ...JSON.parse(saved.value.payloadJson) as typeof payload, replayed: saved.replayed }, "Service package prepared. Nothing has been changed on the provider.");
   }
 
   async prepareHandoff(input: { actionKind: ActionIntent["actionKind"]; providerTargetId: string; payload: string; sourceVersionHash: string; providerRevision?: string | undefined; costConnects?: number | undefined; idempotencyKey: string }) {
@@ -175,7 +186,18 @@ export class RevenueCopilotService {
   async recordOutcome(input: { intentId: string; outcome: "verified" | "failed_no_change" | "outcome_uncertain" | "already_completed"; providerReceiptId?: string | undefined; providerReadBackAt?: string | undefined; providerStateSummary: string; idempotencyKey: string }) {
     const existing = await this.repository.getActionIntent(this.tenantId, input.intentId);
     if (!existing) throw new Error("INTENT_NOT_FOUND");
+    if (["verified", "failed_no_change", "outcome_uncertain", "already_completed"].includes(existing.state)) {
+      const sameOutcome = existing.outcome === input.outcome;
+      const sameReceipt = (existing.providerReceiptId ?? undefined) === input.providerReceiptId;
+      const sameReadBack = (existing.providerReadBackAt ?? undefined) === input.providerReadBackAt;
+      if (!sameOutcome || !sameReceipt || !sameReadBack) throw new Error("INTENT_ALREADY_RESOLVED");
+      return { schemaVersion: "1.0" as const, summary: outcomeSummary(input.outcome), intent: existing, replayed: true };
+    }
     if (input.outcome === "verified" && (!input.providerReceiptId || !input.providerReadBackAt)) throw new Error("VERIFICATION_REQUIRES_RECEIPT_AND_READBACK");
+    if (input.providerReadBackAt) {
+      const readBackAt = Date.parse(input.providerReadBackAt);
+      if (!Number.isFinite(readBackAt) || readBackAt < Date.parse(existing.createdAt) || readBackAt > Date.now() + 5 * 60_000) throw new Error("INVALID_PROVIDER_READBACK_TIME");
+    }
     const updated: ActionIntent = { ...existing, state: input.outcome, outcome: input.outcome, ...(input.providerReceiptId ? { providerReceiptId: input.providerReceiptId } : {}), ...(input.providerReadBackAt ? { providerReadBackAt: input.providerReadBackAt } : {}) };
     const saved = await this.repository.updateActionIntent(this.tenantId, updated, input.idempotencyKey);
     await this.repository.recordProviderReceipt(this.tenantId, { intentId: input.intentId, outcome: input.outcome, ...(input.providerReceiptId ? { providerReceiptId: input.providerReceiptId } : {}), ...(input.providerReadBackAt ? { providerReadBackAt: input.providerReadBackAt } : {}), providerStateSummary: input.providerStateSummary, recordedAt: new Date().toISOString() }, `${input.idempotencyKey}:receipt`);
@@ -188,13 +210,13 @@ export class RevenueCopilotService {
       return { schemaVersion: "1.0" as const, summary: result.status === "ready" ? "Encrypted account export is ready. The download link expires in 15 minutes." : "Encrypted account export queued. Call this tool again with the same idempotency key to check readiness.", status: result.status === "ready" ? "ready" as const : "queued" as const, exportId: result.exportId, format, expiresAt: result.expiresAt, ...(result.downloadUrl ? { downloadUrl: result.downloadUrl } : {}) };
     }
     const data = await this.repository.exportTenant(this.tenantId); const now = new Date();
-    return { schemaVersion: "1.0" as const, summary: "Account export prepared inline. It contains normalized Revenue Copilot data only.", status: "ready_inline" as const, exportId: `rc-export-${crypto.randomUUID()}`, format, expiresAt: new Date(now.getTime() + 15 * 60_000).toISOString(), data };
+    return { schemaVersion: "1.0" as const, summary: "Account export prepared inline. It contains normalized Revenue Copilot data only.", status: "ready_inline" as const, exportId: `rc-export-${crypto.randomUUID()}`, format, expiresAt: new Date(now.getTime() + 15 * 60_000).toISOString(), inlineJson: JSON.stringify(data) };
   }
 
   async deleteData(scope: "record" | "domain" | "account", target: string | undefined, idempotencyKey: string) {
     if (this.lifecycle) {
       const result = await this.lifecycle.requestDeletion(this.tenantId, scope, target, idempotencyKey);
-      return { schemaVersion: "1.0" as const, summary: result.status === "complete" ? `Deleted ${result.deleted ?? 0} active records. Backup residue follows the published 35-day expiry.` : "Deletion queued and will complete within 24 hours.", status: result.status, deletionJobId: result.deletionJobId, ...(result.deleted !== undefined ? { deleted: result.deleted } : {}), scope, completedAt: result.completedAt ?? new Date().toISOString() };
+      return { schemaVersion: "1.0" as const, summary: result.status === "complete" ? `Deleted ${result.deleted ?? 0} active records. Backup residue follows the published 35-day expiry.` : "Deletion queued and will complete within 24 hours.", status: result.status, deletionJobId: result.deletionJobId, ...(result.deleted !== undefined ? { deleted: result.deleted } : {}), scope, ...(result.completedAt ? { completedAt: result.completedAt } : {}) };
     }
     const result = await this.repository.deleteTenantData(this.tenantId, scope, target);
     return { schemaVersion: "1.0" as const, summary: `Deleted ${result.deleted} active record${result.deleted === 1 ? "" : "s"}. Backup residue follows the published 35-day expiry.`, status: "complete" as const, deletionJobId: `rc-delete-${crypto.randomUUID()}`, deleted: result.deleted, scope, completedAt: new Date().toISOString() };
@@ -202,16 +224,16 @@ export class RevenueCopilotService {
 
   private async records<T extends ProviderRecord>(type: T["entityType"]): Promise<T[]> { return this.repository.listProviderRecords<T>(this.tenantId, type); }
 
-  private envelope<S extends SurfaceEnvelope<unknown>["surface"], T>(surface: S, capabilities: Record<string, CapabilityState>, records: ProviderRecord[], data: T, summary: string): SurfaceEnvelope<T> {
-    const observed = records.sort((a, b) => b.observedAt.localeCompare(a.observedAt))[0];
-    return { schemaVersion: "1.0", surface, viewId: crypto.randomUUID(), generatedAt: new Date().toISOString(), timezone: "America/New_York", summary, provenance: observed ? [{ source: observed.source, providerObjectId: observed.providerObjectId, ...(observed.providerUpdatedAt ? { providerUpdatedAt: observed.providerUpdatedAt } : {}), observedAt: observed.observedAt, contentHash: "normalized-provider-record", freshness: freshnessFor(surface, observed.observedAt) }] : [{ source: "local_computed", observedAt: new Date().toISOString(), contentHash: "local-empty-state", freshness: "unknown" }], capabilities, warnings: observed && freshnessFor(surface, observed.observedAt) === "stale" ? [{ code: "STALE_PROVIDER_CONTEXT", message: "Official provider context is stale. Re-fetch before consequential decisions." }] : [], data };
+  private async envelope<S extends SurfaceEnvelope<unknown>["surface"], T extends object>(surface: S, capabilities: Record<string, CapabilityState>, records: ProviderRecord[], data: T, summary: string): Promise<SurfaceEnvelope<T>> {
+    const observed = [...records].sort((a, b) => b.observedAt.localeCompare(a.observedAt))[0]; const generatedAt = new Date().toISOString();
+    return { schemaVersion: "1.0", surface, viewId: crypto.randomUUID(), generatedAt, timezone: "America/New_York", summary, provenance: observed ? [{ source: observed.source, providerObjectId: observed.providerObjectId, ...(observed.providerUpdatedAt ? { providerUpdatedAt: observed.providerUpdatedAt } : {}), observedAt: observed.observedAt, contentHash: await sha256Hex(canonicalJson(observed)), freshness: freshnessFor(surface, observed.observedAt) }] : [{ source: "local_computed", observedAt: generatedAt, contentHash: await sha256Hex(canonicalJson({ surface, capabilities, data })), freshness: "unknown" }], capabilities, warnings: observed && freshnessFor(surface, observed.observedAt) === "stale" ? [{ code: "STALE_PROVIDER_CONTEXT", message: "Official provider context is stale. Re-fetch before consequential decisions." }] : [], data };
   }
 
-  private async detectUnsupportedClaims(text: string): Promise<string[]> {
+  private async detectUnsupportedClaims(text: string, context: "profile" | "services"): Promise<string[]> {
     if (!text.trim()) return [];
     const proof = await this.repository.listProofClaims(this.tenantId);
-    if (proof.some((claim) => claim.verified && text.toLowerCase().includes(claim.claim.toLowerCase()))) return [];
-    return /increased|grew|generated|saved|delivered|expert|years of experience/i.test(text) ? ["The proposed overview contains an outcome or experience claim that is not tied to an approved proof claim."] : [];
+    const approved = proof.filter((claim) => claim.verified && !claim.archivedAt && claim.allowedContexts.includes(context));
+    return findUnsupportedTextClaims(text, approved, context === "profile" ? "profile" : "service");
   }
 }
 
@@ -225,3 +247,25 @@ function freshnessFor(surface: SurfaceEnvelope<unknown>["surface"], observedAt: 
 function priorityValue(value: "urgent" | "today" | "normal"): number { return value === "urgent" ? 0 : value === "today" ? 1 : 2; }
 function shortHash(value: object): Promise<string> { return sha256Hex(canonicalJson(value)).then((hash) => hash.slice(0, 12)); }
 function outcomeSummary(outcome: string): string { return outcome === "verified" ? "Provider outcome verified by receipt and independent read-back." : outcome === "failed_no_change" ? "Provider reported failure with no change." : outcome === "already_completed" ? "Provider action was already completed; no duplicate action was taken." : "Provider outcome is uncertain. Retries are disabled until official state is checked."; }
+
+function selectedProofCoversJob(job: JobRecord, proof: ProofClaim[]): boolean {
+  const required = new Set((job.mustHaveSkills?.length ? job.mustHaveSkills : job.skills).map((skill) => skill.trim().toLowerCase()).filter(Boolean));
+  if (required.size === 0) return proof.length > 0;
+  const covered = new Set(proof.flatMap((claim) => claim.skills.map((skill) => skill.trim().toLowerCase())));
+  return [...required].every((skill) => covered.has(skill));
+}
+
+function findUnsupportedProposalClaims(text: string, proof: ProofClaim[]): string[] {
+  return findUnsupportedTextClaims(text, proof, "proposal");
+}
+
+function findUnsupportedTextClaims(text: string, proof: ProofClaim[], label: "proposal" | "profile" | "service"): string[] {
+  const claimPattern = /\b(increased|grew|generated|saved|delivered|led|built|implemented|managed|expert|years? of experience)\b/i;
+  const proofTokens = proof.map((claim) => new Set(tokenize(claim.claim)));
+  return text.split(/(?<=[.!?])\s+|\n+/).map((sentence) => sentence.trim()).filter((sentence) => claimPattern.test(sentence)).filter((sentence) => {
+    const tokens = tokenize(sentence); if (tokens.length === 0) return true;
+    return !proofTokens.some((approved) => tokens.filter((token) => approved.has(token)).length / tokens.length >= 0.35);
+  }).map((sentence) => `Unsupported ${label} claim: ${sentence.slice(0, 240)}`);
+}
+
+function tokenize(value: string): string[] { return value.toLowerCase().match(/[a-z0-9]+/g)?.filter((token) => token.length > 2 && !["the", "and", "with", "that", "this", "for", "your"].includes(token)) ?? []; }

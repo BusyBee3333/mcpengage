@@ -74,6 +74,11 @@ function evaluateHardGates(job: JobRecord, prefs: UserPreferences, proof: ProofC
   const excluded = prefs.excludedTerms.find((term) => normalizedText.includes(term.toLowerCase()));
   if (excluded) reasons.push(`The job contains excluded term “${excluded}”.`);
   if (job.description.trim().length < 80) reasons.push("The full job description is missing or too incomplete to finalize a proposal.");
+  if (job.attachments.some((attachment) => attachment.accessible !== true)) reasons.push("One or more required job attachments have not been accessed and reviewed.");
+  const mustHaveSkills = normalize(job.mustHaveSkills ?? []);
+  const verifiedProofSkills = new Set(proof.filter((claim) => claim.verified && !claim.archivedAt).flatMap((claim) => normalize(claim.skills)));
+  const unsupportedMustHave = mustHaveSkills.filter((skill) => !verifiedProofSkills.has(skill));
+  if (unsupportedMustHave.length > 0) reasons.push(`Verified proof is missing for must-have skill${unsupportedMustHave.length === 1 ? "" : "s"}: ${unsupportedMustHave.join(", ")}.`);
   if (job.skills.length > 0 && !proof.some((claim) => claim.verified && intersection(normalize(claim.skills), normalize(job.skills)).length > 0)) {
     reasons.push("No verified proof supports the listed must-have skills.");
   }

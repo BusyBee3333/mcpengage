@@ -15,6 +15,15 @@ export interface SaveResult<T> {
   replayed: boolean;
 }
 
+export interface LocalDraftRecord {
+  id: string;
+  kind: "profile_revision" | "service_package";
+  version: number;
+  payloadJson: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface RevenueCopilotRepository {
   getWorkspaceStatus(tenantId: string): Promise<WorkspaceStatus>;
   getPreferences(tenantId: string): Promise<UserPreferences>;
@@ -27,6 +36,8 @@ export interface RevenueCopilotRepository {
   saveCapabilities(tenantId: string, capabilities: Record<string, CapabilityState>, observedAt: string, idempotencyKey: string): Promise<SaveResult<Record<string, CapabilityState>>>;
   saveProposalDraft(tenantId: string, draft: ProposalDraft, idempotencyKey: string): Promise<SaveResult<ProposalDraft>>;
   listProposalDrafts(tenantId: string): Promise<ProposalDraft[]>;
+  saveLocalDraft(tenantId: string, draft: LocalDraftRecord, idempotencyKey: string): Promise<SaveResult<LocalDraftRecord>>;
+  listLocalDrafts(tenantId: string): Promise<LocalDraftRecord[]>;
   saveActionIntent(tenantId: string, intent: ActionIntent, idempotencyKey: string): Promise<SaveResult<ActionIntent>>;
   getActionIntent(tenantId: string, intentId: string): Promise<ActionIntent | undefined>;
   updateActionIntent(tenantId: string, intent: ActionIntent, idempotencyKey: string): Promise<SaveResult<ActionIntent>>;

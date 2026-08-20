@@ -116,12 +116,17 @@ async function downloadExport(url: URL, env: Env): Promise<Response> {
   if (!exportId || !token || !env.DATA_ENCRYPTION_KEY) return new Response("Export link is invalid or expired", { status: 403, headers: securityHeaders("text/plain; charset=utf-8") });
   const verified = await verifyDownloadToken(env, exportId, token);
   if (!verified) return new Response("Export link is invalid or expired", { status: 403, headers: securityHeaders("text/plain; charset=utf-8") });
-  const job = await env.CONTROL_DB.prepare("SELECT object_key,expires_at,status FROM lifecycle_jobs WHERE id=? AND tenant_id=? AND job_type='export'").bind(exportId, verified.tenantId).first<{ object_key: string | null; expires_at: string | null; status: string }>();
+  const job = await env.CONTROL_DB.prepare("SELECT object_key,expires_at,status,target FROM lifecycle_jobs WHERE id=? AND tenant_id=? AND job_type='export'").bind(exportId, verified.tenantId).first<{ object_key: string | null; expires_at: string | null; status: string; target: string | null }>();
   if (!job?.object_key || job.status !== "complete" || !job.expires_at || Date.parse(job.expires_at) < Date.now()) return new Response("Export is unavailable", { status: 410, headers: securityHeaders("text/plain; charset=utf-8") });
   const object = await env.EXPORTS.get(job.object_key); if (!object) return new Response("Export is unavailable", { status: 410, headers: securityHeaders("text/plain; charset=utf-8") });
   const encrypted = await object.text(); const plaintext = await new TenantEnvelopeEncryption(env.DATA_ENCRYPTION_KEY).decrypt(verified.tenantId, `account-export:${exportId}`, encrypted);
-  const headers = new Headers(securityHeaders("application/json; charset=utf-8")); headers.set("cache-control", "private, no-store"); headers.set("content-disposition", `attachment; filename="revenue-copilot-${exportId}.json"`);
-  return new Response(plaintext, { headers });
+  const zipped = job.target === "json_csv" && plaintext.startsWith("zip:v1:");
+  const decoded = zipped ? decodeBase64Url(plaintext.slice("zip:v1:".length)) : undefined;
+  const body = decoded ? decoded.buffer.slice(decoded.byteOffset, decoded.byteOffset + decoded.byteLength) as ArrayBuffer : plaintext;
+  const headers = new Headers(securityHeaders(zipped ? "application/zip" : "application/json; charset=utf-8"));
+  headers.set("cache-control", "private, no-store");
+  headers.set("content-disposition", `attachment; filename="revenue-copilot-${exportId}.${zipped ? "zip" : "json"}"`);
+  return new Response(body, { headers });
 }
 
 const SUPPORTED_SCOPES = ["copilot.read", "copilot.write", "copilot.account"];

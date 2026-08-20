@@ -24,7 +24,7 @@ Provider-facing preparation is feature-gated independently from read/scoring sur
 
 ## Data lifecycle
 
-Active deletion target is 24 hours. Export URLs expire after 15 minutes and objects after 24 hours. Encrypted backup residue expires after 35 days. Quarterly restore drills replay deletion tombstones before restored data becomes available.
+Active deletion target is 24 hours. Export URLs expire after 15 minutes and objects after 24 hours. Encrypted backup residue expires after 35 days. Quarterly drills verify backup integrity, decryption, parsing, and deletion-tombstone availability in isolation; drill data is never made available to users. Any future production restore must replay applicable tombstones before restored data can be exposed.
 
 ## Scheduled workflows
 

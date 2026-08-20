@@ -12,7 +12,7 @@ import {
   type UserPreferences,
   type WorkspaceStatus
 } from "../domain/contracts";
-import type { RevenueCopilotRepository, SaveResult } from "./repository";
+import type { LocalDraftRecord, RevenueCopilotRepository, SaveResult } from "./repository";
 import { TenantEnvelopeEncryption } from "./encryption";
 
 type Row = Record<string, string | number | null>;
@@ -25,7 +25,7 @@ export class D1Repository implements RevenueCopilotRepository {
     const [counts, capabilities, drafts, proofs, latest] = await Promise.all([
       this.db.prepare("SELECT entity_type, COUNT(*) AS count FROM provider_entities WHERE tenant_id = ? GROUP BY entity_type").bind(tenantId).all<Row>(),
       this.db.prepare("SELECT capability, state FROM capability_observations WHERE tenant_id = ?").bind(tenantId).all<Row>(),
-      this.db.prepare("SELECT COUNT(*) AS count FROM proposal_drafts WHERE tenant_id = ?").bind(tenantId).first<Row>(),
+      this.db.prepare("SELECT (SELECT COUNT(*) FROM proposal_drafts WHERE tenant_id = ?) + (SELECT COUNT(*) FROM local_drafts WHERE tenant_id = ?) AS count").bind(tenantId, tenantId).first<Row>(),
       this.db.prepare("SELECT COUNT(*) AS count FROM proof_claims WHERE tenant_id = ? AND archived_at IS NULL").bind(tenantId).first<Row>(),
       this.db.prepare("SELECT MAX(observed_at) AS observed_at FROM provider_entities WHERE tenant_id = ? AND source = 'official_provider'").bind(tenantId).first<Row>()
     ]);
@@ -108,7 +108,7 @@ export class D1Repository implements RevenueCopilotRepository {
   }
 
   async saveProposalDraft(tenantId: string, value: ProposalDraft, key: string): Promise<SaveResult<ProposalDraft>> {
-    return this.idempotent(tenantId, "save_proposal_draft", key, value, async () => {
+    return this.idempotent(tenantId, "save_proposal_draft", key, proposalDraftRequest(value), async () => {
       const json = await this.encryption.encrypt(tenantId, "proposal-draft", canonicalJson(value)); const hash = await hashObject(value);
       await this.db.batch([
         this.db.prepare("INSERT OR IGNORE INTO proposal_draft_versions (tenant_id,id,version,normalized_json,content_hash,created_at) VALUES (?,?,?,?,?,?)").bind(tenantId, value.id, value.version, json, hash, value.updatedAt),
@@ -123,6 +123,22 @@ export class D1Repository implements RevenueCopilotRepository {
     return Promise.all(rows.results.map(async (row) => JSON.parse(await this.encryption.decrypt(tenantId, "proposal-draft", String(row.normalized_json))) as ProposalDraft));
   }
 
+  async saveLocalDraft(tenantId: string, value: LocalDraftRecord, key: string): Promise<SaveResult<LocalDraftRecord>> {
+    return this.idempotent(tenantId, `save_${value.kind}`, key, { id: value.id, kind: value.kind, payloadJson: value.payloadJson }, async () => {
+      const normalized = await this.encryption.encrypt(tenantId, `local-draft-${value.kind}`, value.payloadJson); const hash = await hashObject(value);
+      await this.db.batch([
+        this.db.prepare("INSERT OR IGNORE INTO local_draft_versions (tenant_id,id,draft_kind,version,normalized_json,content_hash,created_at) VALUES (?,?,?,?,?,?,?)").bind(tenantId, value.id, value.kind, value.version, normalized, hash, value.updatedAt),
+        this.db.prepare("INSERT INTO local_drafts (tenant_id,id,draft_kind,version,normalized_json,content_hash,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?) ON CONFLICT(tenant_id,id) DO UPDATE SET version=excluded.version,normalized_json=excluded.normalized_json,content_hash=excluded.content_hash,updated_at=excluded.updated_at").bind(tenantId, value.id, value.kind, value.version, normalized, hash, value.createdAt, value.updatedAt)
+      ]);
+      return value;
+    });
+  }
+
+  async listLocalDrafts(tenantId: string): Promise<LocalDraftRecord[]> {
+    const rows = await this.db.prepare("SELECT * FROM local_drafts WHERE tenant_id=? ORDER BY updated_at DESC").bind(tenantId).all<Row>();
+    return Promise.all(rows.results.map(async (row) => ({ id: String(row.id), kind: String(row.draft_kind) as LocalDraftRecord["kind"], version: Number(row.version), payloadJson: await this.encryption.decrypt(tenantId, `local-draft-${String(row.draft_kind)}`, String(row.normalized_json)), createdAt: String(row.created_at), updatedAt: String(row.updated_at) })));
+  }
+
   async saveActionIntent(tenantId: string, value: ActionIntent, key: string): Promise<SaveResult<ActionIntent>> { return this.persistIntent(tenantId, value, key, "save_action_intent"); }
   async updateActionIntent(tenantId: string, value: ActionIntent, key: string): Promise<SaveResult<ActionIntent>> { return this.persistIntent(tenantId, value, key, "update_action_intent"); }
 
@@ -132,7 +148,7 @@ export class D1Repository implements RevenueCopilotRepository {
   }
 
   async recordProviderReceipt(tenantId: string, value: ProviderReceipt, key: string): Promise<SaveResult<ProviderReceipt>> {
-    return this.idempotent(tenantId, "record_provider_receipt", key, value, async () => {
+    return this.idempotent(tenantId, "record_provider_receipt", key, providerReceiptRequest(value), async () => {
       const normalized = await this.encryption.encrypt(tenantId, "provider-receipt", canonicalJson(value));
       await this.db.prepare("INSERT INTO action_receipts (tenant_id,intent_id,outcome,provider_receipt_id,provider_read_back_at,recorded_at,normalized_json) VALUES (?,?,?,?,?,?,?)")
         .bind(tenantId, value.intentId, value.outcome, value.providerReceiptId ?? null, value.providerReadBackAt ?? null, value.recordedAt, normalized).run();
@@ -141,20 +157,21 @@ export class D1Repository implements RevenueCopilotRepository {
   }
 
   async exportTenant(tenantId: string): Promise<Record<string, object[] | object>> {
-    const [preferences, proofs, records, drafts, intents, receipts, capabilities] = await Promise.all([
+    const [preferences, proofs, records, drafts, localDrafts, intents, receipts, capabilities] = await Promise.all([
       this.getPreferences(tenantId), this.listProofClaims(tenantId, true),
       Promise.all(PROVIDER_ENTITY_TYPES.map((type) => this.listProviderRecords(tenantId, type))).then((rows) => rows.flat()),
       this.listProposalDrafts(tenantId),
+      this.listLocalDrafts(tenantId),
       this.db.prepare("SELECT * FROM action_intents WHERE tenant_id = ? ORDER BY created_at DESC").bind(tenantId).all<Row>(),
       this.db.prepare("SELECT normalized_json FROM action_receipts WHERE tenant_id = ? ORDER BY recorded_at DESC").bind(tenantId).all<Row>(),
       this.db.prepare("SELECT capability,state FROM capability_observations WHERE tenant_id = ?").bind(tenantId).all<Row>()
     ]);
-    return { preferences, proofs, providerRecords: records, proposalDrafts: drafts, actionIntents: await Promise.all(intents.results.map((row) => this.intentFromRow(tenantId, row))), providerReceipts: await Promise.all(receipts.results.map(async (row) => JSON.parse(await this.encryption.decrypt(tenantId, "provider-receipt", String(row.normalized_json))) as ProviderReceipt)), capabilities: Object.fromEntries(capabilities.results.map((row) => [String(row.capability), String(row.state)])) };
+    return { preferences, proofs, providerRecords: records, proposalDrafts: drafts, localDrafts, actionIntents: await Promise.all(intents.results.map((row) => this.intentFromRow(tenantId, row))), providerReceipts: await Promise.all(receipts.results.map(async (row) => JSON.parse(await this.encryption.decrypt(tenantId, "provider-receipt", String(row.normalized_json))) as ProviderReceipt)), capabilities: Object.fromEntries(capabilities.results.map((row) => [String(row.capability), String(row.state)])) };
   }
 
   async deleteTenantData(tenantId: string, scope: "record" | "domain" | "account", target?: string): Promise<{ deleted: number }> {
     if (scope === "account") {
-      const tables = ["tenant_preferences", "proof_claims", "provider_entity_versions", "provider_entities", "capability_observations", "proposal_draft_versions", "proposal_drafts", "action_receipts", "action_intents", "attachment_metadata", "daily_analytics_facts", "recommendation_versions", "score_versions", "sync_checkpoints", "sync_runs", "policy_versions", "idempotency_records", "audit_events"];
+      const tables = ["tenant_preferences", "proof_claims", "provider_entity_versions", "provider_entities", "capability_observations", "proposal_draft_versions", "proposal_drafts", "local_draft_versions", "local_drafts", "action_receipts", "action_intents", "attachment_metadata", "daily_analytics_facts", "recommendation_versions", "score_versions", "sync_checkpoints", "sync_runs", "policy_versions", "idempotency_records", "audit_events"];
       const results = await this.db.batch(tables.map((table) => this.db.prepare(`DELETE FROM ${table} WHERE tenant_id = ?`).bind(tenantId)));
       return { deleted: results.reduce((sum, result) => sum + (result.meta.changes ?? 0), 0) };
     }
@@ -172,6 +189,8 @@ export class D1Repository implements RevenueCopilotRepository {
       this.db.prepare("DELETE FROM proof_claims WHERE tenant_id = ? AND id = ?").bind(tenantId, target),
       this.db.prepare("DELETE FROM proposal_draft_versions WHERE tenant_id = ? AND id = ?").bind(tenantId, target),
       this.db.prepare("DELETE FROM proposal_drafts WHERE tenant_id = ? AND id = ?").bind(tenantId, target),
+      this.db.prepare("DELETE FROM local_draft_versions WHERE tenant_id = ? AND id = ?").bind(tenantId, target),
+      this.db.prepare("DELETE FROM local_drafts WHERE tenant_id = ? AND id = ?").bind(tenantId, target),
       this.db.prepare("DELETE FROM action_receipts WHERE tenant_id = ? AND intent_id = ?").bind(tenantId, target),
       this.db.prepare("DELETE FROM action_intents WHERE tenant_id = ? AND id = ?").bind(tenantId, target)
     ]);
@@ -179,7 +198,7 @@ export class D1Repository implements RevenueCopilotRepository {
   }
 
   private async persistIntent(tenantId: string, value: ActionIntent, key: string, operation: string): Promise<SaveResult<ActionIntent>> {
-    return this.idempotent(tenantId, operation, key, value, async () => {
+    return this.idempotent(tenantId, operation, key, operation === "save_action_intent" ? actionIntentRequest(value) : value, async () => {
       await this.db.prepare("INSERT INTO action_intents (tenant_id,id,action_kind,provider_target_id,state,payload_hash,source_version_hash,provider_revision,cost_connects,frozen_payload,expires_at,created_at,outcome,provider_receipt_id,provider_read_back_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ON CONFLICT(tenant_id,id) DO UPDATE SET state=excluded.state,outcome=excluded.outcome,provider_receipt_id=excluded.provider_receipt_id,provider_read_back_at=excluded.provider_read_back_at")
         .bind(tenantId, value.id, value.actionKind, value.providerTargetId, value.state, value.payloadHash, value.sourceVersionHash, value.providerRevision ?? null, value.costConnects ?? null, await this.encryption.encrypt(tenantId, "action-payload", value.frozenPayload), value.expiresAt, value.createdAt, value.outcome ?? null, value.providerReceiptId ?? null, value.providerReadBackAt ?? null).run();
       return value;
@@ -188,14 +207,23 @@ export class D1Repository implements RevenueCopilotRepository {
 
   private async idempotent<T extends object>(tenantId: string, operation: string, key: string, body: object, execute: () => Promise<T>): Promise<SaveResult<T>> {
     const bodyHash = await hashObject(body);
-    const prior = await this.db.prepare("SELECT body_hash,result_json FROM idempotency_records WHERE tenant_id = ? AND operation = ? AND idempotency_key = ?").bind(tenantId, operation, key).first<Row>();
-    if (prior) {
-      if (String(prior.body_hash) !== bodyHash) throw new Error("IDEMPOTENCY_CONFLICT");
+    const reservationId = crypto.randomUUID();
+    await this.db.prepare("INSERT OR IGNORE INTO idempotency_records (tenant_id,operation,idempotency_key,body_hash,result_json,created_at,state,reservation_id) VALUES (?,?,?,?,?,?, 'pending',?)").bind(tenantId, operation, key, bodyHash, "", new Date().toISOString(), reservationId).run();
+    const prior = await this.db.prepare("SELECT body_hash,result_json,state,reservation_id FROM idempotency_records WHERE tenant_id = ? AND operation = ? AND idempotency_key = ?").bind(tenantId, operation, key).first<Row>();
+    if (!prior) throw new Error("IDEMPOTENCY_RESERVATION_FAILED");
+    if (String(prior.body_hash) !== bodyHash) throw new Error("IDEMPOTENCY_CONFLICT");
+    if (String(prior.reservation_id) !== reservationId) {
+      if (String(prior.state) !== "complete") throw new Error("IDEMPOTENCY_IN_PROGRESS");
       return { value: JSON.parse(await this.encryption.decrypt(tenantId, `idempotency-${operation}`, String(prior.result_json))) as T, replayed: true };
     }
-    const value = await execute();
-    await this.db.prepare("INSERT INTO idempotency_records (tenant_id,operation,idempotency_key,body_hash,result_json,created_at) VALUES (?,?,?,?,?,?)").bind(tenantId, operation, key, bodyHash, await this.encryption.encrypt(tenantId, `idempotency-${operation}`, canonicalJson(value)), new Date().toISOString()).run();
-    return { value, replayed: false };
+    try {
+      const value = await execute();
+      await this.db.prepare("UPDATE idempotency_records SET result_json=?,state='complete' WHERE tenant_id=? AND operation=? AND idempotency_key=? AND reservation_id=?").bind(await this.encryption.encrypt(tenantId, `idempotency-${operation}`, canonicalJson(value)), tenantId, operation, key, reservationId).run();
+      return { value, replayed: false };
+    } catch (error) {
+      await this.db.prepare("DELETE FROM idempotency_records WHERE tenant_id=? AND operation=? AND idempotency_key=? AND reservation_id=? AND state='pending'").bind(tenantId, operation, key, reservationId).run();
+      throw error;
+    }
   }
 
   private async proofFromRow(tenantId: string, row: Row): Promise<ProofClaim> {
@@ -217,3 +245,7 @@ function compareAuthority(incoming: ProviderRecord, existing: ProviderRecord): n
   if (incomingAuthority !== existingAuthority) return incomingAuthority - existingAuthority;
   return new Date(incoming.providerUpdatedAt ?? incoming.observedAt).getTime() - new Date(existing.providerUpdatedAt ?? existing.observedAt).getTime();
 }
+
+function proposalDraftRequest(value: ProposalDraft): object { const { id: _id, version: _version, createdAt: _createdAt, updatedAt: _updatedAt, ...request } = value; return request; }
+function actionIntentRequest(value: ActionIntent): object { const { id: _id, state: _state, expiresAt: _expiresAt, createdAt: _createdAt, outcome: _outcome, providerReceiptId: _providerReceiptId, providerReadBackAt: _providerReadBackAt, ...request } = value; return request; }
+function providerReceiptRequest(value: ProviderReceipt): object { const { recordedAt: _recordedAt, ...request } = value; return request; }

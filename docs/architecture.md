@@ -23,7 +23,7 @@ official provider read
 - Auth0: upstream user authentication only. Operational tables store `issuer + sub`, not email.
 - `CONTROL_DB`: accounts, consent, OAuth state, flags, deletion tombstones.
 - `DATA_DB`: tenant-scoped normalized history, immutable versions, drafts, capabilities, action intents, receipts, idempotency, audit facts.
-- R2/Queues/Workflows: reserved for encrypted asynchronous exports, backups, deletion, migration, and derived backfills. No cron or queue may poll Upwork or cause provider writes.
+- R2/Queues/Workflows: encrypted asynchronous exports, nightly backups, deletion, and derived analytics are active in beta. Migration and backfills use the same bounded lifecycle model. No cron or queue may poll Upwork or cause provider writes.
 
 ## Authority and freshness
 

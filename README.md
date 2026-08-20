@@ -64,7 +64,7 @@ Required bindings:
 - `CONTROL_DB`
 - `DATA_DB`
 - `OAUTH_KV`
-- production export R2 bucket and derived-processing queue when those async paths are enabled
+- encrypted export/backup R2 storage, derived-processing queues, and account lifecycle workflows in beta
 
 Auth0 must allow `${PUBLIC_ORIGIN}/auth/callback`. The reviewer tenant must use deterministic synthetic data and require no MFA, SMS, email challenge, VPN, or manual setup.
 
@@ -73,6 +73,10 @@ Auth0 must allow `${PUBLIC_ORIGIN}/auth/callback`. The reviewer tenant must use 
 Revenue Copilot widgets can call only their own MCP tools. The primary action sends a visible follow-up into chat. ChatGPT then invokes the separately connected official marketplace app, shows its confirmation, executes at most once, reads official state back independently, and records the result in Revenue Copilot.
 
 `verified` is impossible without both a provider receipt and read-back timestamp. `outcome_uncertain` is a terminal safety state until official state is checked.
+
+## Current beta
+
+The public beta shell is deployed at `https://revenue-beta.mcpengage.com`. Health, policy, OAuth metadata, data lifecycle, and internal processing are live. User authorization remains fail-closed until Auth0 credentials and a reviewer identity are configured. The exact remaining gate is tracked in `docs/beta-readiness.md`.
 
 ## Repository layout
 

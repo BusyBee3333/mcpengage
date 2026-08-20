@@ -117,6 +117,7 @@ export interface AttachmentMetadata {
   mediaType?: string;
   sizeBytes?: number;
   digest?: string;
+  accessible?: boolean;
 }
 
 export interface ClientSignals {
@@ -142,6 +143,7 @@ export interface JobRecord extends ProviderRecordBase {
   title: string;
   description: string;
   skills: string[];
+  mustHaveSkills?: string[];
   status: "open" | "closed" | "unavailable" | "unknown";
   contractType: "hourly" | "fixed" | "unknown";
   currency: string;

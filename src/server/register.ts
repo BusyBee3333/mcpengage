@@ -201,6 +201,7 @@ function userSafeError(code: string): string {
     INTENT_NOT_FOUND: "The action intent was not found. Prepare a new handoff; nothing was executed.",
     INTENT_EXPIRED: "The action intent expired. Re-fetch official state and prepare a new handoff; do not reuse the old one.",
     IDEMPOTENCY_CONFLICT: "That idempotency key was already used with different content. Use a new key for this changed request.",
+    IDEMPOTENCY_IN_PROGRESS: "That exact Revenue Copilot operation is already in progress. Wait briefly and retry with the same idempotency key.",
     VERIFICATION_REQUIRES_RECEIPT_AND_READBACK: "A verified outcome requires both the official provider receipt and an independent provider read-back. Record uncertainty instead if either is missing."
   };
   if (code.startsWith("MISSING_SCOPE:")) return `This Revenue Copilot connection is missing ${code.slice("MISSING_SCOPE:".length)} permission. Reconnect with that scope; nothing was changed.`;

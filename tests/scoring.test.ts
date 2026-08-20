@@ -84,4 +84,11 @@ describe("scoreOpportunity", () => {
     expect(connects?.reason).toContain("not provided");
     expect(result.hardGateReasons.join(" ")).not.toContain("Connect");
   });
+
+  it("hard-blocks inaccessible attachments and uncovered must-have skills", () => {
+    const result = scoreOpportunity(job({ mustHaveSkills: ["HubSpot", "Salesforce"], attachments: [{ providerObjectId: "attachment-1", name: "requirements.pdf", accessible: false }] }), preferences, [proof], now);
+    expect(result.classification).toBe("blocked");
+    expect(result.hardGateReasons.join(" ")).toContain("attachments");
+    expect(result.hardGateReasons.join(" ")).toContain("salesforce");
+  });
 });
